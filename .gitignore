@@ -1,0 +1,7 @@
+*.o
+*.a
+*.orig
+*.map
+.vscode
+*.gch
+*.pch
