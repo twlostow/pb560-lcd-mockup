@@ -28,12 +28,12 @@
 
 #include "typedef.h"
 #include "enum.h"
-#include "structure.h"
+#include "Structure.h"
 #include "DB_Rtc.h"
 #include "DB_Current.h"
 #include "DB_Config.h"
 #include "DB_Event.h"
-#include "DB_IhmAccessParaDatabase.h"
+#include "DB_IhmAccessParaDataBase.h"
 #include "DRV_VarEeprom.h"
 /******************************************************************************/
 /*                            FUNCTION BODY                                   */

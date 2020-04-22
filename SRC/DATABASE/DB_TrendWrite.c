@@ -27,7 +27,7 @@
 /******************************************************************************/
 #include "typedef.h"
 #include "enum.h"
-#include "structure.h"
+#include "Structure.h"
 #include "DRV_VarEeprom.h"
 #include "DB_IhmAccessParaDataBase.h"
 #include "DB_TrendWrite.h"

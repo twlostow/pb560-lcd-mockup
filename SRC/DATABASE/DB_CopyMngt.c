@@ -26,7 +26,7 @@
 /******************************************************************************/
 #include "typedef.h"
 #include "enum.h"
-#include "structure.h"
+#include "Structure.h"
 #include "define.h"
 #include "DB_AlarmStatus.h"
 #include "DB_Control.h"
@@ -88,10 +88,10 @@ void DB_CopyMngt(void)
 
 
     /* Voir fichier sous VSS:                                                     */
-    /* "Etude Soft\Analyse Data Base\Gestion  des  réglages  des  paramètres.doc" */
-    /* Vérifier qu'on ne recopie la base dans current que lorsqu'on a modifie     */
-    /* un paramètre (sauf lors d'un changement de mode)                           */
-    /*  => créer un flag modif_param (data globale)                               */
+    /* "Etude Soft\Analyse Data Base\Gestion  des  rÃ©glages  des  paramÃ¨tres.doc" */
+    /* VÃ©rifier qu'on ne recopie la base dans current que lorsqu'on a modifie     */
+    /* un paramÃ¨tre (sauf lors d'un changement de mode)                           */
+    /*  => crÃ©er un flag modif_param (data globale)                               */
 
     /*%C At each change mode, an alarm reset is made         */
     /*%C The inhibited and reset flag are reseted too         */
