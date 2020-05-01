@@ -1,6 +1,6 @@
 /*****************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project Nï¿½  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -47,17 +47,17 @@ UBYTE string[12];
 SWORD32 temp_value;
 SBYTE i,j;
 
-// Mémorisation de la valeur  
+// Mï¿½morisation de la valeur  
 temp_value = value;
-// Test si value négative travail sur une valeur positive uniquement
+// Test si value nï¿½gative travail sur une valeur positive uniquement
 if (value < 0)
 	{
-	// Complément à 2
+	// Complï¿½ment ï¿½ 2
 	temp_value--;
 	temp_value = ~temp_value;
 	}
 
-// Déplacement de l'origine caractère en bas à gauche
+// Dï¿½placement de l'origine caractï¿½re en bas ï¿½ gauche
 if ((font & ~INV) == ARIAL9)
 {
 	line -= 9;
@@ -74,7 +74,7 @@ else if ((font & ~INV) == ARIALBOLD29)
 {
 	line -= 34;
 }
-// Interdit les lignes négatives
+// Interdit les lignes nï¿½gatives
 if (line < 1) line = 1;
 
 DRV_DIS_grSetPage ( page-1 ) ;
@@ -92,12 +92,12 @@ else
 
 if (zero == OFF)
 	{
-	// affichage entier positif ou négatif
+	// affichage entier positif ou nï¿½gatif
    if (nature == INTEGER)
 		{          
-		// positionne la fin de caractère
+		// positionne la fin de caractï¿½re
 		string[10] = '\0';
-		// Recherche des caractères valides
+		// Recherche des caractï¿½res valides
 		for(i = 9; i >= 0  ;i--)
 			{
 			string[i] = (UBYTE)(temp_value%10 + 48);
@@ -105,29 +105,29 @@ if (zero == OFF)
 			if (temp_value == 0) break;
 			}
 
-		// Test si valeur négative - Rajout du "-" devant le chiffre
+		// Test si valeur nï¿½gative - Rajout du "-" devant le chiffre
 		if (value < 0) string[--i] = '-';
 
-		// Réordonne le tablaeau de string
+		// Rï¿½ordonne le tablaeau de string
 		for(j = i; j <= 10  ;j++)
 			{
 			string[j-i] = string[j];
 			}
 		}	
-	// affichage décimal positif ou négatif
+	// affichage dï¿½cimal positif ou nï¿½gatif
 	else
 		{
-		// positionne la fin de caractère
+		// positionne la fin de caractï¿½re
 		string[10] = '\0';
 
-		// recherche de la décimale
+		// recherche de la dï¿½cimale
 		string[9] = (UBYTE)(temp_value%10 + 48);
-		// Suppression de la décimale
+		// Suppression de la dï¿½cimale
 		temp_value /= 10;
-		// Affichage du séparateur
+		// Affichage du sï¿½parateur
 		string[8] = '.';
 		
-		// Recherche des caractères valides
+		// Recherche des caractï¿½res valides
 		for(i = 7; i >= 0  ;i--)
 			{
 			string[i] = (UBYTE)(temp_value%10 + 48);
@@ -135,22 +135,22 @@ if (zero == OFF)
 			if (temp_value == 0) break;
 			}
 
-		// Test si valeur négative - Rajout du "-" devant le chiffre
+		// Test si valeur nï¿½gative - Rajout du "-" devant le chiffre
 		if (value < 0) string[--i] = '-';
 
-		// Réordonne le tablaeau de string
+		// Rï¿½ordonne le tablaeau de string
 		for(j = i; j <= 10  ;j++)
 			{
 			string[j-i] = string[j];
 			}
 		}
 	}
-// Zero = ON - Sans possibilité de valeur négative
+// Zero = ON - Sans possibilitï¿½ de valeur nï¿½gative
 else
 	{
-		// positionne la fin de caractère
+		// positionne la fin de caractï¿½re
 		string[nbdigit] = '\0';
-		// Recherche des caractères valides
+		// Recherche des caractï¿½res valides
 		for(i = nbdigit-1; i >= 0  ;i--)
 			{
 			string[i] = (UBYTE)(temp_value%10 + 48);

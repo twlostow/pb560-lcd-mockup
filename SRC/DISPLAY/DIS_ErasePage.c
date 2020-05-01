@@ -25,7 +25,7 @@
 /******************************************************************************/
 
 #include "typedef.h"
-#include "Driver_Display_data.h"
+#include "Driver_Display_Data.h"
 #include "DIS_ErasePage.h"
 			 
 /******************************************************************************/

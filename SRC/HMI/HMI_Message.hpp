@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -29,7 +29,7 @@ extern "C"
 #include "DB_AlarmStatus.h"
 #include "DB_Event.h"
 #include "DB_Control.h"
-#include "Enum.h"
+#include "enum.h"
 #include "define.h"
 }
 
@@ -201,7 +201,7 @@ extern const UBYTE *const huge cMSG_HistAlarm[End_Event_Alarm - Start_Alarm] [NB
 
 
 
-/*C Menu Mémorisation des alarmes */
+/*C Menu MÃ©morisation des alarmes */
 extern const UBYTE *const huge cMSG_TitleMemoAlarms[NB_LANGUAGE];
 extern const UBYTE *const huge cMSG_EmptyList[NB_LANGUAGE];
 extern const UBYTE *const huge cMSG_CancelledAlarm[NB_LANGUAGE];
@@ -245,7 +245,7 @@ extern const UBYTE *const huge cMSG_NextPage[NB_LANGUAGE];
 extern const UBYTE *const huge cMSG_Configuration2[NB_LANGUAGE];
 extern const UBYTE *const huge cMSG_RestoreDefaultSetting[NB_LANGUAGE];
 
-/*C Messages Menu Préférence */
+/*C Messages Menu PrÃ©fÃ©rence */
 extern const UBYTE *const huge cMSG_Preferences[NB_LANGUAGE];
 extern const UBYTE *const huge cMSG_ScreenSave[NB_LANGUAGE];
 extern const UBYTE *const huge cMSG_Brightness[NB_LANGUAGE];
@@ -532,7 +532,7 @@ extern const UBYTE *const huge cMSG_PipReport[NB_LANGUAGE];
 extern const UBYTE *const huge cMSG_TapneaReport[NB_LANGUAGE];
 extern const UBYTE *const huge cMSG_ContrReport[NB_LANGUAGE];
 
-/*C Messages Menu Clé USB */
+/*C Messages Menu ClÃ© USB */
 extern const UBYTE *const huge cMSG_TitleUSB[NB_LANGUAGE];
 extern const UBYTE *const huge cMSG_EraseKey[NB_LANGUAGE];
 extern const UBYTE *const huge cMSG_TransferOnUSB[NB_LANGUAGE];

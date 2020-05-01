@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -145,7 +145,7 @@ void HMI_Setup1::InitConfiguration()
     LVSRelativePressure.SetItem1Name         ((UBYTE**)cMSG_Off);
     LVSRelativePressure.SetItem2Name         ((UBYTE**)cMSG_Yes);
 
-    /* Convention Trigger E (positif ou négatif) */
+    /* Convention Trigger E (positif ou nÃ©gatif) */
     _line += _spacing;
     LVSConvTrigE.SetParent               (&this->FConfiguration1);
     LVSConvTrigE.InitDbAccess           (TRIGG_E_POSITIVE,

@@ -46,7 +46,7 @@
 /* SIMV min rate                                	                           */
 #define cSIMV_BACKUP_R_MIN 8U
 
-/* Constant limits déclaration in VOL, PRES, PSV and VSIMV mode	 */
+/* Constant limits dï¿½claration in VOL, PRES, PSV and VSIMV mode	 */
 
 #define cAlarmRHysteresis						5U
 #define cPeepLowPipHysteresis					20U
@@ -147,7 +147,7 @@
 
 
 /* Structure array elements giving boundaries, steps, and default parameters:	*/
-/*	{min,max,step,défault}																		*/
+/*	{min,max,step,dï¿½fault}																		*/
 /* In order to make difference with enum, the "t" prefix is added				  	*/
 
 /* DB_ADJUST_VSIMV */
@@ -496,8 +496,8 @@
     #define tOFFSET_O2_FLOW_3							{401,800,NONE,630}			
     #define tOFFSET_O2_FLOW_4							{750,950,NONE,830}			
     #define tOFFSET_O2_FLOW_5							{800,1022,NONE,960}				
-    #define tOFFSET_O2_FLOW_6							{0,1022,NONE,512}	// Inutilisé 	
-    #define tOFFSET_O2_FLOW_7							{0,1022,NONE,512}	// Inutilisé 	
+    #define tOFFSET_O2_FLOW_6							{0,1022,NONE,512}	// Inutilisï¿½ 	
+    #define tOFFSET_O2_FLOW_7							{0,1022,NONE,512}	// Inutilisï¿½ 	
 
     #define tOFFSET_PATIENT_PRESS1					{165,200,NONE,176}
     #define tOFFSET_PATIENT_PRESS2					{425,520,NONE,468}				

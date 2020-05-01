@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -28,9 +28,10 @@
 /******************************************************************************/
 /*                           OTHER INCLUDE FILE		                	   		*/
 /******************************************************************************/
-#ifdef _BORLAND
-#include <vcl.h>
-#endif
+
+
+#include <cstdlib>
+
 
 #include "HMI_InterfaceCppC.hpp"
 #include "HMI_DataBaseAccess.hpp"
@@ -46,7 +47,7 @@ extern "C"
 /******************************************************************************/
 
 /*%C Tailles des polices en largeur pour les */
-/*%C caractères allant de 0x00 à 0xFF */
+/*%C caractÃ¨res allant de 0x00 Ã  0xFF */
 #define TOOLS_FONTS_MAX 5
 #define TOOLS_CHARS_MAX 256
 
@@ -61,7 +62,7 @@ const UBYTE cGen2EuropFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
     8, 8, 8, 9, 9, 8, 7, 9, 9, 3, 6, 8, 7, 9, 9, 9,
     8, 9, 9, 8, 7, 9, 7,11, 7, 7, 7, 3, 3, 9, 5, 7,
     4, 7, 7, 6, 7, 7, 3, 7, 7, 3, 3, 6, 3,11, 7, 7,
-    7, 7, 4, 7, 3, 7, 5, 9, 5, 5, 5, 4, 3, 4, 7, 8,      /*  => validé */
+    7, 7, 4, 7, 3, 7, 5, 9, 5, 5, 5, 4, 3, 4, 7, 8,      /*  => validÃ© */
     8, 8, 7, 8, 8,11, 7, 9, 9, 7, 8,10, 9, 9, 9, 8,
     9, 7, 8, 9, 8, 9, 8,11,10, 8, 9,12, 9, 5, 8, 9,
     7, 3, 9, 7, 7, 6, 4, 7, 7, 9, 6, 7, 7, 6, 7, 9,
@@ -81,7 +82,7 @@ const UBYTE cGen2EuropFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
    6, 8, 7, 7, 6, 7, 8,11, 7, 8, 7, 3, 3, 3, 5, 6,
    4, 6, 6, 6, 6, 6, 4, 6, 6, 2, 2, 5, 2, 8, 6, 6,
    6, 6, 4, 6, 3, 6, 6,10, 6, 6, 6, 4, 2, 4, 6, 8,
-   7, 7, 6, 8, 7,12, 6, 7, 7, 6, 7, 8, 7, 9, 7, 7,         /*  => validé */
+   7, 7, 6, 8, 7,12, 6, 7, 7, 6, 7, 8, 7, 9, 7, 7,         /*  => validÃ© */
    7, 7, 6, 8, 7, 7, 6,10, 9, 6, 7,10, 8, 5, 6, 8,
    5, 2, 8, 6, 6, 5, 4, 7, 6, 8, 5, 6, 6, 5, 6, 8,
    4, 6, 6, 6, 5, 6, 6, 6, 6, 6, 5, 6, 6, 8, 6, 8,
@@ -100,7 +101,7 @@ const UBYTE cGen2EuropFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
    8, 9, 9, 8, 7, 9, 7,11, 7, 7, 7, 3, 3, 3, 5, 7,
    4, 7, 7, 6, 7, 7, 3, 7, 7, 3, 3, 6, 3,11, 7, 7,
    7, 7, 4, 7, 3, 7, 5, 9, 5, 5, 5, 4, 3, 4, 7, 9,
-   7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,        /*  => non utilisé */
+   7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,        /*  => non utilisÃ© */
    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
@@ -120,7 +121,7 @@ const UBYTE cGen2EuropFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
     8,10,10,10,10,10, 8,10,10, 5, 6,11, 5,15,10,10,
    10,10, 8, 9, 7,10, 9,14,10, 9, 8,10, 4,10,10,12,
    11,12, 9, 8,11,16, 9,12,12,13, 9,14,12,12,12,11,
-   12,11,10,14,12,13,12,17,16,11,11,16, 7, 9,11,11,         /*  => validé */
+   12,11,10,14,12,13,12,17,16,11,11,16, 7, 9,11,11,         /*  => validÃ© */
    13,12,12,10,10,14, 9,14, 6,12,13,11,10,13,13,13,
    14,11,13,10,10,10,12,17,15,15, 6,12,12,12,11,12,
    13,13,12,14,12,12,12,11,10,11,11,12,14, 6,12,13,
@@ -161,7 +162,7 @@ const UBYTE cGen2KoreanGreekFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
     8, 9, 9, 8, 7, 9, 7,11, 7, 7, 7, 3, 3, 3, 5, 7,
     4, 7, 7, 6, 7, 7, 3, 7, 7, 3, 3, 6, 3,11, 7, 7,
     7, 7, 4, 7, 3, 7, 5, 9, 5, 5, 5, 4, 3, 4, 7,11,
-   12,12,11,11,11,12,10,12,12,11,10,10,12,11,10,10,        /*  => validé */
+   12,12,11,11,11,12,10,12,12,11,10,10,12,11,10,10,        /*  => validÃ© */
    11,11,11,12,10,11,10,10,10,11,10,11,10,12,11,11,
    11,11,12,12,12,12,11,12, 3,11,12,12, 7,11, 9,11,
     5, 7,11,11,11,11,11,11,11,11,13, 9, 8, 8, 8, 9,
@@ -180,7 +181,7 @@ const UBYTE cGen2KoreanGreekFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
    6, 8, 7, 7, 6, 7, 8,11, 7, 8, 7, 3, 3, 3, 5, 6,
    4, 6, 6, 6, 6, 6, 4, 6, 6, 2, 2, 5, 2, 8, 6, 6,
    6, 6, 4, 6, 3, 6, 6,10, 6, 6, 6, 4, 2, 4, 6, 8,
-   7, 7, 6, 8, 7,12, 6, 7, 7, 6, 7, 8, 7, 9, 7, 7,         /*  => validé */
+   7, 7, 6, 8, 7,12, 6, 7, 7, 6, 7, 8, 7, 9, 7, 7,         /*  => validÃ© */
    7, 7, 6, 8, 7, 7, 6,10, 9, 6, 7,10, 8, 5, 6, 8,
    5, 2, 8, 6, 6, 5, 4, 7, 6, 8, 5, 6, 6, 5, 6, 8,
    4, 6, 6, 6, 5, 6, 6, 6, 6, 6, 5, 6, 6, 8, 6, 8,
@@ -198,7 +199,7 @@ const UBYTE cGen2KoreanGreekFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
    12,7, 8, 9, 9, 8, 7, 9, 9, 3, 6, 8, 7, 9, 9, 9,
    8, 9, 9, 8, 7, 9, 7,11, 7, 7, 7, 3, 3, 3, 5, 7,
    4, 7, 7, 6, 7, 7, 3, 7, 7, 3, 3, 6, 3,11, 7, 7,
-   7, 7, 4, 7, 3, 7, 5, 9, 5, 5, 5, 4, 3, 4, 7, 9,         /*  => non utilisé */
+   7, 7, 4, 7, 3, 7, 5, 9, 5, 5, 5, 4, 3, 4, 7, 9,         /*  => non utilisÃ© */
    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
@@ -219,7 +220,7 @@ const UBYTE cGen2KoreanGreekFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
     8,10,10,10,10,10, 8,10,10, 5, 6,11, 5,15,10,10,
    10,10, 8, 9, 7,10, 9,14,10, 9, 8,10, 4,10,10,12,
    11,12, 9, 8,11,16, 9,12,12,13, 9,14,12,12,12,11,
-   12,11,10,14,12,13,12,17,16,11,11,16, 7, 9,11,11,         /*  => validé */
+   12,11,10,14,12,13,12,17,16,11,11,16, 7, 9,11,11,         /*  => validÃ© */
    13,12,12,10,10,14, 9,14, 6,12,13,11,10,13,13,13,
    14,11,13,10,10,10,12,17,15,15, 6,12,12,12,11,12,
    13,13,12,14,12,12,12,11,10,11,11,12,14, 6,12,13,
@@ -259,7 +260,7 @@ const UBYTE cGen2JapaneseFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
    12,7, 8, 9, 9, 8, 7, 9, 9, 3, 6, 8, 7, 9, 9, 9,
     8, 9, 9, 8, 7, 9, 7,11, 7, 7, 7,13, 3,13,13,13,
     4, 7, 7, 6, 7, 7, 3, 7, 7, 3, 3, 6, 3,11, 7, 7,
-    7, 7, 4, 7, 3, 7, 5, 9, 5, 5, 5, 4, 3, 4, 7,10,       /*  => validé */
+    7, 7, 4, 7, 3, 7, 5, 9, 5, 5, 5, 4, 3, 4, 7,10,       /*  => validÃ© */
    13, 9,10,11,13,13,12,12,12,12,11,13,12,11,13,11,
    11,13,11,10,12, 9,11,11, 9,11,10,12,13,12,13,10,
    11,13,12,12,12,12,12,10,13,10,12,13, 7, 8,13,13,
@@ -279,7 +280,7 @@ const UBYTE cGen2JapaneseFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
    6, 8, 7, 7, 6, 7, 8,11, 7, 8, 7, 3, 3, 3, 5, 6,
    4, 6, 6, 6, 6, 6, 4, 6, 6, 2, 2, 5, 2, 8, 6, 6,
    6, 6, 4, 6, 3, 6, 6,10, 6, 6, 6, 4, 2, 4, 6, 8,
-   7, 7, 6, 8, 7,12, 6, 7, 7, 6, 7, 8, 7, 9, 7, 7,         /*  => validé */
+   7, 7, 6, 8, 7,12, 6, 7, 7, 6, 7, 8, 7, 9, 7, 7,         /*  => validÃ© */
    7, 7, 6, 8, 7, 7, 6,10, 9, 6, 7,10, 8, 5, 6, 8,
    5, 2, 8, 6, 6, 5, 4, 7, 6, 8, 5, 6, 6, 5, 6, 8,
    4, 6, 6, 6, 5, 6, 6, 6, 6, 6, 5, 6, 6, 8, 6, 8,
@@ -298,7 +299,7 @@ const UBYTE cGen2JapaneseFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
    8, 9, 9, 8, 7, 9, 7,11, 7, 7, 7, 3, 3, 3, 5, 7,
    4, 7, 7, 6, 7, 7, 3, 7, 7, 3, 3, 6, 3,11, 7, 7,
    7, 7, 4, 7, 3, 7, 5, 9, 5, 5, 5, 4, 3, 4, 7, 9,
-   7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,         /*  => non utilisé */
+   7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,         /*  => non utilisÃ© */
    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
@@ -318,7 +319,7 @@ const UBYTE cGen2JapaneseFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
     8,10,10,10,10,10, 8,10,10, 5, 6,11, 5,15,10,10,
    10,10, 8, 9, 7,10, 9,14,10, 9, 8,10, 4,10,10,12,
    11,12, 9, 8,11,16, 9,12,12,13, 9,14,12,12,12,11,
-   12,11,10,14,12,13,12,17,16,11,11,16, 7, 9,11,11,         /*  => validé */
+   12,11,10,14,12,13,12,17,16,11,11,16, 7, 9,11,11,         /*  => validÃ© */
    13,12,12,10,10,14, 9,14, 6,12,13,11,10,13,13,13,
    14,11,13,10,10,10,12,17,15,15, 6,12,12,12,11,12,
    13,13,12,14,12,12,12,11,10,11,11,12,14, 6,12,13,
@@ -358,7 +359,7 @@ const UBYTE cGen2ChineseFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
    13, 7, 7, 7,13, 8, 7,13,9, 3,13,13,13,11,13,  9,
     8,13, 9, 8, 7, 9, 7,11,14,11,13,11,12,13,13,13,
    12, 7, 7, 6, 7, 7, 3, 7, 7, 3, 3, 6, 3,11, 7, 7,
-    7, 7, 4, 7, 3, 7, 5, 9, 5, 5, 5,13, 3,12,13,13,       /*  => validé */
+    7, 7, 4, 7, 3, 7, 5, 9, 5, 5, 5,13, 3,12,13,13,       /*  => validÃ© */
    13,13,13,11,13,13,13,13,13,13,13,13,13,13,13,13,
    13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,
    13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,
@@ -378,7 +379,7 @@ const UBYTE cGen2ChineseFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
    6, 8, 7, 7, 6, 7, 8,11, 7, 8, 7, 3, 3, 3, 5, 6,
    4, 6, 6, 6, 6, 6, 4, 6, 6, 2, 2, 5, 2, 8, 6, 6,
    6, 6, 4, 6, 3, 6, 6,10, 6, 6, 6, 4, 2, 4, 6, 8,
-   7, 7, 6, 8, 7,12, 6, 7, 7, 6, 7, 8, 7, 9, 7, 7,         /*  => validé */
+   7, 7, 6, 8, 7,12, 6, 7, 7, 6, 7, 8, 7, 9, 7, 7,         /*  => validÃ© */
    7, 7, 6, 8, 7, 7, 6,10, 9, 6, 7,10, 8, 5, 6, 8,
    5, 2, 8, 6, 6, 5, 4, 7, 6, 8, 5, 6, 6, 5, 6, 8,
    4, 6, 6, 6, 5, 6, 6, 6, 6, 6, 5, 6, 6, 8, 6, 8,
@@ -396,7 +397,7 @@ const UBYTE cGen2ChineseFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
    12,7, 8, 9, 9, 8, 7, 9, 9, 3, 6, 8, 7, 9, 9, 9,
    8, 9, 9, 8, 7, 9, 7,11, 7, 7, 7, 3, 3, 3, 5, 7,
    4, 7, 7, 6, 7, 7, 3, 7, 7, 3, 3, 6, 3,11, 7, 7,
-   7, 7, 4, 7, 3, 7, 5, 9, 5, 5, 5, 4, 3, 4, 7, 9,          /*  => non utilisé */
+   7, 7, 4, 7, 3, 7, 5, 9, 5, 5, 5, 4, 3, 4, 7, 9,          /*  => non utilisÃ© */
    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
    7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
@@ -417,7 +418,7 @@ const UBYTE cGen2ChineseFontPixelWidth[TOOLS_FONTS_MAX][TOOLS_CHARS_MAX] =
     8,10,10,10,10,10, 8,10,10, 5, 6,11, 5,15,10,10,
    10,10, 8, 9, 7,10, 9,14,10, 9, 8,10, 4,10,10,12,
    11,12, 9, 8,11,16, 9,12,12,13, 9,14,12,12,12,11,
-   12,11,10,14,12,13,12,17,16,11,11,16, 7, 9,11,11,         /*  => validé */
+   12,11,10,14,12,13,12,17,16,11,11,16, 7, 9,11,11,         /*  => validÃ© */
    13,12,12,10,10,14, 9,14, 6,12,13,11,10,13,13,13,
    14,11,13,10,10,10,12,17,15,15, 6,12,12,12,11,12,
    13,13,12,14,12,12,12,11,10,11,11,12,14, 6,12,13,
@@ -505,7 +506,7 @@ UBYTE* Tools::GetFontWidthConfig()
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Contrôle la validité du contenu de la table de configuration des noeuds  */
+/*%C ContrÃ´le la validitÃ© du contenu de la table de configuration des noeuds  */
 /*%I Input Parameter : 																			*/
 /*%I		_FirstNode : premier noeud de la table                               */
 /*%I		_LastNode : dernier noeud de la table                                */
@@ -519,7 +520,7 @@ e_BOOL Tools::CheckInfoNodeTable(UWORD16 _FirstNode, UWORD16 _LastNode)
    UWORD16 i,j,Order,LoopCount,countVisible ;
    UWORD16 Id, FirstIndex, LastIndex;
 
-   /*%C récupération de l'index dans la table cInfoNode */
+   /*%C rÃ©cupÃ©ration de l'index dans la table cInfoNode */
    FirstIndex = Tools::GetInfoNodeIndex(_FirstNode);
    LastIndex = Tools::GetInfoNodeIndex(_LastNode);
    if((FirstIndex == 10999) || (LastIndex == 10999))
@@ -535,7 +536,7 @@ e_BOOL Tools::CheckInfoNodeTable(UWORD16 _FirstNode, UWORD16 _LastNode)
       {
          if((j >= FirstIndex) && (j <= LastIndex))
          {
-            /*%C Un objet non visible doit avoir un Ordre égal à 0 */
+            /*%C Un objet non visible doit avoir un Ordre Ã©gal Ã  0 */
             if((!cInfoNode[j].InfoByMode[i].Visible) &&
             (cInfoNode[j].InfoByMode[i].Order))
                return FALSE;
@@ -544,13 +545,13 @@ e_BOOL Tools::CheckInfoNodeTable(UWORD16 _FirstNode, UWORD16 _LastNode)
          }
       }
 
-      /*%C Il y a forcément un objet d'ordre 0 */
+      /*%C Il y a forcÃ©ment un objet d'ordre 0 */
       Order = 0;
       Id = GetIdFromOrder(Order,(e_MODE_TYPES) i, _FirstNode, _LastNode);
       if (Id == 10999)
             return (FALSE);
 
-      /*%C Consécutivité des attributs "Order" pour chaque objet visible */
+      /*%C ConsÃ©cutivitÃ© des attributs "Order" pour chaque objet visible */
       LoopCount = 1;
       Order = 1;
       while (LoopCount != countVisible)
@@ -583,7 +584,7 @@ UWORD16 Tools::GetNumFrame(UWORD16 _IdNode)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Determine si le noeud peut etre locké												*/
+/*%C Determine si le noeud peut etre lockÃ©												*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I		IdNode : numero du noeud															*/
@@ -636,7 +637,7 @@ e_BOOL Tools::IsVisibleWhithMode(UWORD16 _NodeId, e_MODE_TYPES _Mode)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Determine le rang d'affichage d'un noeud pour un mode donné  				*/
+/*%C Determine le rang d'affichage d'un noeud pour un mode donnÃ©  				*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I		_IdNode : numero du noeud															*/
@@ -663,14 +664,14 @@ UWORD16 Tools::GetOrderWithMode( UWORD16 _NodeId, e_MODE_TYPES _Mode)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Retourne l'index de la table cInfoNode à partir du numéro de noeud       */
+/*%C Retourne l'index de la table cInfoNode Ã  partir du numÃ©ro de noeud       */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I		_NodeId : Noeud pour lequel on doit rencoyer l'index                 */
 /*%IO Input/Output : 																			*/
 /*%IO		NONE																					  	*/
 /*%O Output Parameter : 																	 	*/
-/*%O 		Numéro de noeud            														*/
+/*%O 		NumÃ©ro de noeud            														*/
 /******************************************************************************/
 UWORD16 Tools::GetInfoNodeIndex(UWORD16 _NodeId)
 {
@@ -686,18 +687,18 @@ UWORD16 Tools::GetInfoNodeIndex(UWORD16 _NodeId)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Determine l'id d'un noeud à partir de son rang d'affichage, le noeud     */
+/*%C Determine l'id d'un noeud Ã  partir de son rang d'affichage, le noeud     */
 /*%C se situant entre FirstNode et LastNode                         				*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I		_Order : Ordre d'affichage															*/
 /*%I		_Mode   : mode de ventilation														*/
-/*%I		_FirstNode   : premier noeud à partir duquel commencer la recherche  */
-/*%I		_LastNode   : dernier noeud à partir duquel arrêter la recherche  	*/
+/*%I		_FirstNode   : premier noeud Ã  partir duquel commencer la recherche  */
+/*%I		_LastNode   : dernier noeud Ã  partir duquel arrÃªter la recherche  	*/
 /*%IO Input/Output : 																			*/
 /*%IO		NONE																					  	*/
 /*%O Output Parameter : 																	 	*/
-/*%O 		Numéro de noeud            														*/
+/*%O 		NumÃ©ro de noeud            														*/
 /******************************************************************************/
 UWORD16 Tools::GetIdFromOrder(UWORD16 _Order,
                               e_MODE_TYPES _Mode,
@@ -719,16 +720,16 @@ UWORD16 Tools::GetIdFromOrder(UWORD16 _Order,
 }
 /************************************************************************/
 /*%C Description   : Permute les configurations d'affichage de deux     */
-/*%C objets pour un mode donné                                          */
+/*%C objets pour un mode donnÃ©                                          */
 /*%C Parametres en entree : 		                                       */
-/*    - _First, _Second : Objets dont les configurations doivent être   */
-/*                       permutées                                      */
-/*		- _Mode : mode pour lequel la configuration doit être permutée    */
-/* Parametres en sortie : Néant                                         */
+/*    - _First, _Second : Objets dont les configurations doivent Ãªtre   */
+/*                       permutÃ©es                                      */
+/*		- _Mode : mode pour lequel la configuration doit Ãªtre permutÃ©e    */
+/* Parametres en sortie : NÃ©ant                                         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Tools::SwitchDisplayConfigForOneMode(   UWORD16 _First,
                                              UWORD16 _Second,
@@ -744,7 +745,7 @@ void Tools::SwitchDisplayConfigForOneMode(   UWORD16 _First,
 
 	while(cInfoNode[i].NodeId != 10999)
    {
-      /*%C premier noeud trouvé, sauvegarde */
+      /*%C premier noeud trouvÃ©, sauvegarde */
 		if(cInfoNode[i].NodeId == _First)
       {
          InfoBackUp.Visible = cInfoNode[i].InfoByMode[_Mode].Visible;
@@ -753,14 +754,14 @@ void Tools::SwitchDisplayConfigForOneMode(   UWORD16 _First,
          first_found = TRUE;
       }
 
-      /*%C premier noeud trouvé */
+      /*%C premier noeud trouvÃ© */
 		if(cInfoNode[i].NodeId == _Second)
       {
          second_i = i;
          second_found = TRUE;
       }
 
-      /*%C Les deux noeuds ont été trouvés, on permute les configs*/
+      /*%C Les deux noeuds ont Ã©tÃ© trouvÃ©s, on permute les configs*/
       if((first_found) && (second_found))
       {
          /*%C premier <- second  */
@@ -780,13 +781,13 @@ void Tools::SwitchDisplayConfigForOneMode(   UWORD16 _First,
 /*%C Description   : Permute les configuration d'affichage de deux      */
 /*%C objets pour tous les modes                                         */
 /*%C Parametres en entree : 		                                       */
-/*    - _First, _Second : Objets dont les configuration doivent être    */
-/*                       permutées                                      */
-/* Parametres en sortie : Néant                                         */
+/*    - _First, _Second : Objets dont les configuration doivent Ãªtre    */
+/*                       permutÃ©es                                      */
+/* Parametres en sortie : NÃ©ant                                         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Tools::SwitchDisplayConfigForAllModes(  UWORD16 _First,
                                              UWORD16 _Second)
@@ -802,9 +803,9 @@ void Tools::SwitchDisplayConfigForAllModes(  UWORD16 _First,
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Routine appelée lorsqu'il y a un problème dans l'IHM                     */
+/*%C Routine appelÃ©e lorsqu'il y a un problÃ¨me dans l'IHM                     */
 /*%I Input Parameter : 																			*/
-/*%I		_panic_module : module ayant provoqué le "panic"							*/
+/*%I		_panic_module : module ayant provoquÃ© le "panic"							*/
 /*%IO Input/Output : 																			*/
 /*%IO		NONE																					  	*/
 /*%O Output Parameter : 																	 	*/
@@ -819,42 +820,42 @@ void Tools::Panic(ePANIC_MODULE _panic_module)
    {
       case PANIC_MODULE_VENTIL :
       #ifdef _BORLAND
-         ShowMessage("PANIC (PANIC_MODULE_VENTIL)!!! : \nProblème dans la configuration des noeuds dans FrameVentilation.");
+         //ShowMessage("PANIC (PANIC_MODULE_VENTIL)!!! : \nProblÃ¨me dans la configuration des noeuds dans FrameVentilation.");
          exit(1);
       #endif
       break;
 
       case PANIC_MODULE_ALARM :
       #ifdef _BORLAND
-         ShowMessage("PANIC (PANIC_MODULE_ALARM)!!! : \nProblème dans la configuration des noeuds dans FrameAlarm.cpp");
+         //ShowMessage("PANIC (PANIC_MODULE_ALARM)!!! : \nProblÃ¨me dans la configuration des noeuds dans FrameAlarm.cpp");
          exit(1);
       #endif
       break;
 
       case PANIC_MODULE_GRAPH:
       #ifdef _BORLAND
-         ShowMessage("PANIC (PANIC_MODULE_GRAPH)!!! : \nProblème dans la configuration des noeuds dans FrameGraph.cpp");
+         //ShowMessage("PANIC (PANIC_MODULE_GRAPH)!!! : \nProblÃ¨me dans la configuration des noeuds dans FrameGraph.cpp");
          exit(1);
       #endif
       break;
 
       case PANIC_MODULE_EVENT_NODE_VENTIL:
       #ifdef _BORLAND
-         ShowMessage("PANIC (PANIC_MODULE_EVENT_NODE_VENTIL)!!! : \nProblème dans la configuration des noeuds de ventilation dans GlobalEventNode.hpp");
+         //ShowMessage("PANIC (PANIC_MODULE_EVENT_NODE_VENTIL)!!! : \nProblÃ¨me dans la configuration des noeuds de ventilation dans GlobalEventNode.hpp");
          exit(1);
       #endif
       break;
 
       case PANIC_MODULE_EVENT_NODE_ALARM:
       #ifdef _BORLAND
-         ShowMessage("PANIC (PANIC_MODULE_EVENT_NODE_ALARM)!!! : \nProblème dans la configuration des noeuds d'alarme dans GlobalEventNode.hpp");
+         //ShowMessage("PANIC (PANIC_MODULE_EVENT_NODE_ALARM)!!! : \nProblÃ¨me dans la configuration des noeuds d'alarme dans GlobalEventNode.hpp");
          exit(1);
       #endif
       break;
 
       case PANIC_MODULE_EVENT_NODE_MAINT_CALIB:
       #ifdef _BORLAND
-         ShowMessage("PANIC (PANIC_MODULE_EVENT_NODE_MAINT_CALIB)!!! : \nProblème dans la configuration des noeuds de calibration maintenance dans GlobalEventNode.hpp");
+         //ShowMessage("PANIC (PANIC_MODULE_EVENT_NODE_MAINT_CALIB)!!! : \nProblÃ¨me dans la configuration des noeuds de calibration maintenance dans GlobalEventNode.hpp");
          exit(1);
       #endif
       break;
@@ -862,7 +863,7 @@ void Tools::Panic(ePANIC_MODULE _panic_module)
 
       case PANIC_MODULE_FRAME_GRAPH:
       #ifdef _BORLAND
-         ShowMessage("PANIC (PANIC_MODULE_FRAME_GRAPH)!!! : \nProblème dans FrameGraph.cpp");
+         //ShowMessage("PANIC (PANIC_MODULE_FRAME_GRAPH)!!! : \nProblÃ¨me dans FrameGraph.cpp");
          exit(1);
       #endif
       break;
@@ -870,7 +871,7 @@ void Tools::Panic(ePANIC_MODULE _panic_module)
       default:
       case PANIC_MODULE_UNKNOWN:
       #ifdef _BORLAND
-         ShowMessage("PANIC (PANIC_MODULE_UNKNOWN)!!! : \nModule ayant généré le panic inconnu.");
+         //ShowMessage("PANIC (PANIC_MODULE_UNKNOWN)!!! : \nModule ayant gÃ©nÃ©rÃ© le panic inconnu.");
          exit(1);
       #endif
       break;
@@ -944,7 +945,7 @@ UWORD16 Tools::StrLen(UBYTE* _Text)
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
 /*%C Copie la chaine Src dans Dest et renvoie un pointeur vers Dest           */
-/*%C (réécriture de strcpy de la stdlib)                                      */
+/*%C (rÃ©Ã©criture de strcpy de la stdlib)                                      */
 /*%I Input Parameter : 																			*/
 /*%I		Text : chaine																			*/
 /*%IO Input/Output : 																			*/
@@ -1060,14 +1061,14 @@ UBYTE* Tools::GetVersionSoftSupply()
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Retourne le numéro de série du produit                                   */
+/*%C Retourne le numÃ©ro de sÃ©rie du produit                                   */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I		NONE																						*/
 /*%IO Input/Output : 																			*/
 /*%IO		NONE																					  	*/
 /*%O Output Parameter : 																	 	*/
-/*%O 	  	Numéro de série   															  		*/
+/*%O 	  	NumÃ©ro de sÃ©rie   															  		*/
 /******************************************************************************/
 UBYTE* Tools::GetProductSerialNumber()
 {
@@ -1137,7 +1138,7 @@ UWORD16 Tools::GetNumberPixelSize(  UWORD16 _Number,
 {
    UBYTE* _Config = GetFontWidthConfig();
 
-   /*%C Quelque soit la police, tous les chiffres ont exactement le même */
+   /*%C Quelque soit la police, tous les chiffres ont exactement le mÃªme */
    /*%C nombre de pixels en largeur */
 	UWORD16 Size = 0;
 
@@ -1159,7 +1160,7 @@ UWORD16 Tools::GetNumberPixelSize(  UWORD16 _Number,
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Indique si le paramètre est de type Float											*/
+/*%C Indique si le paramÃ¨tre est de type Float											*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I		NONE																						*/
@@ -1176,7 +1177,7 @@ e_BOOL Tools::IsFloat(SWORD16 F)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Retourne la valeur absolue du paramètre												*/
+/*%C Retourne la valeur absolue du paramÃ¨tre												*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I		NONE																						*/
@@ -1196,7 +1197,7 @@ SWORD32 Tools::Abs(SWORD32 S)
 /*%C Mise en forme des messages																*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
-/*%I		Message Texte, Taille de la fenêtre												*/
+/*%I		Message Texte, Taille de la fenÃªtre												*/
 /*%IO Input/Output : 																			*/
 /*%IO		NONE																					  	*/
 /*%O Output Parameter : 																	 	*/
@@ -1204,7 +1205,7 @@ SWORD32 Tools::Abs(SWORD32 S)
 /******************************************************************************/
 UBYTE* Tools::BuildMessage(UBYTE* Text , UWORD16 SizeBox , UWORD16 BoxFont)
 {
-  /*%C Déclarations variables locales*/
+  /*%C DÃ©clarations variables locales*/
    static UBYTE TextTemp[cARRAY_SIZE];
    UWORD16 SizeString = 0;
    UWORD16 SizePreviousText = 0;
@@ -1221,16 +1222,16 @@ UBYTE* Tools::BuildMessage(UBYTE* Text , UWORD16 SizeBox , UWORD16 BoxFont)
    if(!Text)
       return TextTemp;
   
-  /*%C Receuil du nombre de caractère dans le message */
+  /*%C Receuil du nombre de caractÃ¨re dans le message */
    SizeString = Tools::StrLen(Text) ;
 
    /*%C Mise en forme des messages */
    do
    {
-   /*%C On calcule le première ligne */
+   /*%C On calcule le premiÃ¨re ligne */
       do
       {
-		   /*%C Protection pour le dépasement */
+		   /*%C Protection pour le dÃ©pasement */
 		   x = i + k;
 			x = x % cARRAY_SIZE;
          TextTemp[x] = Text[i];
@@ -1250,11 +1251,11 @@ UBYTE* Tools::BuildMessage(UBYTE* Text , UWORD16 SizeBox , UWORD16 BoxFont)
          {
             if (TextTemp[i-j] == ' ')
             {
-				   /*%C Protection pour le dépasement */
+				   /*%C Protection pour le dÃ©pasement */
 				   x = i - j;
 					x = x % cARRAY_SIZE;
                TextTemp[x] = '|';
-				   /*%C Protection pour le dépasement */
+				   /*%C Protection pour le dÃ©pasement */
 				   x = i - j + 1;
 					x = x % cARRAY_SIZE;
                TextTemp[x] = '\0';
@@ -1265,15 +1266,15 @@ UBYTE* Tools::BuildMessage(UBYTE* Text , UWORD16 SizeBox , UWORD16 BoxFont)
             /*%C Sinon si on a parcouru tout le texte sans espace */
             else if(Text[i] != '|' && j == i-1)
             {
-				   /*%C Protection pour le dépasement */
+				   /*%C Protection pour le dÃ©pasement */
 				   x = i - 1;
 					x = x % cARRAY_SIZE;
                TextTemp[x] = '-';
-				   /*%C Protection pour le dépasement */
+				   /*%C Protection pour le dÃ©pasement */
 				   x = i;
 					x = x % cARRAY_SIZE;
                TextTemp[x] = '|';
-				   /*%C Protection pour le dépasement */
+				   /*%C Protection pour le dÃ©pasement */
 				   x = i + 1;
 					x = x % cARRAY_SIZE;
                TextTemp[x] = '\0';
@@ -1286,23 +1287,23 @@ UBYTE* Tools::BuildMessage(UBYTE* Text , UWORD16 SizeBox , UWORD16 BoxFont)
    /*%C Si le texte ce finis sur un espace */
    else if (Text[i] == ' ')
    {
-	   /*%C Protection pour le dépasement */
+	   /*%C Protection pour le dÃ©pasement */
 	   x = i;
 		x = x % cARRAY_SIZE;
       TextTemp[x] = '|';
-	   /*%C Protection pour le dépasement */
+	   /*%C Protection pour le dÃ©pasement */
 	   x = i + 1;
 		x = x % cARRAY_SIZE;
       TextTemp[x] = '\0';
       i = i + 1;
    }
 
-   /*%C Mémo taille ligne précédente */
+   /*%C MÃ©mo taille ligne prÃ©cÃ©dente */
    SizePreviousText = Tools::GetStringPixelSize(TextTemp, BoxFont);
    }
 while((i < SizeString));
 
-/*%C Retourne le texte modifié */
+/*%C Retourne le texte modifiÃ© */
 return TextTemp ;
 }
 /********************************************************************************/

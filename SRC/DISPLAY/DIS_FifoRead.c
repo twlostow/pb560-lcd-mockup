@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project Nï¿½  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -54,20 +54,20 @@ void DIS_FifoRead(void)
 	if(DIS_FifoIdxWrite != DIS_FifoIdxRead)
 		{
 		//Lancement du timer permettant de controler le temps d'excution
-		T2IR = 0;		// RAZ du flag underflow timer 3
-		T2IC = 0;
-		T2 = 1000;   	// 1000*200ns, duree du timer3 = 200us Temps alloué a l'exécution
+		//T2IR = 0;		// RAZ du flag underflow timer 3
+		//T2IC = 0;
+		//T2 = 1000;   	// 1000*200ns, duree du timer3 = 200us Temps allouï¿½ a l'exï¿½cution
 							// plus maxi le temps pour une commande
-		T2CON  = 0x00C0;   // count down,Prescaller 200nS FCPU/8, start timer
-		//Si données dans la fifo et temps alloué à l'execution non terminé*/
+		//T2CON  = 0x00C0;   // count down,Prescaller 200nS FCPU/8, start timer
+		//Si donnï¿½es dans la fifo et temps allouï¿½ ï¿½ l'execution non terminï¿½*/
 	
 		//Demande d'ouverture de l'afficheur
 		DRV_DIS_HostRequest ( 1 ) ;
-		// Délai imposé par la carte graphique de façon à attendre la libération du bus
+		// Dï¿½lai imposï¿½ par la carte graphique de faï¿½on ï¿½ attendre la libï¿½ration du bus
 		DRV_DIS_Delay_us(1);
-		if(MASTERBUSY == FALSE)
+		//if(MASTERBUSY == FALSE)
 			{
-			while((DIS_FifoIdxWrite != DIS_FifoIdxRead) && (T2IR == 0))
+			while((DIS_FifoIdxWrite != DIS_FifoIdxRead))
 				{
 			
 				DisplayFunction = (UBYTE)  DIS_FifoDisplay[DIS_FifoIdxRead].DisplayFunction;
@@ -181,6 +181,7 @@ void DIS_FifoRead(void)
 	
 					case	DRV_ERASE_ZONE:			
 						{
+
 					   DIS_EraseZone((UBYTE)DIS_FifoDisplay[DIS_FifoIdxRead].Param1,
 											(UWORD16)DIS_FifoDisplay[DIS_FifoIdxRead].Param2,
 											(UBYTE)DIS_FifoDisplay[DIS_FifoIdxRead].Param3,
@@ -205,6 +206,6 @@ void DIS_FifoRead(void)
 		}
 		//Fermeture de l'afficheur
 		DRV_DIS_HostRequest (0) ;
-		T2CON = 0x0000;     // stop Timer2
+		//T2CON = 0x0000;     // stop Timer2
 	}
 }

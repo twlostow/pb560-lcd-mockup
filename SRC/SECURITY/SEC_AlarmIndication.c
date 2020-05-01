@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project Nï¿½  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -156,7 +156,7 @@ void  SEC_AlarmIndication(void)
 			DB_ConfigWrite(SOUND_LEVEL_SELECT_U16, PreviousSoundLevelSelect);		
 		  	DRV_BuzInit();	
 		}
-/*%C 	Medium level detection (Word N°1, N°2 et N°3) */
+/*%C 	Medium level detection (Word Nï¿½1, Nï¿½2 et Nï¿½3) */
 	   if ( (SEC_Medium_Priority_1 != 0)
 	    ||  (SEC_Medium_Priority_2 != 0)
 	    ||  (SEC_Medium_Priority_3 != 0) )

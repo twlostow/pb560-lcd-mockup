@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -27,7 +27,7 @@
 /******************************************************************************/
 /*                           OTHER INCLUDE FILE		                  			*/
 /******************************************************************************/
-#include "HMI_DatabaseAccess.hpp"
+#include "HMI_DataBaseAccess.hpp"
 #include "HMI_Message.hpp"
 #include "HMI_Config.hpp"
 extern "C"
@@ -684,7 +684,7 @@ void FrameTendance::init()
 #endif
 
 
-   /* Apnée */
+   /* ApnÃ©e */
    _CellLineIndex++;
 
    _line = GTable.GetLineOfCell                 (_CellLineIndex,_CellColIndex);
@@ -978,14 +978,14 @@ void FrameTendance::Hide()
     VFrame::Hide();
 }
 /************************************************************************/
-/* Description          : Positionne l'unité de pression                */
+/* Description          : Positionne l'unitÃ© de pression                */
 /* Parametres en entree : aucun	                                       */
-/*		- _PressureUnit : Unité de pression                               */
+/*		- _PressureUnit : UnitÃ© de pression                               */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void FrameTendance::SetPressureUnit(UBYTE** _PressureUnit)
 {

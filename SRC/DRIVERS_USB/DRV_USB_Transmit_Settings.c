@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project Nï¿½  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -36,8 +36,8 @@
 #endif
 
 #ifdef _BORLAND
-   /* Attention, conserver cette inclusion _après_ l'inclucion du io_declare.h
-      car redéfinition des valeurs de JUMPER pour chaque produit */
+   /* Attention, conserver cette inclusion _aprï¿½s_ l'inclucion du io_declare.h
+      car redï¿½finition des valeurs de JUMPER pour chaque produit */
       #include "io_declare.h"
       #include "HMI_Product.hpp"
 #else

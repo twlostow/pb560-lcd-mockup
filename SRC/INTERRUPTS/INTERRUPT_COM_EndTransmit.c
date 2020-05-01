@@ -1,6 +1,6 @@
 /*****************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project Nï¿½  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -30,7 +30,7 @@
 #endif	 
 #include "typedef.h"
 #include "enum.h"
-#include "structure.h"
+#include "Structure.h"
 #include "define.h"
 #include "DRV_COM_Data.h"
 #include "Flash_Monit_Data.h"

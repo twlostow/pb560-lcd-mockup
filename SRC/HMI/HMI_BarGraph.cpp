@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -36,7 +36,7 @@
 /*                             #DEFINE		                        				*/
 /******************************************************************************/
 
-/*%C Origine : Coint inférieur gauche */
+/*%C Origine : Coint infÃ©rieur gauche */
 
 #define STARTLINE_VERT 			33
 #define STARTCOLUMN_VERT 		162
@@ -44,7 +44,7 @@
 #define WIDTH_VERT				10
 #define LIMIT_BAR_VERT 			190
 
-/*%C Origine : Coint supérieur gauche, chiffres non-inclus */
+/*%C Origine : Coint supÃ©rieur gauche, chiffres non-inclus */
 
 #define STARTLINE_HOR			194
 #define STARTCOLUMN_HOR			2
@@ -78,7 +78,7 @@ void BarGraph::SetNameUnit(UBYTE** _NameUnit)
 
    if(GetPosition() == VERT)
    {
-      /*%C On réajuste la colonne pour le centrage */
+      /*%C On rÃ©ajuste la colonne pour le centrage */
       _PixelSize = TFUnit.GetPixelSize();
       if((_PixelSize) && (GetCol() >= (_PixelSize/2)))
          TFUnit.SetCol(GetCol() - (_PixelSize/2));
@@ -208,7 +208,7 @@ void BarGraph::Init( UWORD16 _Line,
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Rafraîchi	l'affichage de l'unité de pression du bargraph						*/
+/*%C RafraÃ®chi	l'affichage de l'unitÃ© de pression du bargraph						*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I 	 NONE																					  	   */
@@ -322,13 +322,13 @@ void BarGraph::Show()
 			for(i=0; i<=MAX_BARGRAPH_MBAR; i+=STEP_GRADUATION/2)
 			{
 				/*%C Affichage des traits de graduation avec les "pairs" */
-            /*%C plus grands complétés des valeurs numériques */
+            /*%C plus grands complÃ©tÃ©s des valeurs numÃ©riques */
 				if (i%2 == 0)
 					{
-   					/*%C ATTENTION - Afficher les numéros en 1er pour ne pas */
+   					/*%C ATTENTION - Afficher les numÃ©ros en 1er pour ne pas */
                   /*%C effacer les graduations */
 						if (i == 0)
-							/*%C Décalage pour centrer le "0" sur la 1ère graduation */
+							/*%C DÃ©calage pour centrer le "0" sur la 1Ã¨re graduation */
   							InterfaceCppC::DisplayNumber( i,
   																	INTEGER, 
   																	FALSE,
@@ -341,7 +341,7 @@ void BarGraph::Show()
                                                    1, 
                                                    GetPage());
 						else
-							/*%C Décalage pour centrer les chiffres sur */
+							/*%C DÃ©calage pour centrer les chiffres sur */
                      /*%C les graduations */
   							InterfaceCppC::DisplayNumber( i,
   																	INTEGER,
@@ -410,20 +410,20 @@ void BarGraph::Show()
          RefreshUnitDisplay();
 
 			/*%C Calcul de l'espacement des graduations */
-			/*%C Arrondie de SpaceGrad à 20, car on utilise pas la totalité */
-         /*%C de la fenêtre bargraph*/
+			/*%C Arrondie de SpaceGrad Ã  20, car on utilise pas la totalitÃ© */
+         /*%C de la fenÃªtre bargraph*/
 			/*%C avec la taille actuelle on pourrais loger une demi-graduation */
          /*%C de plus ou espacer un peu plus les graduations */
 			/*%C mais le calcul des graduations est plus simple avec */
          /*%C un espacement de 10. */
 			SpaceGrad = 20;
 
-			/*%C Affichage des valeurs numériques de graduation */
+			/*%C Affichage des valeurs numÃ©riques de graduation */
          /*%C = 306 / (2*(90/10)/2) */
 			for(i=0; i<=MAX_BARGRAPH_MBAR; i+=5)
 			{
 				/*%C Affichage des traits de graduation avec les "pairs" plus */
-            /*%C grands complétés des valeurs numériques */
+            /*%C grands complÃ©tÃ©s des valeurs numÃ©riques */
 				if (i%2 == 0)
 				{
 					/*%C Alignement des valeurs sur les graduations */
@@ -528,8 +528,8 @@ void BarGraph::DisplayBargraph(  SWORD16 _value,
                                  UBYTE _printon, 
                                  UBYTE _page)
 {
-	_page = _page; 			/* Pour éviter les warnings */
-	_printon = _printon;	/* Pour éviter les warnings */
+	_page = _page; 			/* Pour Ã©viter les warnings */
+	_printon = _printon;	/* Pour Ã©viter les warnings */
 
 	SWORD16 displayline=0, dec_value=0, dec_memoValue=0;
 
@@ -548,9 +548,9 @@ void BarGraph::DisplayBargraph(  SWORD16 _value,
 	/*%C Bargraph VERTICAL */
 	if (_position == VERT)
    {
-		/*%C Réajustement => 180 pixels pour 90 mbars */
-		/*%C Réajustement par rapport à la zone d'affichage du bargraph */
-      /*%C à l'intérieur du cadre donc -1 */
+		/*%C RÃ©ajustement => 180 pixels pour 90 mbars */
+		/*%C RÃ©ajustement par rapport Ã  la zone d'affichage du bargraph */
+      /*%C Ã  l'intÃ©rieur du cadre donc -1 */
 		_value /= 5;
 		_Pmax *= 2;
 		_Pep *= 2;
@@ -595,7 +595,7 @@ void BarGraph::DisplayBargraph(  SWORD16 _value,
 		/*%C Ecart d'affichage */
 		displayline = _value - memoValue;
 
-		/*%C Calcul du décalage */
+		/*%C Calcul du dÃ©calage */
 		if (_value == 0)
       {
          dec_value = 1;
@@ -614,7 +614,7 @@ void BarGraph::DisplayBargraph(  SWORD16 _value,
       }
 
 		/*%C Affichage du remplissage du bargraph */
-		/*%C Sens = montée de pression */
+		/*%C Sens = montÃ©e de pression */
 		if (displayline > 0)
       {
 			/*%C Affichage rectangle du bargraph vertical */
@@ -759,9 +759,9 @@ void BarGraph::DisplayBargraph(  SWORD16 _value,
 	/*%C Bargraph HORIZONTAL */
 	else
 	{
-		/*%C Réajustement => 306 pixels pour 90 mbars */
-		/*%C Réajustement par rapport à la zone d'affichage du bargraph */
-      /*%C à l'intérieur du cadre donc -1 */
+		/*%C RÃ©ajustement => 306 pixels pour 90 mbars */
+		/*%C RÃ©ajustement par rapport Ã  la zone d'affichage du bargraph */
+      /*%C Ã  l'intÃ©rieur du cadre donc -1 */
 		_value = (SWORD16)((_value * 306UL) / 900);
 		_Pmax = (SWORD16)((_Pmax * 306UL) / 90);
 		_Pep = (SWORD16)((_Pep * 306UL) / 90);
@@ -807,7 +807,7 @@ void BarGraph::DisplayBargraph(  SWORD16 _value,
 	  	/*%C Ecart d'affichage */
 		displayline = _value - memoValue;
 
-		/*%C Calcul du décalage */
+		/*%C Calcul du dÃ©calage */
 		if (_value == 0)
       {
          dec_value = 1;
@@ -826,7 +826,7 @@ void BarGraph::DisplayBargraph(  SWORD16 _value,
       }
 
 		/*%C Affichage du remplissage du bargraph */
-		/*%C Sens = montée de pression */
+		/*%C Sens = montÃ©e de pression */
 		if (displayline > 0)
 		{
 			InterfaceCppC::DisBox(  STARTLINE_HOR + 
@@ -989,7 +989,7 @@ void BarGraph::DisplayBargraph(  SWORD16 _value,
       }
    }
 
-	/*%C Mémorisation de la valeur */
+	/*%C MÃ©morisation de la valeur */
 	memoValue = _value;
 	memoPep = _Pep;
 	memoPmax = _Pmax;

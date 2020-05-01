@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -29,7 +29,7 @@ extern "C"
 {
 #include "typedef.h"
 #include "enum.h"
-#include "Db_PowerSupply.h"
+#include "DB_PowerSupply.h"
 }
 #include "HMI_IhmType.hpp"
 

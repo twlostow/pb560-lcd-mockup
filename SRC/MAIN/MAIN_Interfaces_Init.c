@@ -1,6 +1,6 @@
 /*****************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project Nï¿½  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -99,34 +99,34 @@ if(MAIN_Interfaces_Second_Init == FALSE)
 	//initialisation du timer T4 pour le  driver de  leds
 // Configuration du timer 4
 // Registre de controle du timer T4
-	// Prédiviseur = 1024 T4I = 111  
+	// Prï¿½diviseur = 1024 T4I = 111  
 	// Mode timer 	   T4M = 000
 	// Timer en marche T4R = 1
-	// Direction "décomptage" sans tenir compte de l'entrée T4 T4EUD = 01
-	// Contrôle de la sortie T4OUT P31 	non utilisée.T6OE = 0
+	// Direction "dï¿½comptage" sans tenir compte de l'entrï¿½e T4 T4EUD = 01
+	// Contrï¿½le de la sortie T4OUT P31 	non utilisï¿½e.T6OE = 0
 	// latch de la sortie T4OL = 0
-	// Bit 9 10 11 12  13 14 15 non utilisés = 0000000
-	// Controle du mode reload pas de reload à partir de CAPREL	 T4SR = 0
+	// Bit 9 10 11 12  13 14 15 non utilisï¿½s = 0000000
+	// Controle du mode reload pas de reload ï¿½ partir de CAPREL	 T4SR = 0
 	// T4CON =  00000 0 0 01 1 000 000 = 0000000011000111 b = 0xC7
 T4CON = 0xC7;
 
-// Registre de contrôle de l'interruption
+// Registre de contrï¿½le de l'interruption
 	// Revoir sa localisation dans le projet voir peut etre pour un 
-	// module de gestion des niveaux de priorité des interruptions 
+	// module de gestion des niveaux de prioritï¿½ des interruptions 
 	// et de gestion des PEC
-		// Priorité  des interruptions T4
+		// Prioritï¿½  des interruptions T4
 		/*%IR = 0 ,IE = 0; ILVL  = 12 ,GLVL = 3 	 */
 		T4IC = 0x33;// Marche du timer
 T4R = 1;
 // Interruption timer 4
 T4IE =1;
 // Chargement du timer - 0.5s
-// T4 = seconde / 25.6µs;
+// T4 = seconde / 25.6ï¿½s;
 T4 = 19531;
 
 
 		 /**************************************************/
-	// Init des mesures de tâches
+	// Init des mesures de tï¿½ches
 
 	//initilisation des valeurs maxi et mini du temps des taches
 	for (i=0;i < cVENTILATION_NUMBER_OF_TASKS;i++)
@@ -136,19 +136,19 @@ T4 = 19531;
 			Ventilation_TimesOfTask[i].mini   = 0XFFFF; 	//65535;
 	 		}
 	
-	//Résolution de mesure 800ns à 40Mhz
+	//Rï¿½solution de mesure 800ns ï¿½ 40Mhz
 		T78CON &= 0x00FF;
 		T78CON |= 0x02FF;
 
 	// init registre de reload 	T1REL = 0; 
 		T8REL = 0x0000;
-		T8R = 1;	// démarrage du timer 8
+		T8R = 1;	// dï¿½marrage du timer 8
 
  /**************************************************/
 
 /*%C control register for timer T0 et T1				*/
 /*%C less significative byte of timer 0 not programed		*/
-/*%C Prédivideur = 32 T1I = 010 résolution 800ns		*/
+/*%C Prï¿½divideur = 32 T1I = 010 rï¿½solution 800ns		*/
 /*%C Mode timer 	   T1M = 0									*/
 /*%C Timer OFF T1R = 0 									*/
 /*%C T01CON = 00000010xxxxxxxx								*/
@@ -161,7 +161,7 @@ T4 = 19531;
 
 /*%C ACC0 assigned to timer 1								 */
 /*%C CCMOD0  capture on positive transition			 */
-/*%C ACC1,ACC2,CCMOM1,CCMOD2 non programmés			 */
+/*%C ACC1,ACC2,CCMOM1,CCMOD2 non programmï¿½s			 */
 /*%C ==> CCM0 = xxxx xxxx xxxx 1001 = 0x0009			 */
 	CCM0 &= 0xFFF0;
 	CCM0 |= 0x0009;
@@ -179,31 +179,31 @@ T4 = 19531;
 		// P8.7 Output,Hight level,push/pull
 		// P8.6 Input 
 		XS1PORT = 0x18; 
-		// registre d'interruption sur émission 
+		// registre d'interruption sur ï¿½mission 
 		/*%IR = 0 ,IE = 0; ILVL  = 13 ,GLVL = 1 	 */
 		XP0IC = 0x35; 
 
 
 
-		// registre de configuration de la liaison série SS0
-			// S0M asynchrone  8bits sans parité  = 001
+		// registre de configuration de la liaison sï¿½rie SS0
+			// S0M asynchrone  8bits sans paritï¿½  = 001
 			// S0STP 1 bit de stop = 0
-			// S0REN Réception autorisée = 1
-			// S0PEN Test de parité en reception  non autorisée = 0
-			// S0FEN Test de reception du stop non autrisé = 0
-			// S0OEN Test d'ecrassement des data en réception  non autorisé = 0
-			// S0PE  Flag d'erreur de parité = 0
+			// S0REN Rï¿½ception autorisï¿½e = 1
+			// S0PEN Test de paritï¿½ en reception  non autorisï¿½e = 0
+			// S0FEN Test de reception du stop non autrisï¿½ = 0
+			// S0OEN Test d'ecrassement des data en rï¿½ception  non autorisï¿½ = 0
+			// S0PE  Flag d'erreur de paritï¿½ = 0
 			// S0FE 	Flag d'erreur sur stop	 = 0
-			// S0OE  Flag d'écrasemement = 0
-			// S0ODD parité paire = 0
+			// S0OE  Flag d'ï¿½crasemement = 0
+			// S0ODD paritï¿½ paire = 0
 			// S0BRS mode de calcul du baud rate  = 0
-			// S0LB Loop back mode non autorisé = 0
-			// S0R générateur de baud rate activé = 1
+			// S0LB Loop back mode non autorisï¿½ = 0
+			// S0R gï¿½nï¿½rateur de baud rate activï¿½ = 1
 			// ==> S0CON = 100000000000001  = 0x8011;
 		//XS1CON =  0x8011;
 		//Activation de l'interruption de reception sur XP0INT
 		//XIR0SEL |= 0x8000;
-		// registre de générateur de baudrate = 0x81 pour 9600 baud
+		// registre de gï¿½nï¿½rateur de baudrate = 0x81 pour 9600 baud
 		//	XS1BG =(UWORD16) ((UWORD32)FCPU * (UWORD32)1E6) / ((UWORD32)32 *(UWORD32)9600) - 1;
 
 		//XS1BG = 129; 
@@ -226,7 +226,7 @@ T4 = 19531;
 
 /*%C unactivation SPI		  */
 	SSCCON = 0x0000;
-// prépositionement des niveaux des lignes SCLK et TSR  sur le bus SPI 	  
+// prï¿½positionement des niveaux des lignes SCLK et TSR  sur le bus SPI 	  
 	SPI_PORT |= 0x2200;    
 	DRV_OutputPort(CE_RTC1, 0); /*%C Desactivation chip enable RTC																*/
 	DRV_OutputPort(CE_EEP, 1); /*%C Desactivation chip enable EEPROM */
@@ -333,25 +333,25 @@ T4 = 19531;
   	// ATTENTION: 	
 
 	// l'activation de cette fonction lance certains drivers
-	// Vérifier qu'à cet instant tous les drivers sont initialisés
+	// Vï¿½rifier qu'ï¿½ cet instant tous les drivers sont initialisï¿½s
 	// Init Interrupt6 - 1ms
 	//	InitInterruptT6();
 	// Registre de controle du timer T6
-		// Prédiviseur = 4 T6I = 000 horloge à 100ns pour un ST269 à 40Mhz
+		// Prï¿½diviseur = 4 T6I = 000 horloge ï¿½ 100ns pour un ST269 ï¿½ 40Mhz
 		// Mode timer 	   T6M = 000
 		// Timer en marche T6R = 1
-		// Direction "décomptage" sans tenir compte de l'entrée T6 T6EUD = 001
-		// Contrôle de la sortie T6OUT P31 	non utilisée.T6OE = 0
+		// Direction "dï¿½comptage" sans tenir compte de l'entrï¿½e T6 T6EUD = 001
+		// Contrï¿½le de la sortie T6OUT P31 	non utilisï¿½e.T6OE = 0
 		// latch de la sortie T6OL = 0
-		// Bit 11 12  13 non utilisés = 000
-		// Controle du mode reload Reload à partir de CAPREL	 T6SR = 1
+		// Bit 11 12  13 non utilisï¿½s = 000
+		// Controle du mode reload Reload ï¿½ partir de CAPREL	 T6SR = 1
  		// T6CON = 1 000 0 0 001 1 000 000 = 1000000011000000b = 0x80C0
  	T6CON = 0x80C0;
 	// Registre de reload CAPREL 
 		/*%C CAPREL = 1ms/100nS = */
  	CAPREL= 10000;
 
-	// Registre de contrôle de l'interruption
+	// Registre de contrï¿½le de l'interruption
 		/*%C IR = 0 ,IE = 1; ILVL  = 13 ,GLVL = 3 	 */
 	T6IC = 0x77;
 
@@ -376,19 +376,19 @@ T4 = 19531;
 
 
 /******************************************************************************/
-/*	Initialisation de la base de donnée														*/
+/*	Initialisation de la base de donnï¿½e														*/
 /******************************************************************************/
 
-	//Initialisation de la base de donnée
+	//Initialisation de la base de donnï¿½e
 	DB_StartInitDb();
 
-	// Initialisation du driver Buzzer (la base doit être initialisée)
+	// Initialisation du driver Buzzer (la base doit ï¿½tre initialisï¿½e)
 	DRV_BuzInit();	
 
  		/**************************************************/
  		/**************************************************/
 
-	// Initialisation du convertisseur analogique numérique
+	// Initialisation du convertisseur analogique numï¿½rique
 	DRV_ADC_ConvertInit();
 
  		/**************************************************/
@@ -396,13 +396,13 @@ T4 = 19531;
 }
 else
 {
-// Initialisation de la com RS232 aprés la lecture de la base pour 
-//disponibilité de SPEEDCOM
+// Initialisation de la com RS232 aprï¿½s la lecture de la base pour 
+//disponibilitï¿½ de SPEEDCOM
 // configuration des patte de  port P3.10(TXD)  P3.11(RXD)
  
 	SPI_PORT |= 0x0400;  // TXD = 1;
 
-	// registre d'interruption sur émission
+	// registre d'interruption sur ï¿½mission
 		/*%IR = 0 ,IE = 0; ILVL  = 14 ,GLVL = 2 ==> PEC canal 2		 */
 		S0TBIC = 0x3A;
 
@@ -413,20 +413,20 @@ else
 
 
 
-// registre de configuration de la liaison série SS0
-	// S0M asynchrone  8bits + parité  = 111
+// registre de configuration de la liaison sï¿½rie SS0
+	// S0M asynchrone  8bits + paritï¿½  = 111
 	// S0STP 1 bit de stop = 0
-	// S0REN Réception autorisée = 1
-	// S0PEN Test de parité en reception  non autorisée = 0
-	// S0FEN Test de reception du stop non autrisé = 0
-	// S0OEN Test d'ecrassement des data en réception  non autorisé = 0
-	// S0PE  Flag d'erreur de parité = 0
+	// S0REN Rï¿½ception autorisï¿½e = 1
+	// S0PEN Test de paritï¿½ en reception  non autorisï¿½e = 0
+	// S0FEN Test de reception du stop non autrisï¿½ = 0
+	// S0OEN Test d'ecrassement des data en rï¿½ception  non autorisï¿½ = 0
+	// S0PE  Flag d'erreur de paritï¿½ = 0
 	// S0FE 	Flag d'erreur sur stop	 = 0
-	// S0OE  Flag d'écrasemement = 0
-	// S0ODD parité paire = 0
+	// S0OE  Flag d'ï¿½crasemement = 0
+	// S0ODD paritï¿½ paire = 0
 	// S0BRS mode de calcul du baud rate  = 0
-	// S0LB Loop back mode non autorisé = 0
-	// S0R générateur de baud rate activé = 1
+	// S0LB Loop back mode non autorisï¿½ = 0
+	// S0R gï¿½nï¿½rateur de baud rate activï¿½ = 1
 	// ==> S0CON = 100000000000111  = 0x8017;
 	S0CON =  0x8017;
 	

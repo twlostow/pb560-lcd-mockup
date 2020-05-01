@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -31,7 +31,7 @@
 
 #include "HMI_InterfaceCppC.hpp"
 #include "HMI_Tools.hpp"
-#include "HMI_DatabaseAccess.hpp"
+#include "HMI_DataBaseAccess.hpp"
 #include "HMI_Label.hpp"
 extern "C"
 {
@@ -423,7 +423,7 @@ void Graph::DataPoint(CurveData* CData)
 		VPoint MiddlePoint = CData->GetCurrentPoint();
 		VPoint PreviousPoint = CData->GetPreviousPoint();
 
-		/*%C Dessine la courbe si le nouveau point a bougé */
+		/*%C Dessine la courbe si le nouveau point a bougÃ© */
       if(CurrentPoint != PreviousPoint)
       {
       	/*%C Cherche le nombre de points qui sont en dehors du cadre */
@@ -460,7 +460,7 @@ void Graph::DataPoint(CurveData* CData)
 				/*%C entre les 2 points */
 					if(PointOut->GetX() != PointIn->GetX())  
 					{
-						/*%C Protection contre la division par zéro */
+						/*%C Protection contre la division par zÃ©ro */
 					   a = 	(SWORD32)100 * 
 					    		(PointOut->GetY()-PointIn->GetY()) / 
 					    		(PointOut->GetX()-PointIn->GetX());
@@ -478,11 +478,11 @@ void Graph::DataPoint(CurveData* CData)
 					/*%C Affichage en trait */
 					if(Kind == eLINE)
 					{
-						/*%C Modifie les coordonnées du point hors cadre */
-						/*%C afin qu'il se retrouve à la limite */
+						/*%C Modifie les coordonnÃ©es du point hors cadre */
+						/*%C afin qu'il se retrouve Ã  la limite */
 						if(PointOut->GetY() > ScaleY.GetMax())
 						{
-							/*%C Calcule X à partir Y Max */
+							/*%C Calcule X Ã  partir Y Max */
 							y = ScaleY.GetMax();
 	   	        	   if(a!=0)
 							{
@@ -493,7 +493,7 @@ void Graph::DataPoint(CurveData* CData)
 								x = PointIn->GetX();
 							}
 
-							/*%C Si X est hors cadre, on calcule Y à partir de X */
+							/*%C Si X est hors cadre, on calcule Y Ã  partir de X */
 							/*%C Min ou X Max */
 							if( x < ScaleX.GetMin() ) 
 							{
@@ -514,7 +514,7 @@ void Graph::DataPoint(CurveData* CData)
 						}
 						else if(PointOut->GetY() < ScaleY.GetMin())
 						{
-							/*%C Calcule X à partir Y Max */
+							/*%C Calcule X Ã  partir Y Max */
                      y = ScaleY.GetMin();
 	   	        	   if(a!=0)
 							{
@@ -525,7 +525,7 @@ void Graph::DataPoint(CurveData* CData)
                        	x = PointIn->GetX();
 							}
 							/*%C Si X est hors cadre */
-							/*%C on calcule Y à partir de X Min ou X Max */
+							/*%C on calcule Y Ã  partir de X Min ou X Max */
 
 							if( x < ScaleX.GetMin() ) 
 							{
@@ -544,14 +544,14 @@ void Graph::DataPoint(CurveData* CData)
 		                  		(SWORD32)100;
 							}
 						}
-						/*%C X hors cadre on calcule Y à partir de X Min */
+						/*%C X hors cadre on calcule Y Ã  partir de X Min */
                   else if(PointOut->GetX() < ScaleX.GetMin())
 						{
 							x = ScaleX.GetMin();
 	                  y = 	(a * x + b)/
 	                  		(SWORD32)100;
 						}
-    					/*%C X hors cadre on calcule Y à partir de X Max */
+    					/*%C X hors cadre on calcule Y Ã  partir de X Max */
                   else if(PointOut->GetX() > (ScaleX.GetMax()*
                   									(SWORD32)12/
                   									(SWORD32)10))
@@ -564,7 +564,7 @@ void Graph::DataPoint(CurveData* CData)
 									(SWORD32)100;
 						}
 
-						/*%C Enregistre les nouvelles coordonnées	*/
+						/*%C Enregistre les nouvelles coordonnÃ©es	*/
 						PointOut->SetX(x);
    	        	   PointOut->SetY(y);
 					}
@@ -599,7 +599,7 @@ void Graph::DataPoint(CurveData* CData)
                break;
     	        
 				case AllPointOut:
-              	/*%C Ces calculs seront utilisés pas le mode histogramme */
+              	/*%C Ces calculs seront utilisÃ©s pas le mode histogramme */
               	if(CurrentPoint.GetY() >= ScaleY.GetMax())
 				  	{
 		    	     	PreviousPoint.SetY( ScaleY.GetMax() );
@@ -639,7 +639,7 @@ void Graph::DataPoint(CurveData* CData)
                default : break;               
     		}
 
-			/*%C Lecture du Style (Boucle / Pression-Débit) dans la DataBase */
+			/*%C Lecture du Style (Boucle / Pression-DÃ©bit) dans la DataBase */
          DataBaseAccess::ReadValue(&Style, CURVE_DISPLAY_TYPE_MODE_U16,CONFIG);
 
 			/*%C Lecture des points */
@@ -678,7 +678,7 @@ void Graph::DataPoint(CurveData* CData)
 				MiddlePixel = MiddlePoint.ToPixel(	CData->GetScaleX(),
 																CData->GetScaleY());
 
-				/*%C Protection contre la division par zéro */
+				/*%C Protection contre la division par zÃ©ro */
 				if(PreviousPixel.GetX() != MiddlePixel.GetX())
 				{
 					a = 	(SWORD32)100 * 
@@ -727,7 +727,7 @@ void Graph::DataPoint(CurveData* CData)
        		!OutOfLimit && 
        		ScaleX.GetMax() > 30)
 			{
-			/*%C Barre d'effacement du début de la courbe */
+			/*%C Barre d'effacement du dÃ©but de la courbe */
 			InterfaceCppC::EraseZone(	GetScaleY()->GetLine()-
 												GetScaleY()->GetWidth()+9,
                                    	CurrentPixel.GetX() + 1,
@@ -754,7 +754,7 @@ void Graph::DataPoint(CurveData* CData)
 /******************************************************************************/
 void Graph::Raz()
 {
-	/* On enlève 5 pixels pour éviter d'effacer les flèches */
+	/* On enlÃ¨ve 5 pixels pour Ã©viter d'effacer les flÃ¨ches */
    InterfaceCppC::EraseZone(	GetScaleY()->GetLine()-
    									GetScaleY()->GetWidth()+9,
 									  	GetScaleY()->GetCol()+1,
@@ -783,14 +783,14 @@ void Graph::Reset()
 {
 	UWORD16 i, Style;
 
-	/*%C Lecture du Style (Boucle / Pression-Débit) dans la DataBase */
+	/*%C Lecture du Style (Boucle / Pression-DÃ©bit) dans la DataBase */
 	DataBaseAccess::ReadValue(&Style, CURVE_DISPLAY_TYPE_MODE_U16,CONFIG);
 
-   /*%C Si on est en courbe WOB et si l'échelle X est < 4s, */
+   /*%C Si on est en courbe WOB et si l'Ã©chelle X est < 4s, */
    /*%C on rafraichit totalement le graph */
    if (Style == 1 || this->ScaleX.GetMax() <= 30)
    {
-   	// On enlève 5 pixels pour éviter d'effacer les flèches
+   	// On enlÃ¨ve 5 pixels pour Ã©viter d'effacer les flÃ¨ches
    	InterfaceCppC::EraseZone(	GetScaleY()->GetLine()-
    										GetScaleY()->GetWidth()+9,
 											GetScaleY()->GetCol()+1,
@@ -819,10 +819,10 @@ void Graph::Reset()
   		GControl->Reset();
   	}
 
- 	/*%C Si on n'est pas en courbe BOUCLE on efface que le début de la courbe */
+ 	/*%C Si on n'est pas en courbe BOUCLE on efface que le dÃ©but de la courbe */
    if (Style == 0 && this->ScaleX.GetMax() > 30)
    {
-   	/*%C Barre d'effacement du début de la courbe */
+   	/*%C Barre d'effacement du dÃ©but de la courbe */
   	 	InterfaceCppC::EraseZone(	GetScaleY()->GetLine()-
   	 										GetScaleY()->GetWidth()+9,
                              		GetScaleY()->GetCol()+1,
@@ -842,7 +842,7 @@ void Graph::Reset()
 		/*%C Si on est hors limites - affichage "Hors Limites" */
 		if((CurveTable[i]->GetOutOfLimitDis() == TRUE) && this->CurveTable[i]->IsCurveStart())
       {
-			/*%C On enlève 5 pixels pour éviter d'effacer les flèches */
+			/*%C On enlÃ¨ve 5 pixels pour Ã©viter d'effacer les flÃ¨ches */
     		InterfaceCppC::EraseZone(	GetScaleY()->GetLine()-
     											GetScaleY()->GetWidth()+9,
 									 			GetScaleY()->GetCol()+1,

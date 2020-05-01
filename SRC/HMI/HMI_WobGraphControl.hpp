@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -26,7 +26,7 @@
 /******************************************************************************/
 
 #include "HMI_GraphControl.hpp"
-#include "HMI_DatabaseAccess.hpp"
+#include "HMI_DataBaseAccess.hpp"
 
 /******************************************************************************/
 /*                           CLASSE DECLARATION                    	      	*/
@@ -41,19 +41,19 @@ private:
 	/*%C VentilState [ 251 : 254] */
    e_VentilState VentilState;
 
-   /* Méthodes */
+   /* MÃ©thodes */
 
 protected:
 
    /* Parametres */
 
-   /* Méthodes */
+   /* MÃ©thodes */
 
 public:
 
    /* Parametres */
 
-   /* Méthodes */
+   /* MÃ©thodes */
 
    WobGraphControl();
 

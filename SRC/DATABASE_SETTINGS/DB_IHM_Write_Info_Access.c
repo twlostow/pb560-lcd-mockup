@@ -31,7 +31,7 @@
 
 #include "typedef.h"
 #include "enum.h"
-#include "structure.h"
+#include "Structure.h"
 #include "DB_Control.h"
 #include "DB_AlarmStatus.h"
 #include "DB_Rtc.h"

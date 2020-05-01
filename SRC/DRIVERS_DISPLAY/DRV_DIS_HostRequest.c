@@ -24,6 +24,7 @@
 /*                                INCLUDE FILES		                          */
 /******************************************************************************/
 
+#ifndef _BORLAND
 #ifndef _TASKING
 	#include <intrins.h>
 #endif	 
@@ -47,3 +48,4 @@ UBYTE xhuge *ram;
 	_nop_();
 	_nop_();
 }
+#endif

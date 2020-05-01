@@ -29,7 +29,7 @@
 #include "DRV_VarEeprom.h"
 #include "DB_Current.h"
 #include "enum.h"
-#include "structure.h"
+#include "Structure.h"
 #include "DB_IhmAccessParaDataBase.h"
 #include "DB_IHM_Write_Adjust_Cpap_Mode.h"
 #include "Timer_Data.h"

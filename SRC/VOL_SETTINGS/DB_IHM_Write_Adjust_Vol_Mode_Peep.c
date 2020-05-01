@@ -30,7 +30,7 @@
 /******************************************************************************/
 #include "typedef.h"
 #include "enum.h"
-#include "structure.h"
+#include "Structure.h"
 #include "DRV_VarEeprom.h"
 #include "DB_IHM_Setting_Adjust_Vol_Mode.h"
 #include "DB_Control.h"

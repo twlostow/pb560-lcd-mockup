@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -31,7 +31,7 @@
 #include "HMI_Config.hpp"
 #include "HMI_Message.hpp"
 #include "HMI_InterfaceCppC.hpp"
-#include "HMI_DatabaseAccess.hpp"
+#include "HMI_DataBaseAccess.hpp"
 #include "HMI_Tools.hpp"
 extern "C"
 {
@@ -195,13 +195,13 @@ void FrameAlarme::init()
 
 	GTable.Init						(32,
 										1);
-   /*%C Titre de la deuxième colonne (min) */
+   /*%C Titre de la deuxiÃ¨me colonne (min) */
    GTable.SetColTitle(1,(UBYTE**)cMSG_MiniTab);
 
-   /*%C Titre de la troisième colonne (patient)*/
+   /*%C Titre de la troisiÃ¨me colonne (patient)*/
    GTable.SetColTitle(2,(UBYTE**)cMSG_PatientTab);
 
-   /*%C Titre de la quatrième colonne (max)*/
+   /*%C Titre de la quatriÃ¨me colonne (max)*/
    GTable.SetColTitle(3,(UBYTE**)cMSG_MaxiTab);
 
 	MonitorBox.SetParent			(this);
@@ -508,15 +508,15 @@ void FrameAlarme::init()
 }
 /************************************************************************/
 /* Description   : Initilalise la table de configuration des objets de  */
-/*                 monitoring de la fenêtre alarme permettant de gérer  */
-/*                 l'ordre d'affichage et la visibilité pour chaque mode*/
+/*                 monitoring de la fenÃªtre alarme permettant de gÃ©rer  */
+/*                 l'ordre d'affichage et la visibilitÃ© pour chaque mode*/
 /*                 de ventilation                                       */
-/* Parametres en entree : Néant                                         */
-/* Parametres en sortie : Néant                                         */
+/* Parametres en entree : NÃ©ant                                         */
+/* Parametres en sortie : NÃ©ant                                         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void FrameAlarme::InitInfoAlarmTable(void)
 {
@@ -807,7 +807,7 @@ void FrameAlarme::ShowLastAlarme(AlarmEvent* Alarm)
 	{
       MutexAlarm = TRUE;
 
-		/*%C Affiche la dernière alarme */
+		/*%C Affiche la derniÃ¨re alarme */
 		LAlarme.SetWhithBox					(AlarmBox.GetWidth());
 
         LAlarme.SetAlarmId                  (Alarm->id);
@@ -836,7 +836,7 @@ void FrameAlarme::ShowLastAlarme(AlarmEvent* Alarm)
 		                                 GetPage());
 
 
-		/*%C Affiche la date et l'heure de la dernière alarme */
+		/*%C Affiche la date et l'heure de la derniÃ¨re alarme */
       Hours = Alarm->hour;
 
       if(GetTimeFormat() == ALARM_12H_FORMAT)
@@ -1014,9 +1014,9 @@ void FrameAlarme::SetMode(e_MODE_TYPES ModeTmp)
 /*		- IESelected : presence de IE									            */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void FrameAlarme::SetIESelected(e_BOOL _IESelected)
 {
@@ -1176,13 +1176,13 @@ void FrameAlarme::StartMonitoringMode()
    this->StartMonitoringMode(FALSE, FALSE);
 }
 /************************************************************************/
-/* Description   : Démarre le monitoring des objets                     */
-/* Parametres en entree : Néant                                         */
-/* Parametres en sortie : Néant                                         */
+/* Description   : DÃ©marre le monitoring des objets                     */
+/* Parametres en entree : NÃ©ant                                         */
+/* Parametres en sortie : NÃ©ant                                         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void FrameAlarme::ObjectsStartMonitoringMode(void)
 {
@@ -1309,7 +1309,7 @@ void FrameAlarme::ShowTable(void)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Récupère la ligne de la première ligne inscriptible                      */
+/*%C RÃ©cupÃ¨re la ligne de la premiÃ¨re ligne inscriptible                      */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I	  	NONE																	            	*/
@@ -1325,10 +1325,10 @@ UWORD16 FrameAlarme::GetFirstLineOfTable(void)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Configure la ligne de séparation du paramètre en gras dans la table      */
+/*%C Configure la ligne de sÃ©paration du paramÃ¨tre en gras dans la table      */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
-/*%I	  	Line : ligne qui doit être en gras        				            	*/
+/*%I	  	Line : ligne qui doit Ãªtre en gras        				            	*/
 /*%IO Input/Output : 																			*/
 /*%IO		NONE																					  	*/
 /*%O Output Parameter : 																	 	*/
@@ -1341,10 +1341,10 @@ void FrameAlarme::SetBoldLineOfTable(UWORD16 Line)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Positionne toutes les lignes de la table à "non gras"                    */
+/*%C Positionne toutes les lignes de la table Ã  "non gras"                    */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
-/*%I	  	Line : ligne qui doit être en gras        				            	*/
+/*%I	  	Line : ligne qui doit Ãªtre en gras        				            	*/
 /*%IO Input/Output : 																			*/
 /*%IO		NONE																					  	*/
 /*%O Output Parameter : 																	 	*/
@@ -1357,7 +1357,7 @@ void FrameAlarme::ClearBoldLinesOfTable(void)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Récupère la ligne de la première ligne inscriptible                      */
+/*%C RÃ©cupÃ¨re la ligne de la premiÃ¨re ligne inscriptible                      */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I	  	NONE																	            	*/
@@ -1373,7 +1373,7 @@ UWORD16 FrameAlarme::GetSpacingOfTable(void)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Récupère l'indice de colonne de la colonne patient                       */
+/*%C RÃ©cupÃ¨re l'indice de colonne de la colonne patient                       */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I	  	NONE																	            	*/
@@ -1389,7 +1389,7 @@ UWORD16 FrameAlarme::GetPatientColOfTable(void)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Récupère la largeur de la colonne patient                                */
+/*%C RÃ©cupÃ¨re la largeur de la colonne patient                                */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I	  	NONE																	            	*/
@@ -1571,9 +1571,9 @@ void FrameAlarme::ShowCancelOk(e_BOOL _Visible)
 /*		- _ValveDetected : presence de la valve						         */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void FrameAlarme::SetValve(e_BOOL _ValveDetected, e_BOOL _ImpactDisplay)
 {
@@ -1592,14 +1592,14 @@ void FrameAlarme::SetValve(e_BOOL _ValveDetected, e_BOOL _ImpactDisplay)
 /*       _Flag : TRUE si capteur                                        */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void FrameAlarme::Fio2MonitorEnabled(e_BOOL _Flag)
 {
    FiO2Enabled = _Flag;
-   /* Pas de monitoring du FiO2 en fenêtre Alarme pour le moment */
+   /* Pas de monitoring du FiO2 en fenÃªtre Alarme pour le moment */
 }
 /************************************************************************/
 /* Description          : Active le monitoring de Spo2					   */
@@ -1607,24 +1607,24 @@ void FrameAlarme::Fio2MonitorEnabled(e_BOOL _Flag)
 /*       _Flag : TRUE si capteur                                        */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void FrameAlarme::Spo2MonitorEnabled(e_BOOL _Flag)
 {
    SpO2Enabled = _Flag;
-   /* Pas de monitoring du SpO2 en fenêtre Alarme pour le moment */
+   /* Pas de monitoring du SpO2 en fenÃªtre Alarme pour le moment */
 }
 /************************************************************************/
-/* Description          : Positionne l'unité de pression                */
+/* Description          : Positionne l'unitÃ© de pression                */
 /* Parametres en entree : aucun	                                       */
-/*		- _PressureUnit : Unité de pression                               */
+/*		- _PressureUnit : UnitÃ© de pression                               */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void FrameAlarme::SetPressureUnit(UBYTE** _PressureUnit)
 {
@@ -1654,9 +1654,9 @@ void FrameAlarme::SetPressureUnit(UBYTE** _PressureUnit)
 /* Parametres en entree : aucun	                                        */
 /* Parametres en sortie : aucun											*/
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void FrameAlarme::ShowInhibApneaAlarm()
 {
@@ -1679,9 +1679,9 @@ void FrameAlarme::ShowInhibApneaAlarm()
 /* Parametres en entree : aucun	                                        */
 /* Parametres en sortie : aucun											*/
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void FrameAlarme::HideInhibApneaAlarm()
 {

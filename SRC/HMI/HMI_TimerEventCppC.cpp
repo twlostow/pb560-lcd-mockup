@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -38,7 +38,7 @@ extern "C"
 
 #include "HMI_InterfaceCppC.hpp"
 #include "HMI_Controller.hpp"
-#include "HMI_DatabaseAccess.hpp"
+#include "HMI_DataBaseAccess.hpp"
 #include "DB_KeyboardEvent.h"
 
 
@@ -46,7 +46,6 @@ extern "C"
 /*                           CONSTRUCTEUR/DESTRUCTEUR                			*/
 /******************************************************************************/
 
-#ifndef _BORLAND
 
 extern "C" void IHM_TimerEventLauch(void)
 {
@@ -92,8 +91,7 @@ extern "C" void IHM_TimerEventLauch(void)
 		}
 	}
 }
-#endif
-// Fonction de constructeur des objets à appeler lors de la phase init systeme
+// Fonction de constructeur des objets Ã  appeler lors de la phase init systeme
 
 extern "C" void SETUP_HMI_Start(void)
 {

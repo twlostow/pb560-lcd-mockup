@@ -29,12 +29,12 @@
 /******************************************************************************/
 #include "typedef.h"
 #include "enum.h"
-#include "structure.h"
+#include "Structure.h"
 #include "DRV_VarEeprom.h"
 #include "DB_Control.h"
 #include "DB_Compute.h"
 #include "DB_Rtc.h"
-#include "DB_IHMAccessparaDataBase.h"
+#include "DB_IhmAccessParaDataBase.h"
 #include "DB_IHM_Setting_Adjust_Pres_Mode.h"
 #include "DB_IHM_Write_Adjust_Pres_Mode_Control_R.h"
 

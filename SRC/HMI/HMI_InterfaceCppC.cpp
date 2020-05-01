@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -88,7 +88,7 @@ void InterfaceCppC::DisplayCross(UWORD16 Line,
 	line = Line;
 	col = Column;
 
-	/* 1ère croix */
+	/* 1Ã¨re croix */
 	for (i = 0; i < Line1Size; i++) {
 
 		InterfaceCppC::DisplayPixel(line - i,
@@ -106,7 +106,7 @@ void InterfaceCppC::DisplayCross(UWORD16 Line,
 
 	line --;
 	
-	/* 2ème croix */
+	/* 2Ã¨me croix */
 	for (i = 0; i < Line1Size; i++) {
 
 		InterfaceCppC::DisplayPixel(line - i,
@@ -151,20 +151,20 @@ void InterfaceCppC::DisplayString(  UBYTE *ptr_char,
                                     UWORD16 PrintOn,
                                     UWORD16 Page)
 {
-	UWORD32 AddressConvert;
+	unsigned long AddressConvert;
 
-	AddressConvert = (UWORD32) ptr_char;
+	AddressConvert = (unsigned long) ptr_char;
 
 	DIS_FifoWrite					(DRV_STRING,
-				                  (UWORD16)(AddressConvert >> 16),
+				                  (UWORD16)( (AddressConvert >> 16) & 0xffff),
             				      (UWORD16)AddressConvert,
 				                  GetDriverFont(Font,ReverseVideo),
 			 	                 	Line,
 			 	                 	(UWORD16)Column,
 					               GetDriverPrintOn(PrintOn),
                				   GetDriverPage(Page),
-				                  0,
-				                  0,
+				                  (UWORD16)( (AddressConvert >> 32) & 0xffff),
+				                  (UWORD16)( (AddressConvert >> 48) & 0xffff),
 				                  0,
 				                  0,
 				                  0);
@@ -446,7 +446,7 @@ e_BOOL InterfaceCppC::IsOneAlarmActive()
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Fonction permettant d'attendre la fin d'éffacement de la Flash			  	*/
+/*%C Fonction permettant d'attendre la fin d'Ã©ffacement de la Flash			  	*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I		NONE																						*/
@@ -462,7 +462,7 @@ void InterfaceCppC::MaintEraseFlashMngt(void)
 	UWORD16 _Id;
 	UWORD16 _Value;
 
-   /*%C RTC à lire */
+   /*%C RTC Ã  lire */
    t_RTC_TIME_DATE RtcValue;
 
    if (DRV_EVENT_TransStateFlash() == DRV_EVENT_FREE)
@@ -486,7 +486,7 @@ void InterfaceCppC::MaintEraseFlashMngt(void)
 	   DB_ConfigWrite(RAZ_COUNTER_PAT_MONTH_U16,RtcValue.Month);
    	DB_ConfigWrite(RAZ_COUNTER_PAT_YEAR_U16,RtcValue.Year);
 
-	   /*%C RAZ des pointeurs d'évènement + Secteur + Sauvegarde e2prom */
+	   /*%C RAZ des pointeurs d'Ã©vÃ¨nement + Secteur + Sauvegarde e2prom */
    	DRV_EVENT_RazPointerSector();
 		
 		
@@ -505,7 +505,7 @@ void InterfaceCppC::MaintEraseFlashMngt(void)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Fonction d'éffacement de la Flash	monitorage détaillé		  	*/
+/*%C Fonction d'Ã©ffacement de la Flash	monitorage dÃ©taillÃ©		  	*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I		NONE																						*/

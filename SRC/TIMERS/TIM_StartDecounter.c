@@ -25,12 +25,6 @@
 /************************************************************************/
 /*                           INCLUDE FILES		                        */
 /************************************************************************/
-#ifndef _TASKING
-#include "LH_ST10F276.h"
-#include <intrins.h>
-#else
-#include "regf276e.h"
-#endif	
 #include "io_declare.h"
 #include "typedef.h"
 #include "enum.h"

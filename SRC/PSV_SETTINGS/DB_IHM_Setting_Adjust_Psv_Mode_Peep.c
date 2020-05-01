@@ -34,7 +34,7 @@
 /******************************************************************************/
 #include "typedef.h"
 #include "enum.h"
-#include "structure.h"
+#include "Structure.h"
 #include "DRV_VarEeprom.h"
 #include "DB_Control.h"
 #include "DB_Rtc.h"
@@ -96,8 +96,8 @@ UWORD16 DB_IHM_Setting_Adjust_Psv_Mode_Peep(UWORD16 *Value,
 	} 
 
 /*%C Up and down limit test											*/
-/*   *Value non signé, il passe donc de 0 au max de son type         */
-/*   => fixé à la valeur min de la PEEP                              */
+/*   *Value non signï¿½, il passe donc de 0 au max de son type         */
+/*   => fixï¿½ ï¿½ la valeur min de la PEEP                              */
    if ( (*Value <= Peep_Min)
      || (*Value > cDB_PSV_TEST_ADJUST_DB[Id].maxi +
                   cDB_PSV_TEST_ADJUST_DB[Id].step) )

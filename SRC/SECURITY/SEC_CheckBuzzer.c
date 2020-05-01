@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project Nï¿½  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -30,7 +30,7 @@
 #include "Timer_Data.h"
 #include "DB_Event.h"
 #include "DB_Compute.h"
-#include "DB_config.h"
+#include "DB_Config.h"
 #include "DB_AlarmStatus.h"				  
 #include "DB_Control.h"
 #include "DB_KeyboardEvent.h"

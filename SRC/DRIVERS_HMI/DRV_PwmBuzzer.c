@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project Nï¿½  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -33,7 +33,7 @@
 #endif
 #include "typedef.h"
 #include "enum.h"
-#include "structure.h"
+#include "Structure.h"
 #include "io_declare.h"
 #include "Timer_Data.h" 
 #include "DB_Config.h"
@@ -75,7 +75,7 @@ void DRV_PwmBuzzer(e_BOOL Active)
 		PW3 = (UWORD16)PW3Load;
 /*%C  PW3 activated																				*/
 		PWMCON1 |= 0x0008;
-/*%C  Démarrage du timer T7											                  */
+/*%C  Dï¿½marrage du timer T7											                  */
 		T7R = 1;
 /*%C  Security buzzer activated if alarm check buzzer detected						*/
 		if (DB_AlarmStatusRead(ALARM_CHECK_BUZZER_U16) >= ALARM_TRUE)
@@ -92,7 +92,7 @@ void DRV_PwmBuzzer(e_BOOL Active)
 
 /*%C  PW3 desactivated													                  */
 		PWMCON1 &= 0xFFF7;    	
-/*%C  Arrêt du timer T7													                  */
+/*%C  Arrï¿½t du timer T7													                  */
 		T7R = 0;
 		T7 = 0;
 /*%C  Security buzzer desactivated													      */
@@ -147,7 +147,7 @@ void DRV_PwmBuzzerInt(e_BOOL Active, UWORD16 DesiredLevel)
 		PW3 = (UWORD16)PW3Load;
 /*%C  PW3 activated																				*/
 		PWMCON1 |= 0x0008;
-/*%C  Démarrage du timer T7											                  */
+/*%C  Dï¿½marrage du timer T7											                  */
 		T7R = 1;
 /*%C  Security buzzer activated if alarm check buzzer detected						*/
 		if (DB_AlarmStatusRead(ALARM_CHECK_BUZZER_U16) >= ALARM_TRUE)
@@ -164,7 +164,7 @@ void DRV_PwmBuzzerInt(e_BOOL Active, UWORD16 DesiredLevel)
 
 /*%C  PW3 desactivated													                  */
 		PWMCON1 &= 0xFFF7;    	
-/*%C  Arrêt du timer T7													                  */
+/*%C  Arrï¿½t du timer T7													                  */
 		T7R = 0;
 		T7 = 0;
 /*%C  Security buzzer desactivated													      */

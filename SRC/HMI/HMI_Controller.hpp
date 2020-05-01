@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -259,7 +259,7 @@ private:
     LabelOneValueFourDefault   LOVFDAjustKeyTone;
     LabelStringTwoItems         LVSSRestoreDefaultSettings;
 
-    /* fenetre Préférences */
+    /* fenetre PrÃ©fÃ©rences */
     FramePreference     FPreference;
     LabelStringTwoItems     LVSScreenSave, LVSKeySound, LVSWaveformDisplay,
         LVSBaroCorrector, LVSApneaAlarm,

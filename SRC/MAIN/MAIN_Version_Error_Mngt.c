@@ -1,6 +1,6 @@
 /*****************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project Nï¿½  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -45,7 +45,7 @@
 #include "Security_Datas.h"
 #include "DB_AlarmStatus.h"
 #include "MAIN_Version_Error_Mngt.h"
-#include "DB_IhmAccessParaDatabase.h"
+#include "DB_IhmAccessParaDataBase.h"
 #include "DRV_VarEeprom.h"
 #include "PUST.h"
 			 

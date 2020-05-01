@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -31,7 +31,7 @@
 #include "HMI_InterfaceCppC.hpp"
 extern "C"
 {
-#include "DB_IhmAccessParaDatabase.h"
+#include "DB_IhmAccessParaDataBase.h"
 }
 
 
@@ -71,7 +71,7 @@ e_BOOL DataBaseAccess::IncrementValue( UWORD16 *_Value,
 												_Id,
 												_DbType,
 												INCREASE);
-   ValueOk = ValueOk;   /* Pour éviter le warning à la compil */
+   ValueOk = ValueOk;   /* Pour Ã©viter le warning Ã  la compil */
 
    return TRUE;
 }
@@ -101,7 +101,7 @@ e_BOOL DataBaseAccess::DecrementValue( UWORD16 *_Value,
 												_DbType,
 												DECREASE);
 
-   ValueOk = ValueOk;   /* Pour éviter le warning à la compil */
+   ValueOk = ValueOk;   /* Pour Ã©viter le warning Ã  la compil */
 
    return TRUE;
 }
@@ -131,7 +131,7 @@ e_BOOL DataBaseAccess::ReadValue(UWORD16 *_Value,
 												_DbType,
 												READ);
                                     
-   ValueOk = ValueOk;   /* Pour éviter le warning à la compil */
+   ValueOk = ValueOk;   /* Pour Ã©viter le warning Ã  la compil */
 
    return TRUE;
 }
@@ -139,7 +139,7 @@ e_BOOL DataBaseAccess::ReadValue(UWORD16 *_Value,
 /******************************************************************************/
 /*%C                       Functionnal description :                      	  */
 /*%C                                                                          */
-/*%C Lecture de l'info associée à la valeur (poids forts, en particulier sur  */
+/*%C Lecture de l'info associÃ©e Ã  la valeur (poids forts, en particulier sur  */
 /*%C les alarmes)															  */
 /*%C                                                                          */
 /*%I Input Parameter : 														  */
@@ -161,7 +161,7 @@ e_BOOL DataBaseAccess::ReadInfo(UWORD16 *_Value,
 										_Id,
 										_DbType,
 										READ_INFO);
-   ValueOk = ValueOk;   /* Pour éviter le warning à la compil */
+   ValueOk = ValueOk;   /* Pour Ã©viter le warning Ã  la compil */
 
    return TRUE;
 }
@@ -190,14 +190,14 @@ e_BOOL DataBaseAccess::WriteValue(  UWORD16 *_Value,
 												_DbType, 
 												WRITE);
 
-   ValueOk = ValueOk;   /* Pour éviter le warning à la compil */
+   ValueOk = ValueOk;   /* Pour Ã©viter le warning Ã  la compil */
                                        
    return TRUE;
 }
 /******************************************************************************/
 /*%C                       Functionnal description :                      	  */
 /*%C                                                                          */
-/*%C Ecriture de l'info associée à la valeur (poids forts, en particulier sur */
+/*%C Ecriture de l'info associÃ©e Ã  la valeur (poids forts, en particulier sur */
 /*%C les alarmes)															  */
 /*%C                                                                          */
 /*%I Input Parameter : 														  */
@@ -219,14 +219,14 @@ e_BOOL DataBaseAccess::WriteInfo(  UWORD16 *_Value,
 										_Id,
 										_DbType,
 									   	WRITE_INFO);
-   ValueOk = ValueOk;   /* Pour éviter le warning à la compil */
+   ValueOk = ValueOk;   /* Pour Ã©viter le warning Ã  la compil */
 
    return TRUE;
 }
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Lecture de la valeur min du paramètre												*/
+/*%C Lecture de la valeur min du paramÃ¨tre												*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I 		Id : Id DB																	 			*/
@@ -257,7 +257,7 @@ UWORD16 DataBaseAccess::GetMin(  UWORD16 _Id,
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Lecture de la valeur max du paramètre												*/
+/*%C Lecture de la valeur max du paramÃ¨tre												*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I 		Id : Id DB																	 			*/
@@ -288,7 +288,7 @@ UWORD16 DataBaseAccess::GetMax(  UWORD16 _Id,
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Lecture de la valeur step du paramètre												*/
+/*%C Lecture de la valeur step du paramÃ¨tre												*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I 		Id : Id DB																	 			*/

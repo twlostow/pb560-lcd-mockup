@@ -27,7 +27,7 @@
 /******************************************************************************/
 #include "typedef.h"
 #include "enum.h"
-#include "structure.h"
+#include "Structure.h"
 #include "DB_Usb.h"
 #include "DB_Current.h"
 #include "DB_Config.h"

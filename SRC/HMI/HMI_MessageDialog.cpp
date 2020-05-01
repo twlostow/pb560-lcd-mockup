@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -33,7 +33,7 @@
 #include "HMI_InterfaceCppC.hpp"
 #include "HMI_FrameVentilation.hpp"
 #include "HMI_FrameAlarme.hpp"
-#include "DB_IHMAccessParaDatabase.h"
+#include "DB_IhmAccessParaDataBase.h"
 /******************************************************************************/
 /*                           CONSTRUCTEUR/DESTRUCTEUR                			*/
 /******************************************************************************/
@@ -208,16 +208,16 @@ void MessageDialog::Init(  UWORD16 _Line,
    DisplayObject::Init(_Line,_Col);
 	MonitorBox.Init(_Line,_Col,_Heigth,_Width,TRUE,TRUE,_Black);
 
-   /*%C On calcule l'espace entre les lignes à partir de ces données : */
+   /*%C On calcule l'espace entre les lignes Ã  partir de ces donnÃ©es : */
    /*%C 2 bords + 3 lignes + 1 symbole => 2*5px + 3*9px + 31px = 68px */
    UWORD16 space = 0;
 
    if(_Heigth > 68) space = (_Heigth - 68) / 3;
 
-   /*%C  Limite l'écart à 20px */
+   /*%C  Limite l'Ã©cart Ã  20px */
    if(space > 20) space =20;
 
-   /*%C 5px + 9px => 1ère ligne à 5px du bord */
+   /*%C 5px + 9px => 1Ã¨re ligne Ã  5px du bord */
 	FLine1.Init(14,16,FONT_1,TRUE,(UBYTE *)"");
 
    /*%C 5px + 9px + space (-1 recalage Symbole) */
@@ -259,8 +259,8 @@ void MessageDialog::SetSpaceBetweenLines(  UWORD16 _Space)
 /*%I		Col         : colonne											            	*/
 /*%I		Heigth      : Hauteur											            	*/
 /*%I		Width       : Largeur											            	*/
-/*%I		RoundHigh   : Bord Supérieur rond ?												*/
-/*%I		RoundLow    : Bord Inférieur rond ?												*/
+/*%I		RoundHigh   : Bord SupÃ©rieur rond ?												*/
+/*%I		RoundLow    : Bord InfÃ©rieur rond ?												*/
 /*%I		Black       : en noir																*/
 /*%IO Input/Output : 																			*/
 /*%IO		NONE																					  	*/
@@ -278,16 +278,16 @@ void MessageDialog::InitGraphicBox( UWORD16 _Line,
    DisplayObject::Init(_Line,_Col);
 	MonitorBox.Init(_Line,_Col,_Heigth,_Width,_RoundHigh,_RoundLow,_Black);
 
-   /*%C On calcule l'espace entre les lignes à partir de ces données : */
+   /*%C On calcule l'espace entre les lignes Ã  partir de ces donnÃ©es : */
    /*%C 2 bords + 3 lignes + 1 symbole => 2*5px + 3*9px + 31px = 68px */
    UWORD16 space = 0;
 
    if(_Heigth > 68) space = (_Heigth - 68) / 3;
 
-   /*%C  Limite l'écart à 20px */
+   /*%C  Limite l'Ã©cart Ã  20px */
    if(space > 20) space =20;
 
-   /*%C 5px + 9px => 1ère ligne à 5px du bord */
+   /*%C 5px + 9px => 1Ã¨re ligne Ã  5px du bord */
 	FLine1.Init(14,16,FONT_1,TRUE,(UBYTE *)"");
 
    /*%C 5px + 9px + space (-1 recalage Symbole) */
@@ -315,7 +315,7 @@ void MessageDialog::InitGraphicBox( UWORD16 _Line,
 /******************************************************************************/
 void MessageDialog::SetMessage( UBYTE* Text, e_SYMBOL Symbol)
 {
-   /*%C Déclaration du Texte tampon */
+   /*%C DÃ©claration du Texte tampon */
    UBYTE* TextTemp;
    e_BOOL _IsVisible[3];
 
@@ -329,14 +329,14 @@ void MessageDialog::SetMessage( UBYTE* Text, e_SYMBOL Symbol)
    {
 		for (j=0; j<cMAX_CHARACTER; j++)
       {
-			/*%C Protection pour le dépasement */
+			/*%C Protection pour le dÃ©pasement */
          i = i % cMAX_LINE;
          j = j % cMAX_CHARACTER;
          TextLine[i][j] = 0;
       }
    }
 
-   /*%C Receuil de la longueur de la fenetre + 2 afin d'intégrer */
+   /*%C Receuil de la longueur de la fenetre + 2 afin d'intÃ©grer */
    /* le cadre Noir */
 	SizeBox = WBox - 2;
 
@@ -346,7 +346,7 @@ void MessageDialog::SetMessage( UBYTE* Text, e_SYMBOL Symbol)
    /*%C Appel de la fonction de traitement de message */
    TextTemp = Tools::BuildMessage(Text , SizeBox , BoxFont);
 
-   /*%C Mis en forme des différentes lignes */
+   /*%C Mis en forme des diffÃ©rentes lignes */
    for(i = 0 ; i < 100 ; i ++)
    {
       if(TextTemp[i] == '\0')
@@ -359,10 +359,10 @@ void MessageDialog::SetMessage( UBYTE* Text, e_SYMBOL Symbol)
          i = i + 1;
          k = 0; 
       }
-	   /*%C Protection pour le dépasement */
+	   /*%C Protection pour le dÃ©pasement */
 	   x1 = j;
 		x1 = x1 % cMAX_LINE;
-	   /*%C Protection pour le dépasement */
+	   /*%C Protection pour le dÃ©pasement */
 	   x2 = k;
 		x2 = x2 % cMAX_CHARACTER;
 	   TextLine[x1][x2] = TextTemp [i];
@@ -371,7 +371,7 @@ void MessageDialog::SetMessage( UBYTE* Text, e_SYMBOL Symbol)
 
    _IsVisible[1] = FLine2.IsVisible();
    _IsVisible[2] = FLine2.IsVisible();
-   /*%C Centrer les messages en fonction de la fenêtre */
+   /*%C Centrer les messages en fonction de la fenÃªtre */
    if(IsLine1Centered())
    {
       _IsVisible[0] = FLine1.IsVisible();
@@ -416,7 +416,7 @@ void MessageDialog::SetMessage( UBYTE* Text, e_SYMBOL Symbol)
    }
 
    /* Affichage d'une ligne blanche et une ligne sur le cadre Alarme */
-	/* ou Ventil afin d'éviter son effacement */
+	/* ou Ventil afin d'Ã©viter son effacement */
    	if(WBox == WHITH_ALARMEBOX)
    {
         InterfaceCppC::DisplayLine( 36,
@@ -494,7 +494,7 @@ void MessageDialog::Hide()
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Rafraîchissement de l'Objet																*/
+/*%C RafraÃ®chissement de l'Objet																*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I		NONE																					 	*/

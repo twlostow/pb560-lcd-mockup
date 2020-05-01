@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -67,7 +67,7 @@ void TextField::SetText(UBYTE* _Text)
 /*----------------------------------------------------------------------------*/
 void TextField::SetTextOnly(UBYTE* _Text)
 {
-	/*%C effacement de la valeur précédente */
+	/*%C effacement de la valeur prÃ©cÃ©dente */
 	Clear();
 	Text = _Text;
 }

@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project Nï¿½  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -37,10 +37,18 @@ t_DisplayAccess DIS_FifoDisplay[FIFO_DISPLAY_SIZE];
 	#ifndef DISPLAY_DATA_H
 	#define DISPLAY_DATA_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern UWORD16 DIS_FifoIdxRead ;
 extern UWORD16 DIS_FifoIdxWrite;
 extern UBYTE   DIS_FifoOverflow;
 extern t_DisplayAccess DIS_FifoDisplay[];
+
+#ifdef __cplusplus
+}
+#endif
 
 	#endif
 #endif

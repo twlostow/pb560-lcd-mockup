@@ -1,6 +1,6 @@
 /*****************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project Nï¿½  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -28,7 +28,7 @@
 /*                         EXTERNAL FUCNTION DECLARATION                      */
 /******************************************************************************/
 
-extern void DRV_DIS_HostRequest ( bit etat );
+extern void DRV_DIS_HostRequest ( int etat );
 extern void DRV_DIS_Delay_us ( UWORD16 delay_us) ;
 extern void DRV_DIS_grSetContrast ( UBYTE level );
 extern void DRV_DIS_grNegative ( UBYTE etat );

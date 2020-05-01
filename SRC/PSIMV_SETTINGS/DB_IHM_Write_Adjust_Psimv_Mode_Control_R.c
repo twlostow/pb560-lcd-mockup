@@ -36,12 +36,12 @@
 /******************************************************************************/
 #include "typedef.h"
 #include "enum.h"
-#include "structure.h"
+#include "Structure.h"
 #include "DRV_VarEeprom.h"
 #include "DB_Current.h"
 #include "DB_Control.h"
 #include "DB_Rtc.h"
-#include "DB_IHMAccessparaDataBase.h"
+#include "DB_IhmAccessParaDataBase.h"
 
 /* locate database code to specific section */
 #include "locate_database_code.h"

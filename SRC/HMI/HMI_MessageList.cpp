@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -14,7 +14,7 @@
 /******************************************************************************/
 /*%C                     Functionnal description :                            */
 /*%C                                                                          */
-/*%C Classe gérant une liste de messages                                      */
+/*%C Classe gÃ©rant une liste de messages                                      */
 /*		                                                                   	 	*/
 /******************************************************************************/
 
@@ -23,7 +23,7 @@
 /*                           HEADER INCLUDE FILE		                        */
 /******************************************************************************/
 #ifdef _BORLAND
-   #include <vcl.h>
+   //#include <vcl.h>
 #endif
 
 #include "HMI_MessageList.hpp"
@@ -72,7 +72,7 @@ void MessageList::FAST_UNSET_INLIST(UWORD16 X)
 /*%C Initialisation de l'objet                  										*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
-/*%I		_MaxId : Le range d'Ids que peut gérer la message list  va de 0 à    */
+/*%I		_MaxId : Le range d'Ids que peut gÃ©rer la message list  va de 0 Ã     */
 /*%I              _MaxId	                                                   */
 /*%IO Input/Output : 																			*/
 /*%IO		NONE																					  	*/
@@ -88,9 +88,9 @@ void MessageList::Init(UWORD16 _MaxId)
    }
    if(_MaxId > MESSAGE_LIST_NB_ITEMS)
    {
-      /* Problème ! liste trop petite ! */
+      /* ProblÃ¨me ! liste trop petite ! */
       #ifdef _BORLAND
-         ShowMessage("Problème dans HMI_MessageList.cpp, Init(...) : Liste trop petite ! ");
+        // ShowMessage("ProblÃ¨me dans HMI_MessageList.cpp, Init(...) : Liste trop petite ! ");
       #endif
    }
    else
@@ -104,13 +104,13 @@ void MessageList::Init(UWORD16 _MaxId)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Ajout d'un message dans la listeà un index de ligne particulier  			*/
+/*%C Ajout d'un message dans la listeÃ  un index de ligne particulier  			*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
-/*%I		_Id : Paramètre libre d'utilisation	permettant d'identifier de       */
-/*%I		      manière unique le message (clé)  										*/
-/*%I		_Line : Numéro de ligne du message                                   */
-/*%I		_Message : Message à ajouter                                         */
+/*%I		_Id : ParamÃ¨tre libre d'utilisation	permettant d'identifier de       */
+/*%I		      maniÃ¨re unique le message (clÃ©)  										*/
+/*%I		_Line : NumÃ©ro de ligne du message                                   */
+/*%I		_Message : Message Ã  ajouter                                         */
 /*%IO Input/Output : 																			*/
 /*%IO		NONE																					  	*/
 /*%O Output Parameter : 																	 	*/
@@ -143,13 +143,13 @@ SWORD16  MessageList::AddToList(  UWORD16 _Id, UWORD16 _Line, UBYTE* _Message)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Récupération d'une ligne à partir d'un _Id (clé unique) et d'un numéro de*/
+/*%C RÃ©cupÃ©ration d'une ligne Ã  partir d'un _Id (clÃ© unique) et d'un numÃ©ro de*/
 /*%C ligne _Line                                                              */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
-/*%I		_Id : Paramètre libre d'utilisation	permettant d'identifier de       */
-/*%I		      manière unique le message													*/
-/*%I     _Line : numéro de ligne                                              */
+/*%I		_Id : ParamÃ¨tre libre d'utilisation	permettant d'identifier de       */
+/*%I		      maniÃ¨re unique le message													*/
+/*%I     _Line : numÃ©ro de ligne                                              */
 /*%IO Input/Output : 																			*/
 /*%IO		_text : texte de la ligne     												  	*/
 /*%O Output Parameter : 																	 	*/
@@ -173,11 +173,11 @@ SWORD16  MessageList::GetTextLineFromId(UWORD16 _Id, UWORD16 _Line, UBYTE** _Tex
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Suppression d'un message dans la liste à partir de son Id (clé unique)   */
+/*%C Suppression d'un message dans la liste Ã  partir de son Id (clÃ© unique)   */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
-/*%I		_Id : Paramètre libre d'utilisation	permettant d'identifier de       */
-/*%I		      manière unique le message													*/
+/*%I		_Id : ParamÃ¨tre libre d'utilisation	permettant d'identifier de       */
+/*%I		      maniÃ¨re unique le message													*/
 /*%IO Input/Output : 																			*/
 /*%IO		NONE																					  	*/
 /*%O Output Parameter : 																	 	*/
@@ -202,7 +202,7 @@ SWORD16  MessageList::RemoveFromList(UWORD16 _Id)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Suppression de la totalilté du contenu de la liste                       */
+/*%C Suppression de la totaliltÃ© du contenu de la liste                       */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I		NONE																					  	*/
@@ -231,7 +231,7 @@ SWORD16  MessageList::EmptyList(void)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Clear du contenu d'une entrée dans l'index de la message list            */
+/*%C Clear du contenu d'une entrÃ©e dans l'index de la message list            */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I		_Index : Index dans la message list                                  */
@@ -252,11 +252,11 @@ void MessageList::ClearEntry(UWORD16 _Index)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Permet de savoir si un message est présent dans la liste                 */
+/*%C Permet de savoir si un message est prÃ©sent dans la liste                 */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
-/*%I		_Id : Paramètre libre d'utilisation	permettant d'identifier de       */
-/*%I		      manière unique le message (clé)  										*/
+/*%I		_Id : ParamÃ¨tre libre d'utilisation	permettant d'identifier de       */
+/*%I		      maniÃ¨re unique le message (clÃ©)  										*/
 /*%IO Input/Output : 																			*/
 /*%IO		NONE																					  	*/
 /*%O Output Parameter : 																	 	*/
@@ -273,7 +273,7 @@ SWORD16  MessageList::InList( UWORD16 _Id)
       rc = E_NO;
 
    return(rc);      
-/* méthode plus rapide ci-dessus
+/* mÃ©thode plus rapide ci-dessus
 
    for(i=0; i<MESSAGE_LIST_SIZE; i++)
    {
@@ -294,7 +294,7 @@ SWORD16  MessageList::InList( UWORD16 _Id)
 /*%I Input Parameter : 																			*/
 /*%I		NONE                                                                 */
 /*%IO Input/Output : 																			*/
-/*%IO		_Index : premier index libre trouvé											  	*/
+/*%IO		_Index : premier index libre trouvÃ©											  	*/
 /*%O Output Parameter : 																	 	*/
 /*%O 		Code d'erreur (cf. HMI_MessageList.hpp pour la liste)                */
 /******************************************************************************/
@@ -317,11 +317,11 @@ SWORD16  MessageList::FindFreeIndex(UWORD16* _Index)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Récupère l'index du message dans la liste à partir de l'Id (clé unique)  */
+/*%C RÃ©cupÃ¨re l'index du message dans la liste Ã  partir de l'Id (clÃ© unique)  */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
-/*%I		_Id : Paramètre libre d'utilisation	permettant d'identifier de       */
-/*%I		      manière unique le message (clé)  										*/
+/*%I		_Id : ParamÃ¨tre libre d'utilisation	permettant d'identifier de       */
+/*%I		      maniÃ¨re unique le message (clÃ©)  										*/
 /*%IO Input/Output : 																			*/
 /*%IO		_Index : index dans la liste de messages										*/
 /*%O Output Parameter : 																	 	*/
@@ -346,7 +346,7 @@ SWORD16  MessageList::GetIndexFromId(UWORD16 _Id, UWORD16* _Index)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Récupère l'index du message dans la liste à partir de l'Id (clé unique)  */
+/*%C RÃ©cupÃ¨re l'index du message dans la liste Ã  partir de l'Id (clÃ© unique)  */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I		NONE                                                                 */

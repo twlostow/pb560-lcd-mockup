@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -53,7 +53,9 @@ extern "C"
 #include "stdfile.h"
 #include "DB_Usb.h"
 #include "DB_IhmAccessParaDataBase.h"
+#ifdef TARGET_PB560
 #include <intrins.h>
+#endif
     void DB_ComputeBreathTimingRatios(void);
 }
 
@@ -88,7 +90,7 @@ Controller::Controller()
     SetHighPressAlarmToBeRemoved(FALSE);
 
     IESelected = I_E;
-    ValveDetected = TRUE; /* A garder cohérent avec les infos de cInfoNode[]*/
+    ValveDetected = TRUE; /* A garder cohÃ©rent avec les infos de cInfoNode[]*/
     TrigEPosSelected = FALSE;
     UsbProcessingNode = NULL;
     UsbCmdInProgress = FALSE;
@@ -292,8 +294,8 @@ e_BOOL Controller::IsUsbCmdInProgress()
 e_BOOL Controller::IsFSecuEnable()
 {
     e_BOOL rc = FALSE;
-    /* Noeud Apnée toujours visible en mode CPAP, VSIMV et PSIMV car il ne dépend pas
-       de la Freq de sécurité */
+    /* Noeud ApnÃ©e toujours visible en mode CPAP, VSIMV et PSIMV car il ne dÃ©pend pas
+       de la Freq de sÃ©curitÃ© */
     if (CurrentMode == CPAP)
         rc = FALSE;
     else if ((CurrentMode == VSIMV) || (CurrentMode == PSIMV))
@@ -374,7 +376,7 @@ e_BOOL Controller::IsLastShutDownError()
 /*----------------------------------------------------------------------------*/
 e_BOOL Controller::IsFio2Sensor()
 {
-    /*%C Lecture du flag de présence capteur FiO2 */
+    /*%C Lecture du flag de prÃ©sence capteur FiO2 */
     UWORD16 Value = 0;
     (void)this; /* to avoid w68 compilation warning (parameter "this" not used) */
 
@@ -384,7 +386,7 @@ e_BOOL Controller::IsFio2Sensor()
 /*----------------------------------------------------------------------------*/
 e_BOOL Controller::IsSpo2Sensor()
 {
-    /*%C Lecture du flag de présence capteur SpO2 */
+    /*%C Lecture du flag de prÃ©sence capteur SpO2 */
     UWORD16 Value = 0;
     (void)this; /* to avoid w68 compilation warning (parameter "this" not used) */
 
@@ -401,7 +403,7 @@ void Controller::SetModifNodeOn(e_BOOL _Flag)
 {
     ModifNodeOn = _Flag;
 
-    /* Mise à jour du flag de "modif paramètre en cours"  dans la base control */
+    /* Mise Ã  jour du flag de "modif paramÃ¨tre en cours"  dans la base control */
     /*%C ecriture en base */
     UWORD16 Val = (UWORD16) _Flag;
 
@@ -509,7 +511,7 @@ void Controller::UpdateMode(void)
     {
         if (this->GetCurrentMode() != Val)
         {
-            /* Mise à jour du mode modifié */
+            /* Mise Ã  jour du mode modifiÃ© */
             LModeVent.SetModifMode((e_MODE_TYPES) Val);
             MoveCurrentNode(GetNodeAt(NodeVentil));
             /* Proposition de changement de mode */
@@ -544,11 +546,11 @@ void Controller::SetCurrentMode(e_MODE_TYPES _CurrentMode)
     GetNodeAt(NodeModeChange)->SetVisible(FALSE);
     GetNodeAt(NodeAlModeChange)->SetVisible(FALSE);
 
-    /*%C Affiche le noeud Préférence et Histo Alarme */
+    /*%C Affiche le noeud PrÃ©fÃ©rence et Histo Alarme */
     GetNodeAt(NodePreference)->SetVisible(TRUE);
     GetNodeAt(NodeAlHisto)->SetVisible(TRUE);
 
-    /* Mise à jour du label du noeud LOVPe suivant le mode */
+    /* Mise Ã  jour du label du noeud LOVPe suivant le mode */
     if ((CurrentMode == CPAP) &&
         ((GetLanguage() == HMI_LANG_FRENCH) ||
          (GetLanguage() == HMI_LANG_GERMAN)))
@@ -620,7 +622,7 @@ void Controller::SetConsultMode(e_MODE_TYPES _ConsultMode)
     ((LabelMode*)GetNodeAt(NodeAlarm)->GetObject())->SetModifMode(ConsultMode);
     ((LabelMode*)GetNodeAt(NodeAlarm)->GetObject())->ShowMultiModeView();
 
-    /*%C Cache le noeud Préférence et Histo Alarme */
+    /*%C Cache le noeud PrÃ©fÃ©rence et Histo Alarme */
     GetNodeAt(NodePreference)->SetVisible(FALSE);
     GetNodeAt(NodeAlHisto)->SetVisible(FALSE);
 
@@ -673,11 +675,11 @@ void Controller::SetPressureUnit(UWORD16 _Val)
     e_BOOL _IsVisible;
     UWORD16 _SizeName, _SizeName2;
 
-    /*%C Mise à jour et récupération du nom de l'unité de pression */
+    /*%C Mise Ã  jour et rÃ©cupÃ©ration du nom de l'unitÃ© de pression */
     LVSPressureUnit.SetIntValue1(_Val);
     UBYTE** _PressureUnit = LVSPressureUnit.GetItem(_Val);
 
-    /*%C Mise à jour de l'unité de pression pour tous les paramètres concernés */
+    /*%C Mise Ã  jour de l'unitÃ© de pression pour tous les paramÃ¨tres concernÃ©s */
     LOVPi.SetNameUnit(_PressureUnit);
     LOVPSupport.SetNameUnit(_PressureUnit);
     LOVPControl.SetNameUnit(_PressureUnit);
@@ -703,19 +705,19 @@ void Controller::SetPressureUnit(UWORD16 _Val)
     _SizeName2 = Tools::GetStringPixelSize(LOVPiMbar.GetNameLabel2(), LOVPiMbar.GetFontLabel());
     if (_SizeName + _SizeName2 >= FIRST_VALUE_COLUMN - 19)
     {
-        /* L'unité ne passe pas, on la décale dessous */
+        /* L'unitÃ© ne passe pas, on la dÃ©cale dessous */
         LOVPiMbar.SetLabel2LineOffset    (12);
         LOVPiMbar.SetLabel2ColOffset     (12);
     }
     else
     {
-        /* L'unité passe, on la laisse sur la même ligne */
+        /* L'unitÃ© passe, on la laisse sur la mÃªme ligne */
         LOVPiMbar.SetLabel2LineOffset    (0);
         LOVPiMbar.SetLabel2ColOffset     (_SizeName + 2);
     }
 
 
-    /*%C Mise à jour de l'unité de pression pour les autres fenêtres */
+    /*%C Mise Ã  jour de l'unitÃ© de pression pour les autres fenÃªtres */
     FVentilation.SetPressureUnit(_PressureUnit);
     FGraph.SetPressureUnit(_PressureUnit);
     FAlarme.SetPressureUnit(_PressureUnit);
@@ -725,7 +727,7 @@ void Controller::SetPressureUnit(UWORD16 _Val)
 /*----------------------------------------------------------------------------*/
 void Controller::SetMCycl(e_BOOL _ModeCycl)
 {
-    /*%C Envoi du signal aux fenêtres de monitoring */
+    /*%C Envoi du signal aux fenÃªtres de monitoring */
     FVentilation.SetIESelected(_ModeCycl);
     FAlarme.SetIESelected(_ModeCycl);
     FGraph.SetIESelected(_ModeCycl);
@@ -733,19 +735,19 @@ void Controller::SetMCycl(e_BOOL _ModeCycl)
 /*----------------------------------------------------------------------------*/
 void Controller::SetConvTrigE(e_BOOL _ConvTrigE)
 {
-    /*%C  Envoi du signal au controller lui-même
-          pour mise à jour des paramètres et des alarmes */
+    /*%C  Envoi du signal au controller lui-mÃªme
+          pour mise Ã  jour des paramÃ¨tres et des alarmes */
     this->SetTrigEPosSelected(_ConvTrigE);
 }
 /*----------------------------------------------------------------------------*/
 void Controller::SetInhibApneaOk(e_BOOL _ApneaAlarm)
 {
-    /*%C  Envoi du signal aux fenêtres Ventilation, Alarme et Graph */
+    /*%C  Envoi du signal aux fenÃªtres Ventilation, Alarme et Graph */
     FVentilation.SetInhibApneaOk(_ApneaAlarm);
     FAlarme.SetInhibApneaOk(_ApneaAlarm);
     FGraph.IsInhibApneaAlarmVisible();
 
-    /* Mise à jour des fenêtres ventil et alarme */
+    /* Mise Ã  jour des fenÃªtres ventil et alarme */
     ChangeMenuWithMode(CurrentMode);
 }
 /*----------------------------------------------------------------------------*/
@@ -764,7 +766,7 @@ void Controller::SetValve(e_BOOL _ValveDetected)
         (this->*(this->GetCurrentNode()->GetEventNode()->OnTimeOut))();
 
 #ifndef HMI_CONFIG_S2
-        /*%C Récupération du Mode */
+        /*%C RÃ©cupÃ©ration du Mode */
         DataBaseAccess::ReadValue(&Val,ADJUST_MODE_U16,CONFIG);
         Mode = (e_MODE_TYPES) Val;
 
@@ -804,7 +806,7 @@ void Controller::SetValve(e_BOOL _ValveDetected)
 
         if (MonitoringMode)
         {
-            /* Si l'info Valve a changé et qu'on est en monitoring alors, mettre à jour ce monitoring */
+            /* Si l'info Valve a changÃ© et qu'on est en monitoring alors, mettre Ã  jour ce monitoring */
             SetMonitoringMode(TRUE);
         }
     }
@@ -947,10 +949,10 @@ void Controller::SendInfoUsbErrorCodeReady(e_BOOL _ErrorCodeReady)
         /*%C Lecture du code d'erreur */
         DataBaseAccess::ReadValue(&_ErrorCode,USB_ERROR_CODE_IHM_U16,USB);
 
-        /*%C Prise en compte du code d'erreur par la fenêtre USB */
+        /*%C Prise en compte du code d'erreur par la fenÃªtre USB */
         _Lock = FUsb.ManageErrorCode(_ErrorCode, &_StringToDisplay);
 
-        /*%C Ajout du message à la queue de messages */
+        /*%C Ajout du message Ã  la queue de messages */
         if (    (_ErrorCode != E_USB_READY_ACCESS)
                 ||  ((_ErrorCode == E_USB_READY_ACCESS)
                      &&  ((this->PreviousErrorCode == E_USB_OK)
@@ -970,11 +972,11 @@ void Controller::SendInfoUsbErrorCodeReady(e_BOOL _ErrorCodeReady)
             /*%C No dislpay message */
         }
 
-        /*% Reset du flag de signalisation d'un code d'erreur prêt... */
+        /*% Reset du flag de signalisation d'un code d'erreur prÃªt... */
         Val = (UWORD16)FLAG_ERROR_CODE_NOT_READY;
         DataBaseAccess::WriteValue(&Val,USB_ERROR_CODE_READY_IHM_U16,USB);
 
-        /*% ... et du code d'erreur lui-même */
+        /*% ... et du code d'erreur lui-mÃªme */
         Val = (UWORD16)E_USB_OK;
         DataBaseAccess::WriteValue(&Val,USB_ERROR_CODE_IHM_U16,USB);
 
@@ -1006,12 +1008,12 @@ void Controller::SendInfoUsbErrorCodeReady(e_BOOL _ErrorCodeReady)
         }
         else
         {
-            /*%C  Le code d'erreur demande le délock du menu, on se place donc sur le noeud
-                  de la commande envoyée ou sur le premier noeud usb si pas de commande en cours */
+            /*%C  Le code d'erreur demande le dÃ©lock du menu, on se place donc sur le noeud
+                  de la commande envoyÃ©e ou sur le premier noeud usb si pas de commande en cours */
             ManageUsbLock(FALSE);
             if (GetUsbProcessingNode())
             {
-                /*%C  C'est un code d'erreur issu d'une commande et qui n'a _pas_ renvoyé Lock.
+                /*%C  C'est un code d'erreur issu d'une commande et qui n'a _pas_ renvoyÃ© Lock.
                       _ProcessingNode = noeud de modif, il faut repartir sur le noeud normal */
                 _NodeId = _ProcessingNode->GetEventNode()->GetIdNodeOnTimeOut();
                 UsbMoveCurrentNode(GetNodeAt(_NodeId), (e_BOOL)(GetCurrentFrame() == FRAME_USB));
@@ -1019,14 +1021,14 @@ void Controller::SendInfoUsbErrorCodeReady(e_BOOL _ErrorCodeReady)
             }
             else
             {
-                /*%C  C'est un code d'erreur spontané qui n'est pas issu d'une commande
-                      et qui n'a _pas_ renvoyé Lock.
-                      NodeUsbStop est invisible et lors du retour à cet écran il ne faut
-                      pas afficher cUsbStartNode puisque menu locké d'où le NodeUsbGhost */
+                /*%C  C'est un code d'erreur spontanÃ© qui n'est pas issu d'une commande
+                      et qui n'a _pas_ renvoyÃ© Lock.
+                      NodeUsbStop est invisible et lors du retour Ã  cet Ã©cran il ne faut
+                      pas afficher cUsbStartNode puisque menu lockÃ© d'oÃ¹ le NodeUsbGhost */
                 UsbUpdateNavigNodes(cUsbStartNode);
                 UsbMoveCurrentNode(GetNodeAt(cUsbStartNode), (e_BOOL)(GetCurrentFrame() == FRAME_USB));         
             }
-            /*%C Dé-lock du menu, on bippe */
+            /*%C DÃ©-lock du menu, on bippe */
             Tools::ShortBipRequest();
         }
         this->PreviousErrorCode = _ErrorCode ;
@@ -1044,8 +1046,8 @@ void Controller::UsbMoveCurrentNode(MenuControlNode *_CurrentNode, e_BOOL _force
 {
     UWORD16 Val1, Val2;
     e_BOOL active;
-    /*%C  On n'affiche le menu USB que si la détection de clé se fait après le Power On
-          Sur clé déjà présente au moment du power on, on ne change pas de noeud et on accède
+    /*%C  On n'affiche le menu USB que si la dÃ©tection de clÃ© se fait aprÃ¨s le Power On
+          Sur clÃ© dÃ©jÃ  prÃ©sente au moment du power on, on ne change pas de noeud et on accÃ¨de
           au menu USB par la touche de navigation */
     DataBaseAccess::ReadValue(&Val1,USB_KEY1_DETECTED_AFTER_POWER_ON_U16,USB);
     DataBaseAccess::ReadValue(&Val2,USB_KEY2_DETECTED_AFTER_POWER_ON_U16,USB);
@@ -1086,7 +1088,7 @@ void Controller::SetTrigEPosSelected(e_BOOL _TrigEPosSelected)
 
     if (TrigEPosSelected != _TrigEPosSelected)
     {
-        /*%C Récupération du Mode */
+        /*%C RÃ©cupÃ©ration du Mode */
         DataBaseAccess::ReadValue(&Val,ADJUST_MODE_U16,CONFIG);
         Mode = (e_MODE_TYPES) Val;
 
@@ -1097,7 +1099,7 @@ void Controller::SetTrigEPosSelected(e_BOOL _TrigEPosSelected)
         HideVentil(Mode, TrigEPosNodeId);
         HideVentil(Mode, TrigENegNodeId);
 
-        /*%C Changement de configuration TriggE -> TriggE négatif */
+        /*%C Changement de configuration TriggE -> TriggE nÃ©gatif */
         Tools::SwitchDisplayConfigForAllModes(TrigEPosNodeId, TrigENegNodeId);
 
         /*%C Reconstruction de l'arbre d'affichage de la ventilation */
@@ -1152,7 +1154,7 @@ Controller* Controller::GetInstance()
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Détruit une instance unique du controller											*/
+/*%C DÃ©truit une instance unique du controller											*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I 		NONE																			 			*/
@@ -1213,7 +1215,7 @@ void Controller::MoveCurrentNode(MenuControlNode *_CurrentNode)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Change le mode directement après Valid sur	ChangeMode							*/
+/*%C Change le mode directement aprÃ¨s Valid sur	ChangeMode							*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I 		NONE																			 			*/
@@ -1224,7 +1226,7 @@ void Controller::MoveCurrentNode(MenuControlNode *_CurrentNode)
 /******************************************************************************/
 void Controller::ChangeModeSimplify()
 {
-    /*%C Récupère le Node courant pour la modif de Node */
+    /*%C RÃ©cupÃ¨re le Node courant pour la modif de Node */
     SendNodeModify(CurrentNode->GetEventNode()->GetId(), TRUE);
 }
 
@@ -1283,7 +1285,7 @@ void Controller::MoveToModifNode()
 /******************************************************************************/
 void Controller::MoveToNextModifNode()
 {
-    /* Traitement des affichages d'interdépendance */
+    /* Traitement des affichages d'interdÃ©pendance */
     SettingBlockDetect();
 
     MoveToNextModifNodeOnKey(eGoValid);
@@ -1405,7 +1407,7 @@ void Controller::ReturnToNodeUsbTO()
     /* routine de gestion de time out */
     ReturnToNodeTO();
 
-    /* suppression du message par ajout d'un message vide à afficher */
+    /* suppression du message par ajout d'un message vide Ã  afficher */
     UsbDelayed.AddMessageToQueue(    (UBYTE*) "",
                                      TIME_USB_ERROR_CODE_MESSAGE,
                                      (e_BOOL)(GetCurrentFrame() == FRAME_USB));
@@ -1470,7 +1472,7 @@ void Controller::ReturnToNodeOnKeyUsb(WayId _Key)
         if (_Val)
         {
             /*%C  On positionne le flag de commande pour indiquer au driver bas niveau
-                  qu'une commande doit être traitée */
+                  qu'une commande doit Ãªtre traitÃ©e */
 
             _Val = (UWORD16) TRUE;
             DataBaseAccess::WriteValue(&_Val,USB_COMMAND_SENT_U16,USB);
@@ -1480,7 +1482,7 @@ void Controller::ReturnToNodeOnKeyUsb(WayId _Key)
             else
                 _EraseFlag = FALSE;
 
-            /*%C Envoi de l'information à la fenêtre USB */
+            /*%C Envoi de l'information Ã  la fenÃªtre USB */
             FUsb.GetUsbProcessingMessage(_EraseFlag, &_StringToDisplay);
 
             UsbDelayed.AddMessageToQueue(  _StringToDisplay,
@@ -1496,7 +1498,7 @@ void Controller::ReturnToNodeOnKeyUsb(WayId _Key)
             /*%C Commande USB en cours */
             SetUsbCmdInProgress(TRUE);
 
-            /*%C On rafraîchit la navigation et on se place sur le noeud stop*/
+            /*%C On rafraÃ®chit la navigation et on se place sur le noeud stop*/
             GetNodeAt(NodeGraphGhost)->GetEventNode()->SetIdNodeOnMonitor(NodeUsbStop);
             GetNodeAt(NodeAlGhost)->GetEventNode()->SetIdNodeOnMonitor(NodeUsbStop);
             GetNodeAt(NodeAlGhost)->GetEventNode()->SetIdNodeOnDown(NodeUsbStop);
@@ -1504,12 +1506,12 @@ void Controller::ReturnToNodeOnKeyUsb(WayId _Key)
             GetNodeAt(NodeUsbStop)->SetVisible(TRUE);
             MoveCurrentNode(GetNodeAt(NodeUsbStop));
 
-            /*%C Si on a lancé une opération alors on bloque l'affichage USB */
+            /*%C Si on a lancÃ© une opÃ©ration alors on bloque l'affichage USB */
             ManageUsbLock(TRUE);
         }
         else
         {
-            /* La commande n'a pas été lancée alors on n'affiche rien en envoyant
+            /* La commande n'a pas Ã©tÃ© lancÃ©e alors on n'affiche rien en envoyant
             un message vide */
             UsbDelayed.AddMessageToQueue(  (UBYTE*) "",
                                            TIME_USB_ERROR_CODE_MESSAGE,
@@ -1539,8 +1541,8 @@ void Controller::ValidUsbStop()
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Routine appelée lors de la modification du noeud de sauvegarde des       */
-/*%C paramètres                                                               */
+/*%C Routine appelÃ©e lors de la modification du noeud de sauvegarde des       */
+/*%C paramÃ¨tres                                                               */
 /*%I Input Parameter : 																			*/
 /*%I 		NONE                    												 			*/
 /*%IO Input/Output : 																			*/
@@ -1555,10 +1557,10 @@ void Controller::StartSavingUsbSettings()
     UWORD16 _Val = E_USB_NOERROR_SETTINGS_OVERWRITE;
     UBYTE* _StringToDisplay;
 
-    /*%C Prise en compte du code d'erreur par la fenêtre USB */
+    /*%C Prise en compte du code d'erreur par la fenÃªtre USB */
     Cont->FUsb.ManageErrorCode(_Val, &_StringToDisplay);
 
-    /*%C Ajout du message à la queue de messages */
+    /*%C Ajout du message Ã  la queue de messages */
     Cont->UsbDelayed.AddMessageToQueue(  _StringToDisplay,
                                          TIME_USB_ERROR_CODE_MESSAGE,
                                          (e_BOOL)(Cont->GetCurrentFrame() == FRAME_USB));
@@ -1655,7 +1657,7 @@ void Controller::ReturnToNodeTO()
 /******************************************************************************/
 void Controller::EndModifToNode()
 {
-    /* Effacement du message d'interdépendance */
+    /* Effacement du message d'interdÃ©pendance */
     // Erasing the message of interdependence
     // When the setting completes its modification
     // hide the helper text for that setting.
@@ -2177,7 +2179,7 @@ void Controller::ModifyDown()
     /*%C Traitement de la valeur */
     CurrentNode->GetObject()->DecreaseValue();
 
-    /* Traitement des affichages d'interdépendance */
+    /* Traitement des affichages d'interdÃ©pendance */
     SettingBlockDetect();
 }
 
@@ -2205,7 +2207,7 @@ void Controller::ModifyUp()
     /*%C Traitement de la valeur */
     CurrentNode->GetObject()->IncreaseValue();
 
-    /* Traitement des affichages d'interdépendance */
+    /* Traitement des affichages d'interdÃ©pendance */
     SettingBlockDetect();
 }
 /******************************************************************************/
@@ -2332,7 +2334,7 @@ void Controller::MoveToOtherNode(WayId _way)
         break;
     }
 
-    /*%C Verifie si le noeud d'arrivée est valide */
+    /*%C Verifie si le noeud d'arrivÃ©e est valide */
     if (!PtrNodeTarget->IsValid())
     {
         PtrNodeTarget = PtrNode;
@@ -2492,8 +2494,8 @@ void Controller::ShowFrame(UWORD16 _NewFrameId)
         /*%C Si on vient de Histo Alarm */
         /*%C Fin du timer de la page histo alarmes */
         this->Timer.StopTimer(TimerQuitHistoAlarme);
-        /*%C Si on vient de Préférence */
-        /*%C Fin du timer de la page préférences */
+        /*%C Si on vient de PrÃ©fÃ©rence */
+        /*%C Fin du timer de la page prÃ©fÃ©rences */
         this->Timer.StopTimer(TimerQuitPreferences);
         break;
 
@@ -2710,12 +2712,12 @@ void Controller::ManageSpyEvent(EventId _Spy)
     case ProgStartVentilOk  :
         /*%C demarrage de la ventil */
         Cont->ManageLegendState(eStartVentil);
-        /*%C Mise à jour affichage Valve */
+        /*%C Mise Ã  jour affichage Valve */
         Cont->SendInfoValve(Cont->ValveDetected);
         break;
 
     case ProgStartVentilKo  :
-        /*%C Mise à jour affichage Valve */
+        /*%C Mise Ã  jour affichage Valve */
         Cont->SendInfoValve(Cont->ValveDetected);
         break;
 
@@ -2962,10 +2964,10 @@ void Controller::ManageTimerEvent(UWORD16 _Timer)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C  Traitement des evenements timer coté prototype             	 				*/
+/*%C  Traitement des evenements timer cotÃ© prototype             	 				*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
-/*%I 	  	_Timer : evenement Timer à traiter											   */
+/*%I 	  	_Timer : evenement Timer Ã  traiter											   */
 /*%IO Input/Output : 																			*/
 /*%IO		NONE																					  	*/
 /*%O Output Parameter : 																	 	*/
@@ -2984,7 +2986,7 @@ void Controller::ProtoManageTimerEvent(UWORD16 _Timer)
     case TimerHideStopVentMess:
     case TimerHideLoupe:
     case TimerBlinkEvent :
-        /* Pas d'enregistrement d'évenement pour ces timers !*/
+        /* Pas d'enregistrement d'Ã©venement pour ces timers !*/
         break;
 
     default:
@@ -3004,7 +3006,7 @@ void Controller::ProtoManageTimerEvent(UWORD16 _Timer)
 /*%C  Traitement des evenements touches									 				*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
-/*%I 	  	event : evenement Keyboard à traiter											*/
+/*%I 	  	event : evenement Keyboard Ã  traiter											*/
 /*%IO Input/Output : 																			*/
 /*%IO		NONE																					  	*/
 /*%O Output Parameter : 																	 	*/
@@ -3264,7 +3266,7 @@ void Controller::ManageKeyboardEvent(UWORD16 _Key)
         break;
 
     case KEYBOARD_LONG_100_FIO2 :
-        /* Arrêt de 100% FiO2 sur appui long de FiO2 */
+        /* ArrÃªt de 100% FiO2 sur appui long de FiO2 */
         DataBaseAccess::ReadValue(&val,FIO2_100_ACTIVE,CONTROL);
         if (val)
             Cont->Stop100FiO2();
@@ -3286,10 +3288,10 @@ void Controller::ManageKeyboardEvent(UWORD16 _Key)
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C  Traitement des evenements touches coté prototype         	 				*/
+/*%C  Traitement des evenements touches cotÃ© prototype         	 				*/
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
-/*%I 	  	_Key : evenement Keyboard à traiter											   */
+/*%I 	  	_Key : evenement Keyboard Ã  traiter											   */
 /*%IO Input/Output : 																			*/
 /*%IO		NONE																					  	*/
 /*%O Output Parameter : 																	 	*/
@@ -3321,9 +3323,9 @@ void Controller::ProtoManageKeyboardEvent(UWORD16 _Key)
 /*		- State : etat de la machine							  	               */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ManageLegendState(LegendState State)
 {
@@ -3425,12 +3427,12 @@ void Controller::ManageLegendState(LegendState State)
 /* Description          : affichage du menu de deplacement sur une      */
 /*						  fenetre								                     */
 /* Parametres en entree : 		                                          */
-/*		- FirstNodeId : premier noeud à afficher				  	            */
+/*		- FirstNodeId : premier noeud Ã  afficher				  	            */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ShowMenu(UWORD16 FirstNodeId)
 {
@@ -3462,7 +3464,7 @@ void Controller::ShowMenu(UWORD16 FirstNodeId)
         {
             if (!Tools::IsModifyNode(Id))
             {
-                /* On n'affiche pas les noeuds de calibration, il seront affichés après
+                /* On n'affiche pas les noeuds de calibration, il seront affichÃ©s aprÃ¨s
                    car la configuration de leur affichage est dynamique */
                 if ((Id < cMaintCalibStartNode) || (Id > cMaintCalibEndNode))
                     PtrNode->SetVisible(TRUE);
@@ -3492,15 +3494,15 @@ void Controller::ShowMenu(UWORD16 FirstNodeId)
     }
 }
 /************************************************************************/
-/* Description :  Affiche les paramètres de monitoring	sans           */
-/*                afficher les valeurs (ce qui sera fait par un appel à */
+/* Description :  Affiche les paramÃ¨tres de monitoring	sans           */
+/*                afficher les valeurs (ce qui sera fait par un appel Ã  */
 /*                SetMonitoringMode(TRUE)                               */
 /* Parametres en entree : aucun                                         */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ShowMonitoring(void)
 {
@@ -3514,9 +3516,9 @@ void Controller::ShowMonitoring(void)
 /*		- Flag : Debut si TRUE									  	               */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::SetMonitoringMode(e_BOOL Flag)
 {
@@ -3587,9 +3589,9 @@ void Controller::SetMonitoringMode(e_BOOL Flag)
 /*		- Flag : Debut si TRUE									  	               */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::SetSupplyBusFailure(e_BOOL Flag)
 {
@@ -3602,9 +3604,9 @@ void Controller::SetSupplyBusFailure(e_BOOL Flag)
 /*		- Flag : TRUE if used else FALSE								*/
 /* Parametres en sortie : aucun											*/
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::SetExhalFlowUsed(e_BOOL Flag)
 {
@@ -3627,9 +3629,9 @@ void Controller::SetExhalFlowUsed(e_BOOL Flag)
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ChangeBrightness(WayId Sens)
 {
@@ -3690,9 +3692,9 @@ void Controller::ChangeBrightness(WayId Sens)
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ManageInhibKey(e_BOOL IsLongKey)
 {
@@ -3715,9 +3717,9 @@ void Controller::ManageInhibKey(e_BOOL IsLongKey)
 /* Parametres en entree : aucun                                         */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 
 void Controller::ChangePages()
@@ -3786,9 +3788,9 @@ void Controller::ChangePages()
 /*		- Action : Action de l'alarme									            */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::AlarmDetect(e_BOOL Actif, AlarmEvent* Alarm)
 {
@@ -3816,7 +3818,7 @@ void Controller::AlarmDetect(e_BOOL Actif, AlarmEvent* Alarm)
             }
             else if (this->CurrentFrame == FRAME_PREFERENCE && !this->IsModifNodeOn())
             {
-                /*%C Fin du timer de la page préférences */
+                /*%C Fin du timer de la page prÃ©fÃ©rences */
                 this->Timer.StopTimer(TimerQuitPreferences);
                 this->MoveCurrentNode(this->FindFirstValidNode(this->GetNodeAt(NodeVt),eGoDown));
             }
@@ -3841,7 +3843,7 @@ void Controller::AlarmDetect(e_BOOL Actif, AlarmEvent* Alarm)
         if (this->ATable.GetNbAlarm() != 0)
         {
             /*%C on stoppe l'affichage de l'alarme sauf pour l'alarme ALARM_HIGH_PRESSURE
-            dont l'affichage est controllé par un SPY */
+            dont l'affichage est controllÃ© par un SPY */
             if (Alarm->id == ALARM_HIGH_PRESSURE_U16)
             {
                 if (HasHighPressAlarmToBeRemoved())
@@ -3860,9 +3862,9 @@ void Controller::AlarmDetect(e_BOOL Actif, AlarmEvent* Alarm)
 
             if (this->ATable.GetNbAlarm() == 0)
             {
-                /*%C Arrêt du timer d'effacement de l'alarme */
+                /*%C ArrÃªt du timer d'effacement de l'alarme */
                 this->Timer.StopTimer(TimerHideAlarmMessage);
-                /*%C Arrêt des alarmes */
+                /*%C ArrÃªt des alarmes */
                 this->ShowAlarm(FALSE,Alarm->id,Alarm->action);
                 /*%C Affichage derniere Alarme */
                 Last = ATable.GetLastAlarm();
@@ -3882,13 +3884,13 @@ void Controller::AlarmDetect(e_BOOL Actif, AlarmEvent* Alarm)
 /*		- Action : Action de l'alarme									            */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ShowAlarm(e_BOOL Actif,UWORD16 AlarmId, UWORD16 Action)
 {
-    Action = Action; /* pour éviter le warning */
+    Action = Action; /* pour Ã©viter le warning */
     if (Actif)
     {
         /*%C Lancement du timer d'effacement de l'alarme */
@@ -3907,15 +3909,15 @@ void Controller::ShowAlarm(e_BOOL Actif,UWORD16 AlarmId, UWORD16 Action)
 }
 
 /************************************************************************/
-/* Description       : Traitement d'un bloquage de paramètre				*/
+/* Description       : Traitement d'un bloquage de paramÃ¨tre				*/
 /* Parametres en entree : 		                                          */
 /*		- Actif : TRUE si le bloquage est actif						         */
 /*		- AlarmId : Id du bloquage										            */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::SettingBlockDetect()
 {
@@ -3926,7 +3928,7 @@ void Controller::SettingBlockDetect()
 
     UWORD16 Nb_Block = 0;
 
-    /* Scan de DataBase pour visualiser les interdépendances */
+    /* Scan de DataBase pour visualiser les interdÃ©pendances */
     for (UWORD16 i = Start_Limit_Setting+1; i < End_Limit_Setting; i++)
     {
         UWORD16 Value;
@@ -3937,12 +3939,12 @@ void Controller::SettingBlockDetect()
             Nb_Block++;
             if (Nb_Block == 1)
             {
-                /* Mémorisation de la 1ere limite */
+                /* MÃ©morisation de la 1ere limite */
                 Limit1 = (UBYTE*)cMSG_BlockedSetting[i - Start_Limit_Setting - 1][GetLanguage()];
             }
             else
             {
-                /* Mémorisation de la 2eme limite */
+                /* MÃ©morisation de la 2eme limite */
                 Limit2 = (UBYTE*)cMSG_BlockedSetting[i - Start_Limit_Setting - 1][GetLanguage()];
                 break;
             }
@@ -3996,9 +3998,9 @@ void Controller::SettingBlockDetect()
 /*		- Visible : TRUE si affichage									            */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ShowBattery(e_BOOL Visible)
 {
@@ -4017,9 +4019,9 @@ void Controller::ShowBattery(e_BOOL Visible)
 /*		- Way   : sens de deplacement									            */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::GoToTopBottomFrame(UWORD16 Frame,WayId Way)
 {
@@ -4060,9 +4062,9 @@ void Controller::GoToTopBottomFrame(UWORD16 Frame,WayId Way)
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::StopAllMenuAction()
 {
@@ -4083,9 +4085,9 @@ void Controller::StopAllMenuAction()
 /*		- Symbol  : symbole a afficher									         */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ShowMessageFrame(e_BOOL Visible, UBYTE* Message, e_SYMBOL Symbol)
 {
@@ -4097,9 +4099,9 @@ void Controller::ShowMessageFrame(e_BOOL Visible, UBYTE* Message, e_SYMBOL Symbo
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::HideMessageFrame()
 {
@@ -4111,9 +4113,9 @@ void Controller::HideMessageFrame()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::PlayBuzzer()
 {
@@ -4125,13 +4127,13 @@ void Controller::PlayBuzzer()
     StartBuzzerVoltRefresh();
 }
 /************************************************************************/
-/* Description          : Action sur le buzzer sécurité						*/
+/* Description          : Action sur le buzzer sÃ©curitÃ©						*/
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::PlayBuzzerSec()
 {
@@ -4147,9 +4149,9 @@ void Controller::PlayBuzzerSec()
 /*		- NumLanguage : numero de la langue								         */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ChangeLanguage(UWORD16 NumLanguage)
 {
@@ -4211,18 +4213,18 @@ void Controller::ChangeLanguage(UWORD16 NumLanguage)
     }
 }
 /************************************************************************/
-/* Description   : Reconstruit l'arbre des noeuds pour un mode donné    */
+/* Description   : Reconstruit l'arbre des noeuds pour un mode donnÃ©    */
 /* Parametres en entree : 		                                          */
-/*		- Mode : mode pour lequel l'arbre doit être reconstruit           */
-/*    - FirstNode :  Premier noeud à partir duquel doit être faire la   */
+/*		- Mode : mode pour lequel l'arbre doit Ãªtre reconstruit           */
+/*    - FirstNode :  Premier noeud Ã  partir duquel doit Ãªtre faire la   */
 /*                   reconstruction                                     */
-/*    - LastNode :  Dernier noeud de l'arbre à reconstruire             */
+/*    - LastNode :  Dernier noeud de l'arbre Ã  reconstruire             */
 /* Parametres en sortie :                                               */
 /*    - Nombre de noeuds visibles                                       */   
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 UWORD16 Controller::RebuildEventNodeTree( e_MODE_TYPES Mode,
                                           UWORD16 FirstNode,
@@ -4240,7 +4242,7 @@ UWORD16 Controller::RebuildEventNodeTree( e_MODE_TYPES Mode,
 
     /* le premier noeud*/
     Node = this->GetNodeAt(FirstNode);
-    BackUpNode = Node; /* pour éviter le warning */
+    BackUpNode = Node; /* pour Ã©viter le warning */
     NodeId = Node->GetEventNode()->GetId();
     Order = Tools::GetOrderWithMode(NodeId,Mode);
 
@@ -4274,14 +4276,14 @@ UWORD16 Controller::RebuildEventNodeTree( e_MODE_TYPES Mode,
 /************************************************************************/
 /* Description   : Reconstruit l'arbre des noeuds pour tous les modes   */
 /* Parametres en entree : 		                                          */
-/*    - FirstNode :  Premier noeud à partir duquel doit être faire la   */
+/*    - FirstNode :  Premier noeud Ã  partir duquel doit Ãªtre faire la   */
 /*                   reconstruction                                     */
-/*    - LastNode :  Dernier noeud de l'arbre à reconstruire             */
-/* Parametres en sortie : Néant                                         */
+/*    - LastNode :  Dernier noeud de l'arbre Ã  reconstruire             */
+/* Parametres en sortie : NÃ©ant                                         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::RebuildEventNodeTreeForAllModes(  UWORD16 FirstNode,
                                                    UWORD16 LastNode)
@@ -4295,21 +4297,21 @@ void Controller::RebuildEventNodeTreeForAllModes(  UWORD16 FirstNode,
 }
 /************************************************************************/
 /* Description   : Retrouve (ou pas) un noeud dans l'arbre des noeuds   */
-/*                 pour un mode donné                                   */
+/*                 pour un mode donnÃ©                                   */
 /* Parametres en entree : 		                                          */
-/*		- Mode : mode pour lequel l'arbre doit être parcouru              */
-/*    - NodeToFind : Noeud à chercher dans l'arbre spécifié             */
-/*    - FirstNode :  Premier noeud à partir duquel doit être faire le   */
+/*		- Mode : mode pour lequel l'arbre doit Ãªtre parcouru              */
+/*    - NodeToFind : Noeud Ã  chercher dans l'arbre spÃ©cifiÃ©             */
+/*    - FirstNode :  Premier noeud Ã  partir duquel doit Ãªtre faire le   */
 /*                   parcours                                           */
-/*    - LastNode :  Dernier noeud de l'arbre à parcourir                */
-/* Parametres en sortie : Néant                                         */
+/*    - LastNode :  Dernier noeud de l'arbre Ã  parcourir                */
+/* Parametres en sortie : NÃ©ant                                         */
 /*    - Un masque comprenant :                                          */
-/*          - bit31 : la présence ou non du noeud                       */
-/*          - bit15 à bit0 : l'ordre d'affichage du noeud               */
+/*          - bit31 : la prÃ©sence ou non du noeud                       */
+/*          - bit15 Ã  bit0 : l'ordre d'affichage du noeud               */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 UWORD32 Controller::IsNodeInTree( e_MODE_TYPES Mode,
                                   UWORD16 NodeToFind,
@@ -4342,17 +4344,17 @@ UWORD32 Controller::IsNodeInTree( e_MODE_TYPES Mode,
     return(0);
 }
 /************************************************************************/
-/* Description   : récupère l'Id d'un Noeud à partir de l'Id de son     */
-/*                 noeud d'événement associé                            */
+/* Description   : rÃ©cupÃ¨re l'Id d'un Noeud Ã  partir de l'Id de son     */
+/*                 noeud d'Ã©vÃ©nement associÃ©                            */
 /*						  de l'IHM									                  */
 /* Parametres en entree : 		                                          */
-/*		- _Id : Id du noeud d'événement											   */
+/*		- _Id : Id du noeud d'Ã©vÃ©nement											   */
 /* Parametres en sortie :                                               */
 /*		- _Id : Id du noeud de controle											   */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 UWORD16 Controller::GetNodeIdFromEventId(UWORD16 _Id)
 {
@@ -4370,15 +4372,15 @@ UWORD16 Controller::GetNodeIdFromEventId(UWORD16 _Id)
 /*    Mode : mode de ventilation                                        */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::HideAlarm(e_MODE_TYPES Mode)
 {
     MenuControlNode* Node;
     UWORD16 NodeId;
-    Mode = Mode; /* pour éviter le warning */
+    Mode = Mode; /* pour Ã©viter le warning */
 
     if (GetImpactDisplay() && GetEndOfInit())
     {
@@ -4396,20 +4398,20 @@ void Controller::HideAlarm(e_MODE_TYPES Mode)
     }
 }
 /************************************************************************/
-/* Description : Masque l'objet de type Alarme passé en paramètre       */
+/* Description : Masque l'objet de type Alarme passÃ© en paramÃ¨tre       */
 /* Parametres en entree :                                               */
 /*    Mode : mode de ventilation                                        */
-/*    NodeId : noeud à masquer                                          */
+/*    NodeId : noeud Ã  masquer                                          */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::HideAlarm(e_MODE_TYPES Mode, UWORD16 NodeId)
 {
     MenuControlNode* Node;
-    Mode = Mode; /* pour éviter le warning */
+    Mode = Mode; /* pour Ã©viter le warning */
 
     if (GetImpactDisplay() && GetEndOfInit())
     {
@@ -4426,15 +4428,15 @@ void Controller::HideAlarm(e_MODE_TYPES Mode, UWORD16 NodeId)
 /*    Mode : mode de ventilation                                        */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::HideVentil(e_MODE_TYPES Mode)
 {
     MenuControlNode* Node;
     UWORD16 NodeId;
-    Mode = Mode; /* pour éviter le warning */
+    Mode = Mode; /* pour Ã©viter le warning */
 
     if (GetImpactDisplay() && GetEndOfInit())
     {
@@ -4453,20 +4455,20 @@ void Controller::HideVentil(e_MODE_TYPES Mode)
     }
 }
 /************************************************************************/
-/* Description : Masque l'objet de type Ventil passé en paramètre       */
+/* Description : Masque l'objet de type Ventil passÃ© en paramÃ¨tre       */
 /* Parametres en entree :                                               */
 /*    Mode : mode de ventilation                                        */
-/*    NodeId : noeud à masquer                                         */
+/*    NodeId : noeud Ã  masquer                                         */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::HideVentil(e_MODE_TYPES Mode, UWORD16 NodeId)
 {
     MenuControlNode* Node;
-    Mode = Mode; /* pour éviter le warning */
+    Mode = Mode; /* pour Ã©viter le warning */
 
     Node = GetNodeAt(NodeId);
 
@@ -4481,14 +4483,14 @@ void Controller::HideVentil(e_MODE_TYPES Mode, UWORD16 NodeId)
 /************************************************************************/
 /* Description : Affiche tous les objets de type Ventil                 */
 /* Parametres en entree :                                               */
-/*    FirstLine : première ligne d'affichage                            */
-/*    Increment : incrément d'affichage entre chaque ligne              */
+/*    FirstLine : premiÃ¨re ligne d'affichage                            */
+/*    Increment : incrÃ©ment d'affichage entre chaque ligne              */
 /*    Mode : mode de ventilation                                        */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ShowVentil(  UWORD16 FirstLine,
                               UWORD16 Increment,
@@ -4542,15 +4544,15 @@ void Controller::ShowVentil(  UWORD16 FirstLine,
     }
 }
 /************************************************************************/
-/* Description : Affiche l'objet de type Ventil passé en paramètre      */
+/* Description : Affiche l'objet de type Ventil passÃ© en paramÃ¨tre      */
 /* Parametres en entree :                                               */
 /*    Mode : mode de ventilation                                        */
-/*    NodeId : noeud à afficher                                         */
+/*    NodeId : noeud Ã  afficher                                         */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ShowVentil( e_MODE_TYPES Mode, UWORD16 NodeId)
 {
@@ -4568,14 +4570,14 @@ void Controller::ShowVentil( e_MODE_TYPES Mode, UWORD16 NodeId)
 /************************************************************************/
 /* Description : Affiche tous les objets de type Alarme                 */
 /* Parametres en entree :                                               */
-/*    FirstLine : première ligne d'affichage                            */
-/*    Increment : incrément d'affichage entre chaque ligne              */
+/*    FirstLine : premiÃ¨re ligne d'affichage                            */
+/*    Increment : incrÃ©ment d'affichage entre chaque ligne              */
 /*    Mode : mode de ventilation                                        */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ShowAlarm(   UWORD16 FirstLine,
                               UWORD16 Increment,
@@ -4632,15 +4634,15 @@ void Controller::ShowAlarm(   UWORD16 FirstLine,
     }
 }
 /************************************************************************/
-/* Description : Affiche l'objet de type Alarme passé en paramètre      */
+/* Description : Affiche l'objet de type Alarme passÃ© en paramÃ¨tre      */
 /* Parametres en entree :                                               */
 /*    Mode : mode de ventilation                                        */
-/*    NodeId : noeud à afficher                                         */
+/*    NodeId : noeud Ã  afficher                                         */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ShowAlarm( e_MODE_TYPES Mode, UWORD16 NodeId)
 {
@@ -4661,12 +4663,12 @@ void Controller::ShowAlarm( e_MODE_TYPES Mode, UWORD16 NodeId)
 /*                                                                      */
 /* Parametres en entree : 		                                          */
 /*		- _Mode : mode courant											            */
-/*    - _NbParam : Nombre de paramètres = de lignes du tableau          */
+/*    - _NbParam : Nombre de paramÃ¨tres = de lignes du tableau          */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::DisplayAlarmTable(UWORD16 _NbParam, e_MODE_TYPES _Mode)
 {
@@ -4691,14 +4693,14 @@ void Controller::DisplayAlarmTable(UWORD16 _NbParam, e_MODE_TYPES _Mode)
 /************************************************************************/
 /* Description : Affiche tous les objets de calibration dans Maintenance*/
 /* Parametres en entree :                                               */
-/*    FirstLine : première ligne d'affichage                            */
-/*    Increment : incrément d'affichage entre chaque ligne              */
+/*    FirstLine : premiÃ¨re ligne d'affichage                            */
+/*    Increment : incrÃ©ment d'affichage entre chaque ligne              */
 /*    Mode : mode de ventilation                                        */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ShowMaintCalib(void)
 {
@@ -4707,11 +4709,11 @@ void Controller::ShowMaintCalib(void)
     UWORD16 DisplayLine;
     UWORD16 DisplayInc = 17;
 
-    /* On récupère la ligne du noeud précédent */
+    /* On rÃ©cupÃ¨re la ligne du noeud prÃ©cÃ©dent */
     NodeId = GetNodeAt(cMaintCalibStartNode)->GetEventNode()->GetIdNodeOnUp();
     DisplayLine = GetNodeAt(NodeId)->GetObject()->GetLine() + DisplayInc;
 
-    /* On récupère le noeud limite */
+    /* On rÃ©cupÃ¨re le noeud limite */
     NodeLimitId = GetNodeAt(cMaintCalibEndNode)->GetEventNode()->GetIdNodeOnDown();
 
     Node = this->GetNodeAt(cMaintCalibStartNode);
@@ -4740,9 +4742,9 @@ void Controller::ShowMaintCalib(void)
 /*		- Mode : mode courant											            */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ChangeMenuWithMode(e_MODE_TYPES Mode)
 {
@@ -4776,10 +4778,10 @@ void Controller::ChangeMenuWithMode(e_MODE_TYPES Mode)
         /*%C Affichage du nvx menu Ventil */
         ShowVentil(LineVentil, IncVentil, Mode);
 
-        /*%C Récupération de la première ligne du tableau des alarmes */
+        /*%C RÃ©cupÃ©ration de la premiÃ¨re ligne du tableau des alarmes */
         LineVentil = this->FAlarme.GetFirstLineOfTable();
 
-        /*%C Récupération de l'espace entre les lignes du tableau des alarmes */
+        /*%C RÃ©cupÃ©ration de l'espace entre les lignes du tableau des alarmes */
         IncVentil = this->FAlarme.GetSpacingOfTable();
 
         /*%C Affichage du nvx menu Alarme */
@@ -4792,9 +4794,9 @@ void Controller::ChangeMenuWithMode(e_MODE_TYPES Mode)
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ManageModeChange()
 {
@@ -4841,9 +4843,9 @@ void Controller::ManageModeChange()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::StopModifMode(e_MODE_TYPES NewMode)
 {
@@ -4887,9 +4889,9 @@ void Controller::StopModifMode(e_MODE_TYPES NewMode)
 /*		- Actif : TRUE si Lock actif									            */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ManageLock(e_BOOL Actif)
 {
@@ -4911,7 +4913,7 @@ void Controller::ManageLock(e_BOOL Actif)
         /*%C Arret des Modifs */
         this->StopAllMenuAction();
 
-        /*%C On active le noeud fantome de la page Ventil et de la fenêtre graph */
+        /*%C On active le noeud fantome de la page Ventil et de la fenÃªtre graph */
         this->GetNodeAt(NodeGhost)->SetVisible(Actif);
         this->GetNodeAt(NodeGhost)->SetLock((e_BOOL)!Actif);
         this->GetNodeAt(NodeGraphGhost)->SetVisible(Actif);
@@ -5002,9 +5004,9 @@ void Controller::ManageLock(e_BOOL Actif)
 /*		- Actif : TRUE si Lock actif									            */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ManageUsbLock(e_BOOL Actif)
 {
@@ -5038,9 +5040,9 @@ void Controller::ManageUsbLock(e_BOOL Actif)
 /*		- MasterNode : noeud pere du sous menu							         */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ManageLineMenuVentil(MenuControlNode* MasterNode)
 {
@@ -5112,9 +5114,9 @@ void Controller::ManageLineMenuVentil(MenuControlNode* MasterNode)
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::VerifAndManageCalibAuto()
 {
@@ -5125,9 +5127,9 @@ void Controller::VerifAndManageCalibAuto()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ManageCalibAuto()
 {
@@ -5140,9 +5142,9 @@ void Controller::ManageCalibAuto()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun														*/
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ManageHistoAlarmSeek()
 {
@@ -5155,9 +5157,9 @@ void Controller::ManageHistoAlarmSeek()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun														*/
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ManageHistoAnoSeek()
 {
@@ -5171,9 +5173,9 @@ void Controller::ManageHistoAnoSeek()
 /*		- Event : type d'evenement de respiration						         */
 /* Parametres en sortie : aucun										         	*/
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ManageTrigger(UWORD16 Event)
 {
@@ -5226,9 +5228,9 @@ void Controller::ManageTrigger(UWORD16 Event)
 /*		- Flag : TRUE si visible									            	*/
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::SetVisibleTrigger(e_BOOL Flag)
 {
@@ -5253,9 +5255,9 @@ void Controller::SetVisibleTrigger(e_BOOL Flag)
 /*		- Flag : TRUE si visible										            */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::SendNodeModify(UWORD16 IdNode,e_BOOL IsNotTO)
 {
@@ -5298,7 +5300,7 @@ void Controller::SendNodeModify(UWORD16 IdNode,e_BOOL IsNotTO)
     case NodePi2 :
         if (IsNotTO)
         {
-            /* rafraîchissement Pi Max */
+            /* rafraÃ®chissement Pi Max */
             this->LOVPiMax.Refresh();
 
             if (IdNode == NodePi2)
@@ -5312,7 +5314,7 @@ void Controller::SendNodeModify(UWORD16 IdNode,e_BOOL IsNotTO)
     case NodePSupport :
         if (IsNotTO)
         {
-            /* rafraîchissement Pi Max */
+            /* rafraÃ®chissement Pi Max */
             this->LOVPiMax.Refresh();
 
             if (IdNode == NodePSupport)
@@ -5505,7 +5507,7 @@ void Controller::SendNodeModify(UWORD16 IdNode,e_BOOL IsNotTO)
     case NodeConfPressureUnit :
         if (IsNotTO)
         {
-            /*%C Demande de modification de l'unité de pression */
+            /*%C Demande de modification de l'unitÃ© de pression */
             UWORD16 _Val = LVSPressureUnit.GetIntValue1();
             SetPressureUnit(_Val);
         }
@@ -5546,9 +5548,9 @@ void Controller::SendNodeModify(UWORD16 IdNode,e_BOOL IsNotTO)
 /*		- IsLongNameMode : TRUE nom long								            */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ChangeNameMode(e_BOOL IsLongNameMode)
 {
@@ -5590,9 +5592,9 @@ void Controller::ChangeNameMode(e_BOOL IsLongNameMode)
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun										         	*/
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToModifNodeFiO2Concent()
 {
@@ -5605,9 +5607,9 @@ void Controller::MoveToModifNodeFiO2Concent()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun										         	*/
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToModifNodeConsultCalibFiO2Concent()
 {
@@ -5619,9 +5621,9 @@ void Controller::MoveToModifNodeConsultCalibFiO2Concent()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun										         	*/
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToModifNodeCalibAuto()
 {
@@ -5636,9 +5638,9 @@ void Controller::MoveToModifNodeCalibAuto()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToModifNodeMaintPwmBlower()
 {
@@ -5652,24 +5654,24 @@ void Controller::MoveToModifNodeMaintPwmBlower()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ReturnToNodeMaintPwmBlowerTO()
 {
     this->ReturnToNodeTO();
 }
 /************************************************************************/
-/* Description          : Décrémente le pas de la turbine si le noeud   */
+/* Description          : DÃ©crÃ©mente le pas de la turbine si le noeud   */
 /*                        courant est dans la plage de noeuds de        */
 /*                        calibration                                   */
 /* Parametres en entree : aucun                                         */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::DecreaseBlowerStep()
 {
@@ -5689,15 +5691,15 @@ void Controller::DecreaseBlowerStep()
     }
 }
 /************************************************************************/
-/* Description          : Incrémente le pas de la turbine si le noeud   */
+/* Description          : IncrÃ©mente le pas de la turbine si le noeud   */
 /*                        courant est dans la plage de noeuds de        */
 /*                        calibration                                   */
 /* Parametres en entree : aucun                                         */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::IncreaseBlowerStep()
 {
@@ -5722,9 +5724,9 @@ void Controller::IncreaseBlowerStep()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ReturnToNodeMaintPwmBlower()
 {
@@ -5735,9 +5737,9 @@ void Controller::ReturnToNodeMaintPwmBlower()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToModifNodeBlowerAction()
 {
@@ -5753,9 +5755,9 @@ void Controller::MoveToModifNodeBlowerAction()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::VerifAndMoveToNextModifNodeCalib()
 {
@@ -5767,9 +5769,9 @@ void Controller::VerifAndMoveToNextModifNodeCalib()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToNextModifNodeCalib()
 {
@@ -5782,9 +5784,9 @@ void Controller::MoveToNextModifNodeCalib()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::VerifAndReturnToNodeCalib()
 {
@@ -5796,9 +5798,9 @@ void Controller::VerifAndReturnToNodeCalib()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ReturnToNodeCalib()
 {
@@ -5818,9 +5820,9 @@ void Controller::ReturnToNodeCalib()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ForceQExpCalibrationStop(void)
 {
@@ -5838,7 +5840,7 @@ void Controller::ForceQExpCalibrationStop(void)
 
         Timer.StopTimer(TimerWaitCalibQExp);
 
-        /* on positionne l'alarme pour bien montrer qu'on a coupé une calibration en cours */
+        /* on positionne l'alarme pour bien montrer qu'on a coupÃ© une calibration en cours */
         Val = ALARM_DETECTED;
         DataBaseAccess::WriteValue( &Val,
                                     TECH_ALARM_EXHAL_FLOW_OFFSET_DEFAULT_U16,
@@ -5864,9 +5866,9 @@ void Controller::ForceQExpCalibrationStop(void)
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ForceFiO2CalibrationStop(void)
 {
@@ -5886,7 +5888,7 @@ void Controller::ForceFiO2CalibrationStop(void)
 
         Timer.StopTimer(TimerWaitCalibFiO2);
 
-        /* on positionne l'alarme pour bien montrer qu'on a coupé une calibration en cours */
+        /* on positionne l'alarme pour bien montrer qu'on a coupÃ© une calibration en cours */
         Val = ALARM_DETECTED;
         DataBaseAccess::WriteValue( &Val,
                                     TECH_ALARM_FIO2_OFFSET_DEFAULT,
@@ -5910,9 +5912,9 @@ void Controller::ForceFiO2CalibrationStop(void)
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ManageVerifPointCalib(PController CallFct)
 {
@@ -5956,9 +5958,9 @@ void Controller::ManageVerifPointCalib(PController CallFct)
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveDownNodePreference()
 {
@@ -5973,9 +5975,9 @@ void Controller::MoveDownNodePreference()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveMonitorNodeModifVentil()
 {
@@ -5991,9 +5993,9 @@ void Controller::MoveMonitorNodeModifVentil()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveValidNodeAlHisto()
 {
@@ -6008,9 +6010,9 @@ void Controller::MoveValidNodeAlHisto()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveValidNodePreference()
 {
@@ -6024,9 +6026,9 @@ void Controller::MoveValidNodePreference()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveValidNodeHistAlBack()
 {
@@ -6040,9 +6042,9 @@ void Controller::MoveValidNodeHistAlBack()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveValidNodeHistAlCancelled()
 {
@@ -6069,9 +6071,9 @@ void Controller::MoveValidNodeHistAlCancelled()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveValidNodePrefBackVentil()
 {
@@ -6087,19 +6089,19 @@ void Controller::MoveValidNodePrefBackVentil()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveUpNodePrefScreenSave()
 {
-    /*%C Relance le timer de la page préférences */
+    /*%C Relance le timer de la page prÃ©fÃ©rences */
     this->Timer.StartTimer(TIME_QUIT_PREFERENCES,TimerQuitPreferences,FALSE);
     this->MoveUp();
 }
 void Controller::MoveDownNodePrefScreenSave()
 {
-    /*%C Relance le timer de la page préférences */
+    /*%C Relance le timer de la page prÃ©fÃ©rences */
     this->Timer.StartTimer(TIME_QUIT_PREFERENCES,TimerQuitPreferences,FALSE);
     this->MoveDown();
 }
@@ -6116,7 +6118,7 @@ void Controller::ModifyUpNodePrefScreenSave()
         DataBaseAccess::IncrementValue(&this->LastSoundLevel, SOUND_LEVEL_SELECT_U16, CONFIG);
         DataBaseAccess::WriteValue(&this->LastSoundLevel, SOUND_LEVEL_SELECT_U16, CONFIG);
     }
-    /*%C Relance le timer de la page préférences */
+    /*%C Relance le timer de la page prÃ©fÃ©rences */
     this->Timer.StartTimer(TIME_QUIT_PREFERENCES,TimerQuitPreferences,FALSE);
     this->ModifyUp();
 }
@@ -6133,7 +6135,7 @@ void Controller::ModifyDownNodePrefScreenSave()
         DataBaseAccess::DecrementValue(&this->LastSoundLevel, SOUND_LEVEL_SELECT_U16, CONFIG);
         DataBaseAccess::WriteValue(&this->LastSoundLevel, SOUND_LEVEL_SELECT_U16, CONFIG);
     }
-    /*%C Relance le timer de la page préférences */
+    /*%C Relance le timer de la page prÃ©fÃ©rences */
     this->Timer.StartTimer(TIME_QUIT_PREFERENCES,TimerQuitPreferences,FALSE);
     this->ModifyDown();
 }
@@ -6152,7 +6154,7 @@ void Controller::ReturnToNodeTONodePrefScreenSave()
 }
 void Controller::MoveToModifNodePrefScreenSave()
 {
-    /*%C Relance le timer de la page préférences */
+    /*%C Relance le timer de la page prÃ©fÃ©rences */
     this->Timer.StartTimer(TIME_QUIT_PREFERENCES,TimerQuitPreferences,FALSE);
 
     UWORD16 Id = this->GetCurrentNode()->GetEventNode()->GetId();
@@ -6175,7 +6177,7 @@ void Controller::ReturnToNodePrefScreenSave()
         DataBaseAccess::WriteValue(&_Val, TEST_VOLUME_U16, CONTROL);
     }
 
-    /*%C Relance le timer de la page préférences */
+    /*%C Relance le timer de la page prÃ©fÃ©rences */
     this->Timer.StartTimer(TIME_QUIT_PREFERENCES,TimerQuitPreferences,FALSE);
     this->ReturnToNode();
 }
@@ -6185,13 +6187,13 @@ void Controller::ReturnToNodePrefScreenSave()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveTimeOutNodePrefScreenSave()
 {
-    /*%C fin du timer de la page Préférences */
+    /*%C fin du timer de la page PrÃ©fÃ©rences */
     this->Timer.StopTimer(TimerQuitPreferences);
 
     MenuControlNode* PtrNode = this->GetCurrentNode();
@@ -6200,7 +6202,7 @@ void Controller::MoveTimeOutNodePrefScreenSave()
     PtrNodeTarget = this->GetNodeAt(PtrNode->GetEventNode()->GetIdNodeOnTimeOut());
     PtrNodeTarget = this->FindFirstValidNode(PtrNodeTarget,eGoDown);
 
-    /*%C Verifie si le noeud d'arrivée est valide */
+    /*%C Verifie si le noeud d'arrivÃ©e est valide */
     if (!PtrNodeTarget->IsValid())
     {
         PtrNodeTarget = PtrNode;
@@ -6215,9 +6217,9 @@ void Controller::MoveTimeOutNodePrefScreenSave()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveTimeOutNodeHistAlBack()
 {
@@ -6230,7 +6232,7 @@ void Controller::MoveTimeOutNodeHistAlBack()
     PtrNodeTarget = this->GetNodeAt(PtrNode->GetEventNode()->GetIdNodeOnTimeOut());
     PtrNodeTarget = this->FindFirstValidNode(PtrNodeTarget,eGoDown);
 
-    /*%C Verifie si le noeud d'arrivée est valide */
+    /*%C Verifie si le noeud d'arrivÃ©e est valide */
     if (!PtrNodeTarget->IsValid())
     {
         PtrNodeTarget = PtrNode;
@@ -6261,9 +6263,9 @@ void Controller::MoveDownNodeHistAlBack()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveTimeOutUSB()
 {
@@ -6273,7 +6275,7 @@ void Controller::MoveTimeOutUSB()
     PtrNodeTarget = this->GetNodeAt(PtrNode->GetEventNode()->GetIdNodeOnTimeOut());
     PtrNodeTarget = this->FindFirstValidNode(PtrNodeTarget,eGoDown);
 
-    /*%C Verifie si le noeud d'arrivée est valide */
+    /*%C Verifie si le noeud d'arrivÃ©e est valide */
     if (!PtrNodeTarget->IsValid())
     {
         PtrNodeTarget = PtrNode;
@@ -6287,9 +6289,9 @@ void Controller::MoveTimeOutUSB()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveUpNodeGraphGhost()
 {
@@ -6306,9 +6308,9 @@ void Controller::MoveDownNodeGraphGhost()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveValidNodeCfgGraphBackPref()
 {
@@ -6323,9 +6325,9 @@ void Controller::MoveValidNodeCfgGraphBackPref()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveValidNodePrefCurveConfig()
 {
@@ -6339,13 +6341,13 @@ void Controller::MoveValidNodePrefCurveConfig()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveValidNodePrefTrend()
 {
-    /*%C Fin du timer de la page Préférence */
+    /*%C Fin du timer de la page PrÃ©fÃ©rence */
     this->Timer.StopTimer(TimerQuitPreferences);
 
     /*%C Lancement du timer de la page tendance (ventil report) */
@@ -6361,9 +6363,9 @@ void Controller::MoveValidNodePrefTrend()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveUpNodeCfgGraphVisu()
 {
@@ -6416,9 +6418,9 @@ void Controller::ReturnToNodeCfgGraphVisuVisu()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveTimeOutNodeCfgGraphVisu()
 {
@@ -6436,9 +6438,9 @@ void Controller::MoveTimeOutNodeCfgGraphVisu()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveUpNodeTrendBack()
 {
@@ -6455,7 +6457,7 @@ void Controller::MoveValidNodeTrendBack()
     /*%C Stoppe le timer de la page ventil report */
     this->Timer.StopTimer(TimerQuitVentilReport);
 
-    /*%C Relance le timer de la page préférence */
+    /*%C Relance le timer de la page prÃ©fÃ©rence */
     this->Timer.StartTimer(TIME_QUIT_PREFERENCES,TimerQuitPreferences,FALSE);
 
     MoveValid();
@@ -6465,7 +6467,7 @@ void Controller::MoveTimeOutNodeTrendBack()
     /*%C Stoppe le timer de la page ventil report */
     this->Timer.StopTimer(TimerQuitVentilReport);
 
-    /*%C Relance le timer de la page préférence */
+    /*%C Relance le timer de la page prÃ©fÃ©rence */
     this->Timer.StartTimer(TIME_QUIT_PREFERENCES,TimerQuitPreferences,FALSE);
 
     MoveCurrentNode(GetNodeAt(NodePrefTrend));
@@ -6475,9 +6477,9 @@ void Controller::MoveTimeOutNodeTrendBack()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ReturnToNodeLoupe1191()
 {
@@ -6489,9 +6491,9 @@ void Controller::ReturnToNodeLoupe1191()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveDownNodeMaintPwmBlower()
 {
@@ -6506,9 +6508,9 @@ void Controller::MoveDownNodeMaintPwmBlower()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveUpNodeMaintPwmBlower()
 {
@@ -6524,9 +6526,9 @@ void Controller::MoveUpNodeMaintPwmBlower()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToModifNodeConsultCalib()
 {
@@ -6545,9 +6547,9 @@ void Controller::MoveToModifNodeConsultCalib()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */ 
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToModifNodeConsultCalib2Value()
 {
@@ -6567,9 +6569,9 @@ void Controller::MoveToModifNodeConsultCalib2Value()
 /*                                   								 	         */
 /* Parametres en sortie : aucun											         */ 
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ReturnToNodeOnConsultCalib()
 {
@@ -6589,9 +6591,9 @@ void Controller::ReturnToNodeOnConsultCalib()
 /*                                   								 	         */
 /* Parametres en sortie : aucun											         */ 
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ReturnToNodeOnConsultCalib2Value()
 {
@@ -6613,9 +6615,9 @@ void Controller::ReturnToNodeOnConsultCalib2Value()
 /*	                                                                  	*/
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToNextModifConsultCalib()
 {
@@ -6637,9 +6639,9 @@ void Controller::MoveToNextModifConsultCalib()
 /*	                                                                  	*/
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToNextModifConsultCalib2Value()
 {
@@ -6660,9 +6662,9 @@ void Controller::MoveToNextModifConsultCalib2Value()
 /*	                                                                  	*/
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToNextNodeJumpCalib()
 {
@@ -6676,9 +6678,9 @@ void Controller::MoveToNextNodeJumpCalib()
 /*	                                                                  	*/
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ReturnToNodeCalibAuto()
 {       
@@ -6699,9 +6701,9 @@ void Controller::ReturnToNodeCalibAuto()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ReturnToNodeLoupeNodeModifFsecu()
 {
@@ -6717,9 +6719,9 @@ void Controller::ReturnToNodeLoupeNodeModifFsecu()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ReturnToNodeLoupe1151()
 {
@@ -6730,7 +6732,7 @@ void Controller::ReturnToNodeLoupe1151()
     DataBaseAccess::ReadValue(&Val1,ADJUST_TI_MIN_U16,ADJUST);
     DataBaseAccess::ReadValue(&Val2,ADJUST_TI_MAX_U16,ADJUST);
     DataBaseAccess::ReadValue(&Mode,ADJUST_MODE_U16,CONFIG);
-    /*%C Mise à jour Timin & Timax */
+    /*%C Mise Ã  jour Timin & Timax */
     if (Mode == PSVT)
     {
         LTTVTiS.SetValue1(Val1);
@@ -6743,13 +6745,13 @@ void Controller::ReturnToNodeLoupe1151()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToNextModifNodeUsbTransferSetOn()
 {
-    /*%C On se déplace sur le prochain noeud de Modif*/
+    /*%C On se dÃ©place sur le prochain noeud de Modif*/
     MoveToNextModifNode();
 }
 /************************************************************************/
@@ -6757,9 +6759,9 @@ void Controller::MoveToNextModifNodeUsbTransferSetOn()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToNextModifNodeAlVteMin()
 {
@@ -6777,24 +6779,24 @@ void Controller::MoveToNextModifNodeAlVteMin()
         this->CurrentNode->GetObject()->RefreshEnable(FALSE);
         LSTICalibQExp.SetIntValue1(0);
 
-        /*%C Récupération de l'order d'affichage du noeud NodeAlVte */
+        /*%C RÃ©cupÃ©ration de l'order d'affichage du noeud NodeAlVte */
         _PresentAndOrder = IsNodeInTree((e_MODE_TYPES)CurrentMode, NodeAlVte, NodeAlarm, cAlarmEndNode);
         if ( _PresentAndOrder)
             _Order =  _PresentAndOrder & 0x7FFFFFFF;
         else
             _Order = 0;
 
-        /*%C Récupération de la première ligne du tableau des alarmes */
+        /*%C RÃ©cupÃ©ration de la premiÃ¨re ligne du tableau des alarmes */
         _Line = FAlarme.GetFirstLineOfTable();
 
-        /*%C Récupération de l'espace entre les lignes du tableau des alarmes */
+        /*%C RÃ©cupÃ©ration de l'espace entre les lignes du tableau des alarmes */
         _Spacing = FAlarme.GetSpacingOfTable();
 
-        /*%C Réajustement de la ligne d'affichage */
+        /*%C RÃ©ajustement de la ligne d'affichage */
         _Line += _Spacing * (_Order - 1);
         LSTICalibQExp.SetLine(_Line);
 
-        /* Mise à jour de la colonne d'affichage */
+        /* Mise Ã  jour de la colonne d'affichage */
         this->UpdateColNodeAlCalibVte();
 
         LSTICalibQExp.Show();
@@ -6821,7 +6823,7 @@ void Controller::MoveToNextModifNodeAlVteMin()
         /*%C saut de la calibration (On se place sur le noeud de */
         /*%C calib sans traitement) */
         MoveToNextModifNode();
-        /*%C force le besoin de calibration à false */
+        /*%C force le besoin de calibration Ã  false */
         LSTICalibQExp.SetIntValue1(0);
         /*%C On demande passe le noeud de calibration */
         MoveToNextModifNodeAlCalibVte();
@@ -6832,9 +6834,9 @@ void Controller::MoveToNextModifNodeAlVteMin()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToNextModifNodeAlCalibVte()
 {
@@ -6856,7 +6858,7 @@ void Controller::MoveToNextModifNodeAlCalibVte()
         LSTICalibQExp.Hide(); 
         LSTICalibQExp.SetVisible(FALSE);
         LSTICalibQExp.SetValue1((char*)"...");
-        /* Mise à jour de la colonne d'affichage */
+        /* Mise Ã  jour de la colonne d'affichage */
         this->UpdateColNodeAlCalibVte();
         LSTICalibQExp.SetVisible(_IsVisible);
         LSTICalibQExp.Show();
@@ -6883,9 +6885,9 @@ void Controller::MoveToNextModifNodeAlCalibVte()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToCalibAuto()
 {
@@ -6935,9 +6937,9 @@ void Controller::MoveToCalibAuto()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ReturnToNodeTOLoupeNodeAlCalibVte()
 {
@@ -6966,9 +6968,9 @@ void Controller::ReturnToNodeTOLoupeNodeAlCalibVte()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ReturnToNodeToCalibNodeAlCalibVte()
 {
@@ -6997,9 +6999,9 @@ void Controller::ReturnToNodeToCalibNodeAlCalibVte()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ModifyUpNodeAlCalibVte()
 {
@@ -7010,7 +7012,7 @@ void Controller::ModifyUpNodeAlCalibVte()
     /*%C Execute the controller Modify Up fonction */
     ModifyUp();
 
-    /* Mise à jour de la colonne d'affichage */
+    /* Mise Ã  jour de la colonne d'affichage */
     UpdateColNodeAlCalibVte();
     LSTICalibQExp.SetVisible(_IsVisible);
     LSTICalibQExp.Show();   
@@ -7028,9 +7030,9 @@ void Controller::ModifyUpNodeAlCalibVte()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ModifyDownNodeAlCalibVte()
 {
@@ -7041,7 +7043,7 @@ void Controller::ModifyDownNodeAlCalibVte()
     /*%C Execute the controller Modify Down fonction */
     ModifyDown();
 
-    /* Mise à jour de la colonne d'affichage */
+    /* Mise Ã  jour de la colonne d'affichage */
     UpdateColNodeAlCalibVte();
     LSTICalibQExp.SetVisible(_IsVisible);
     LSTICalibQExp.Show();   
@@ -7058,9 +7060,9 @@ void Controller::ModifyDownNodeAlCalibVte()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::UpdateColNodeAlCalibVte()
 {
@@ -7076,9 +7078,9 @@ void Controller::UpdateColNodeAlCalibVte()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::UpdateColNodeAlCalibFiO2()
 {
@@ -7095,9 +7097,9 @@ void Controller::UpdateColNodeAlCalibFiO2()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToNextModifNodeAlFiO2Min()
 {
@@ -7115,23 +7117,23 @@ void Controller::MoveToNextModifNodeAlFiO2Min()
         this->CurrentNode->GetObject()->RefreshEnable(FALSE);
         LSTICalibFiO2.SetIntValue1(0);
 
-        /*%C Récupération de l'order d'affichage du noeud NodeAlFiO2 */
+        /*%C RÃ©cupÃ©ration de l'order d'affichage du noeud NodeAlFiO2 */
         _PresentAndOrder = IsNodeInTree((e_MODE_TYPES)CurrentMode, NodeAlFiO2, NodeAlarm, cAlarmEndNode);
         if ( _PresentAndOrder)
             _Order =  _PresentAndOrder & 0x7FFFFFFF;
         else
             _Order = 0;
 
-        /*%C Récupération de la première ligne du tableau des alarmes */
+        /*%C RÃ©cupÃ©ration de la premiÃ¨re ligne du tableau des alarmes */
         _Line = FAlarme.GetFirstLineOfTable();
-        /*%C Récupération de l'espace entre les lignes du tableau des alarmes */
+        /*%C RÃ©cupÃ©ration de l'espace entre les lignes du tableau des alarmes */
         _Spacing = FAlarme.GetSpacingOfTable();
 
-        /*%C Réajustement de la ligne d'affichage */
+        /*%C RÃ©ajustement de la ligne d'affichage */
         _Line += _Spacing * (_Order - 1);
         LSTICalibFiO2.SetLine(_Line);
 
-        /* Mise à jour de la colonne d'affichage */
+        /* Mise Ã  jour de la colonne d'affichage */
         this->UpdateColNodeAlCalibFiO2();
 
         LSTICalibFiO2.Show();
@@ -7159,7 +7161,7 @@ void Controller::MoveToNextModifNodeAlFiO2Min()
         /*%C saut de la calibration (On se place sur le noeud de */
         /*%C calib sans traitement) */
         MoveToNextModifNode();
-        /*%C force le besoin de calibration à false */
+        /*%C force le besoin de calibration Ã  false */
         LSTICalibFiO2.SetIntValue1(0);
         /*%C On demande passe le noeud de calibration */
         MoveToNextModifNodeAlCalibFiO2();
@@ -7170,9 +7172,9 @@ void Controller::MoveToNextModifNodeAlFiO2Min()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToNextModifNodeAlCalibFiO2()
 {
@@ -7196,7 +7198,7 @@ void Controller::MoveToNextModifNodeAlCalibFiO2()
         LSTICalibFiO2.Hide();
         LSTICalibFiO2.SetVisible(FALSE);
         LSTICalibFiO2.SetValue1((char*)"...");
-        /* Mise à jour de la colonne d'affichage */
+        /* Mise Ã  jour de la colonne d'affichage */
         this->UpdateColNodeAlCalibFiO2();
         LSTICalibFiO2.SetVisible(_IsVisible);
         LSTICalibFiO2.Show();
@@ -7217,9 +7219,9 @@ void Controller::MoveToNextModifNodeAlCalibFiO2()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToCalibAutoFiO2()
 {
@@ -7227,7 +7229,7 @@ void Controller::MoveToCalibAutoFiO2()
 
     if (this->StartCalib == TRUE)
     {
-        /* Démarrage calibration du segment */
+        /* DÃ©marrage calibration du segment */
         this->StartCalib = FALSE;
         this->StartVerif = TRUE;
         this->Timer.StartTimer(TIME_WAIT_FIO2_DETECT,TimerWaitCalibFiO2,FALSE);
@@ -7285,9 +7287,9 @@ void Controller::MoveToCalibAutoFiO2()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ReturnToNodeTOLoupeNodeAlCalibFiO2()
 {
@@ -7316,9 +7318,9 @@ void Controller::ReturnToNodeTOLoupeNodeAlCalibFiO2()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ReturnToNodeToCalibNodeAlCalibFiO2()
 {
@@ -7347,9 +7349,9 @@ void Controller::ReturnToNodeToCalibNodeAlCalibFiO2()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ModifyUpNodeAlCalibFiO2()
 {
@@ -7360,7 +7362,7 @@ void Controller::ModifyUpNodeAlCalibFiO2()
     /*%C Execute the controller Modify Up fonction */
     ModifyUp();
 
-    /* Mise à jour de la colonne d'affichage */
+    /* Mise Ã  jour de la colonne d'affichage */
     UpdateColNodeAlCalibFiO2();
     LSTICalibFiO2.SetVisible(_IsVisible);
     LSTICalibFiO2.Show();
@@ -7378,9 +7380,9 @@ void Controller::ModifyUpNodeAlCalibFiO2()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ModifyDownNodeAlCalibFiO2()
 {
@@ -7391,7 +7393,7 @@ void Controller::ModifyDownNodeAlCalibFiO2()
     /*%C Execute the controller Modify Down fonction */
     ModifyDown();
 
-    /* Mise à jour de la colonne d'affichage */
+    /* Mise Ã  jour de la colonne d'affichage */
     UpdateColNodeAlCalibFiO2();
     LSTICalibFiO2.SetVisible(_IsVisible);
     LSTICalibFiO2.Show();
@@ -7408,9 +7410,9 @@ void Controller::ModifyDownNodeAlCalibFiO2()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveValidNodeModifConfPatientReset()
 {
@@ -7500,9 +7502,9 @@ void Controller::MoveDownNodeConfPatientReset()
 /* Parametres en entree : Flag : TRUE si capteur                        */
 /* Parametres en sortie : aucun										         	*/
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ShowTempBattery(e_BOOL Flag)
 {
@@ -7520,9 +7522,9 @@ void Controller::ShowTempBattery(e_BOOL Flag)
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::DisplayBreathTiming()
 {
@@ -7587,9 +7589,9 @@ void Controller::DisplayBreathTiming()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ModifyUpNodeInspTime()
 {
@@ -7601,9 +7603,9 @@ void Controller::ModifyUpNodeInspTime()
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ModifyDownNodeInspTime()
 {
@@ -7611,13 +7613,13 @@ void Controller::ModifyDownNodeInspTime()
     DisplayBreathTiming();
 }
 /************************************************************************/
-/* Description          : Arrivée sur le noeud de modif de NodeInspTime */
+/* Description          : ArrivÃ©e sur le noeud de modif de NodeInspTime */
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::MoveToModifNodeLoupeNodeInspTime()
 {
@@ -7642,9 +7644,9 @@ void Controller::MoveToModifNodeLoupeNodeInspTime()
 /* Parametres en entree : aucun	                                        */
 /* Parametres en sortie : aucun							     	        */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ModifyUpNodePlusPeep()
 {
@@ -7662,9 +7664,9 @@ void Controller::ModifyUpNodePlusPeep()
 /* Parametres en entree : aucun	                                        */
 /* Parametres en sortie : aucun							     	        */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ModifyDownNodePlusPeep()
 {
@@ -7683,9 +7685,9 @@ void Controller::ModifyDownNodePlusPeep()
 /* Parametres en entree : aucun	                                        */
 /* Parametres en sortie : aucun							     	        */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ModifyDownPeepNodePlusPeep()
 {
@@ -7707,9 +7709,9 @@ void Controller::ModifyDownPeepNodePlusPeep()
 /* Parametres en entree : aucun	                                        */
 /* Parametres en sortie : aucun							     	        */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::ModifyUpPeepNodePlusPeep()
 {
@@ -7731,9 +7733,9 @@ void Controller::ModifyUpPeepNodePlusPeep()
 /* Parametres en entree : aucun	                                        */
 /* Parametres en sortie : aucun							     	        */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::BuildPressureMessage(  MenuControlNode* node1,
                                         MenuControlNode* node2,
@@ -7762,9 +7764,9 @@ void Controller::BuildPressureMessage(  MenuControlNode* node1,
 /* Parametres en entree : aucun	                                        */
 /* Parametres en sortie : aucun							     	        */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 MenuControlNode* Controller::GetPressureNode()
 {
@@ -7806,26 +7808,26 @@ MenuControlNode* Controller::GetPressureNode()
 /************************************************************************/
 /* Description          : Arrete un timer                               */
 /* Parametres en entree :                                               */
-/*    _Timer : numéro de timer                                          */
+/*    _Timer : numÃ©ro de timer                                          */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::StopTimer(UWORD16 _Timer)
 {
     Timer.StopTimer(_Timer);
 }
 /************************************************************************/
-/* Description          : Arrête tous les affichages 100% O2 et         */
-/*                        commande l'arrêt auprès du système.           */
+/* Description          : ArrÃªte tous les affichages 100% O2 et         */
+/*                        commande l'arrÃªt auprÃ¨s du systÃ¨me.           */
 /* Parametres en entree : aucun	                                       */
 /* Parametres en sortie : aucun											         */
 /* Contrainte                                                           */
-/*        Pré-conditions  : Néant                                       */
-/*        Post-condition  : Néant                                       */
-/*        Exceptions      : Néant                                       */
+/*        PrÃ©-conditions  : NÃ©ant                                       */
+/*        Post-condition  : NÃ©ant                                       */
+/*        Exceptions      : NÃ©ant                                       */
 /************************************************************************/
 void Controller::Stop100FiO2()
 {
@@ -7888,7 +7890,7 @@ void Controller::ReturnToNodePediatric()
     /*%C Updating calibration points number */
     UpdateCalibrationPoints();
 
-    /*%C Relance le timer de la page préférences */
+    /*%C Relance le timer de la page prÃ©fÃ©rences */
     this->Timer.StartTimer(TIME_QUIT_PREFERENCES,TimerQuitPreferences,FALSE);
 
     ReturnToNode();

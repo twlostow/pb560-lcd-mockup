@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -416,7 +416,7 @@ void DisplayObject::Hide()
 /******************************************************************************/
 void DisplayObject::Blink(e_BOOL _Actif)
 {
-	/* Pour éviter les warnings */
+	/* Pour Ã©viter les warnings */
 	_Actif = _Actif;
 	(void)this; /* to avoid w68 compilation warning (parameter "this" not used) */
 }
@@ -440,7 +440,7 @@ void DisplayObject::RefreshLanguage()
 /******************************************************************************/
 /*%C                       Functionnal description :                      		*/
 /*%C                                                                          */
-/*%C Renvoi la valeur complète d'un objet                                     */
+/*%C Renvoi la valeur complÃ¨te d'un objet                                     */
 /*%C                                                                         	*/
 /*%I Input Parameter : 																			*/
 /*%I 		NONE																						*/

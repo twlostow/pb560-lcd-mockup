@@ -25,8 +25,8 @@
 /*                                INCLUDE FILES		                          */
 /******************************************************************************/
 #ifndef _TASKING         
-#include "LH_ST10F276.h" 
-#include <intrins.h>     
+//#include "LH_ST10F276.h" 
+//#include <intrins.h>     
 #else                    
 #include "regf276e.h"    
 #endif                   	
