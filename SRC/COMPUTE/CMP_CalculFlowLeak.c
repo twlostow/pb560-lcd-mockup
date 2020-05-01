@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -35,7 +35,7 @@
 #include "enum.h"
 #include "CMP_CalculFlowLeak.h"
 #include "Ventilation_Datas.h"
-#include "structure.h"
+#include "Structure.h"
 #include "DB_IhmAccessParaDataBase.h"
 
 /******************************************************************************/
@@ -239,19 +239,19 @@ void CMP_CalculFlowLeak(void)
 	/*%C correction value                                                         */
 			if ((VEN_FleakMeasured - VEN_TargetFlow) > 150)
 			{
-		      // Décrément de la consigne avec un coefficient inversement proportionnel à la Pep
+		      // DÃ©crÃ©ment de la consigne avec un coefficient inversement proportionnel Ã  la Pep
 				VEN_CommandFlow = VEN_CommandFlow - (100*((SWORD32)VEN_TargetFlow)/(3*((Adjust_Peep)+10)) * ValveCommandCoeff) / 1000;
 			}
 	
 			else if ((VEN_FleakMeasured - VEN_TargetFlow) > 70)
 			{
-			  // Décrément de la consigne avec un coefficient inversement proportionnel à la Pep
+			  // DÃ©crÃ©ment de la consigne avec un coefficient inversement proportionnel Ã  la Pep
 				VEN_CommandFlow = VEN_CommandFlow - (30*((SWORD32)VEN_TargetFlow)/(3*((Adjust_Peep)+10)) * ValveCommandCoeff) / 1000;
 			}
 	
 			else if ((VEN_FleakMeasured - VEN_TargetFlow) > 0)
 			{
-			  // Décrément de la consigne avec un coefficient inversement proportionnel à la Pep
+			  // DÃ©crÃ©ment de la consigne avec un coefficient inversement proportionnel Ã  la Pep
 				VEN_CommandFlow = VEN_CommandFlow - (6*((SWORD32)VEN_TargetFlow)/(3*((Adjust_Peep)+10)) * ValveCommandCoeff) / 1000;
 			}
 	   }
@@ -268,19 +268,19 @@ void CMP_CalculFlowLeak(void)
 
 			if ((VEN_TargetFlow - VEN_FleakMeasured) > 150)
 			{
-		      // Décrément de la consigne avec un coefficient inversement proportionnel à la Pep
+		      // DÃ©crÃ©ment de la consigne avec un coefficient inversement proportionnel Ã  la Pep
 				VEN_CommandFlow = VEN_CommandFlow + (250*((SWORD32)VEN_TargetFlow)/(3*((Adjust_Peep)+10)) * ValveCommandCoeff) / 1000;
 			}
 	
 			else if ((VEN_TargetFlow - VEN_FleakMeasured) > 70)
 			{
-			  // Décrément de la consigne avec un coefficient inversement proportionnel à la Pep
+			  // DÃ©crÃ©ment de la consigne avec un coefficient inversement proportionnel Ã  la Pep
 				VEN_CommandFlow = VEN_CommandFlow + (75*((SWORD32)VEN_TargetFlow)/(3*((Adjust_Peep)+10)) * ValveCommandCoeff) / 1000;
 			}
 	
 			else if ((VEN_TargetFlow - VEN_FleakMeasured) > 0)
 			{
-			  // Décrément de la consigne avec un coefficient inversement proportionnel à la Pep
+			  // DÃ©crÃ©ment de la consigne avec un coefficient inversement proportionnel Ã  la Pep
 				VEN_CommandFlow = VEN_CommandFlow + (15*((SWORD32)VEN_TargetFlow)/(3*((Adjust_Peep)+10)) * ValveCommandCoeff) / 1000;
 			}
 	   }
@@ -310,19 +310,19 @@ void CMP_CalculFlowLeak(void)
 	/*%C correction value                                                         */
 			if ((VEN_FleakMeasured - VEN_TargetFlow) > 150)
 			{
-		      // Décrément de la consigne avec un coefficient inversement proportionnel à la Pep
+		      // DÃ©crÃ©ment de la consigne avec un coefficient inversement proportionnel Ã  la Pep
 				VEN_CommandFlow = VEN_CommandFlow - (100*((SWORD32)VEN_TargetFlow)/((Adjust_Peep)+10) * ValveCommandCoeff) / 1000;
 			}
 	
 			else if ((VEN_FleakMeasured - VEN_TargetFlow) > 70)
 			{
-			  // Décrément de la consigne avec un coefficient inversement proportionnel à la Pep
+			  // DÃ©crÃ©ment de la consigne avec un coefficient inversement proportionnel Ã  la Pep
 				VEN_CommandFlow = VEN_CommandFlow - (30*((SWORD32)VEN_TargetFlow)/((Adjust_Peep)+10) * ValveCommandCoeff) / 1000;
 			}
 	
 			else if ((VEN_FleakMeasured - VEN_TargetFlow) > 0)
 			{
-			  // Décrément de la consigne avec un coefficient inversement proportionnel à la Pep
+			  // DÃ©crÃ©ment de la consigne avec un coefficient inversement proportionnel Ã  la Pep
 				VEN_CommandFlow = VEN_CommandFlow - (6*((SWORD32)VEN_TargetFlow)/((Adjust_Peep)+10) * ValveCommandCoeff) / 1000;
 			}
 	   }
@@ -339,19 +339,19 @@ void CMP_CalculFlowLeak(void)
 
 			else if ((VEN_TargetFlow - VEN_FleakMeasured) > 150)
 			{
-		      // Décrément de la consigne avec un coefficient inversement proportionnel à la Pep
+		      // DÃ©crÃ©ment de la consigne avec un coefficient inversement proportionnel Ã  la Pep
 				VEN_CommandFlow = VEN_CommandFlow + (250*((SWORD32)VEN_TargetFlow)/((Adjust_Peep)+10) * ValveCommandCoeff) / 1000;
 			}
 	
 			else if ((VEN_TargetFlow - VEN_FleakMeasured) > 70)
 			{
-			  // Décrément de la consigne avec un 50*100coefficient inversement proportionnel à la Pep
+			  // DÃ©crÃ©ment de la consigne avec un 50*100coefficient inversement proportionnel Ã  la Pep
 				VEN_CommandFlow = VEN_CommandFlow + (75*((SWORD32)VEN_TargetFlow)/((Adjust_Peep)+10) * ValveCommandCoeff) / 1000;
 			}
 	
 			else if ((VEN_TargetFlow - VEN_FleakMeasured) > 0)
 			{
-			  // Décrément de la consigne avec un coefficient inversement proportionnel à la Pep
+			  // DÃ©crÃ©ment de la consigne avec un coefficient inversement proportionnel Ã  la Pep
 				VEN_CommandFlow = VEN_CommandFlow + (15*((SWORD32)VEN_TargetFlow)/((Adjust_Peep)+10) * ValveCommandCoeff) / 1000;
 			}
 	   }

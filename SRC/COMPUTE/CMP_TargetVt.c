@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project NÂ°  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -26,7 +26,7 @@
 /******************************************************************************/
 #include "typedef.h"
 #include "enum.h"
-#include "structure.h"
+#include "Structure.h"
 #include "DB_Current.h"
 #include "DB_Control.h"
 #include "DB_Config.h"
@@ -144,10 +144,10 @@ UWORD16 CMP_TargetVt(void)
       else if (ComputedVti < Adjust_Target_Vt)
 		{
 			CMP_DownStep_Mutex = FALSE;
-			// Si la consigne de pression est inférieure à la pression max autorisée 			
+			// Si la consigne de pression est infÃ©rieure Ã  la pression max autorisÃ©e 			
 			if (CMP_TargetVT_Pi < AdjustMaxPressure)
 			{
-				// Calcul de l'incrément à appliquer
+				// Calcul de l'incrÃ©ment Ã  appliquer
 				if (CMP_UpStep_Mutex == FALSE)
 				{
 			      VEN_PressureUpStep = cMIN_STEP;
