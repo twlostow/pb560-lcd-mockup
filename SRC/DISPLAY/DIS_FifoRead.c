@@ -152,7 +152,7 @@ void DIS_FifoRead(void)
 			 			DIS_Pixel((UBYTE)DIS_FifoDisplay[DIS_FifoIdxRead].Param1,
 									(UWORD16)DIS_FifoDisplay[DIS_FifoIdxRead].Param2,
 									(UBYTE)DIS_FifoDisplay[DIS_FifoIdxRead].Param3,
-									(UBYTE)DIS_FifoDisplay[DIS_FifoIdxRead].Param6);
+									(UBYTE)DIS_FifoDisplay[DIS_FifoIdxRead].Param4);
 						}			
 						break;
 	
