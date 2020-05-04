@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project Nï¿½  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -25,12 +25,14 @@
 /*                                INCLUDE FILES		                           */
 /******************************************************************************/
 
+#ifndef _BORLAND
 #ifndef _TASKING         
 #include "LH_ST10F276.h" 
 #include <intrins.h>     
 #else                    
 #include "regf276e.h"    
-#endif                   	
+#endif          
+#endif         	
 #include "io_declare.h"
 #include "enum.h"
 #include "Structure.h"

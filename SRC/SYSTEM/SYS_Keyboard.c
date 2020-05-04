@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505                                                      */
+/* Project Nï¿½  :  RB0505                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -45,8 +45,8 @@ void SYS_Keyboard(void)
    UWORD16 Up_Key_Detected = 0;
    UWORD16 Down_Key_Detected = 0;
    UWORD16 Start_Stop_Key_Detected = 0;
-/*	UWORD16 Timer_OverFlow;	 utilisé dans l'anomalie clavier qui est maintenant*/
-/*                          gérée dans "SECURITY"                FM         */
+/*	UWORD16 Timer_OverFlow;	 utilisï¿½ dans l'anomalie clavier qui est maintenant*/
+/*                          gï¿½rï¿½e dans "SECURITY"                FM         */
    e_BOOL End_Of_Scan = FALSE;
 	e_SYS_KeyboardInput KeyboardInput = KEY_NO_KEYBOARD;
    static e_SYS_KeyboardInput KeyboardInputMemory = KEY_NO_KEYBOARD;
@@ -251,7 +251,7 @@ void SYS_Keyboard(void)
 	   }
 	}
 /*----------------------------------------------------------------------------*/
-/* cette fonction est gérée dans SECURITY                                     */
+/* cette fonction est gï¿½rï¿½e dans SECURITY                                     */
 /******************************************************************************/
 /*                           KEYBOARD ANOMALY								  */
 

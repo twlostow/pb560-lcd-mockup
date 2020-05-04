@@ -1,6 +1,6 @@
 /*****************************************************************************/
 /*                                                                            */
-/* Project N°  :  RB0505				                                          */
+/* Project Nï¿½  :  RB0505				                                          */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -20,11 +20,13 @@
 /*%O Output Parameter : NONE                                                  */
 /******************************************************************************/
 
+#ifndef _BORLAND
 #ifndef _TASKING
 #include "LH_ST10F276.h"
 #else
 #include "regf276e.h"
-#endif	 
+#endif
+#endif
 #include "typedef.h"
 #include "enum.h"
 #include "Structure.h"

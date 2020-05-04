@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*                                                                            */
-/* Project N°  :  RC0306                                                      */
+/* Project Nï¿½  :  RC0306                                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
@@ -33,7 +33,7 @@
 #include "System_Datas.h"
 #include "DB_Measurement.h"
 #include "Driver_Datas.h"
-#include "SET_DefaultCalibration.h"
+//#include "SET_DefaultCalibration.h"
 /******************************************************************************/
 /*                            FUNCTION BODY                                   */
 /******************************************************************************/
@@ -47,7 +47,7 @@ void SYS_Fio2Calibration(UWORD16 RequestType, t_SYS_CalibrationParameters CP, UW
 	e_BOOL TestLimitsOk1;  
 	
    static UBYTE DigitNb1 = 0;
-	// La calibration doit durer au moins 100ms pour que les données soient correctes
+	// La calibration doit durer au moins 100ms pour que les donnï¿½es soient correctes
 	UWORD32 FilteredDigit1=0;
 	// Tableau pour le filtrage des valeurs de debit inspi et expi pour la calibration
 	static UWORD16 Digit1[80];
@@ -65,13 +65,13 @@ void SYS_Fio2Calibration(UWORD16 RequestType, t_SYS_CalibrationParameters CP, UW
 	// Ajout d'1 point de CAN afin de reduire l'erreur sur le point 0 (mbar, l/min, etc...)
 	FilteredDigit1 += 1;
 
-	// IHM demande de contrôler l'offset choisi par l'utilisateur
+	// IHM demande de contrï¿½ler l'offset choisi par l'utilisateur
 	if (Request == TEST_LIMITES_REQUEST)
 		{
-		// Envoie la valeur filtrée du CAN 1 à DataBase pour vérification 
+		// Envoie la valeur filtrï¿½e du CAN 1 ï¿½ DataBase pour vï¿½rification 
 		TestLimitsOk1 = DB_ConfigWrite(CP.FirstOffsetIndex + Indice, (UWORD16)(FilteredDigit1));
 
-		// Si le test a échoué
+		// Si le test a ï¿½chouï¿½
 		if (TestLimitsOk1 == FALSE)
 			{
  			// Alarme Echec calibration FIO2 
@@ -84,7 +84,7 @@ void SYS_Fio2Calibration(UWORD16 RequestType, t_SYS_CalibrationParameters CP, UW
 		// Sinon
 		else
 			{
-         // Evènement de calibration
+         // Evï¿½nement de calibration
 			DB_EventMngt(CP.EventCalibration);
  			//Annulation uniquement de l'alarme Echec calibration FIO2 
 			DB_AlarmStatusWrite(CP.OffsetAlarmIndex, ALARM_FALSE);
@@ -94,7 +94,7 @@ void SYS_Fio2Calibration(UWORD16 RequestType, t_SYS_CalibrationParameters CP, UW
 		   DB_ControlWrite(VALIDATION_BIP_U16, BIP_SHORT);
 			}
 
-		// On arrête la calibration
+		// On arrï¿½te la calibration
 		#if defined(SUPPORTAIR_M2)
 			DB_ControlWrite(RequestType, NO_CALIB);
 		#endif 
