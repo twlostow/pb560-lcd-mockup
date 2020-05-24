@@ -44,6 +44,8 @@ extern "C"
 
 #include "Display_Data.h"
 
+#include "../pixmaps/pixmaps.c"
+
 class Timeout
 {
 
@@ -134,6 +136,49 @@ extern "C"
                                UWORD16 xhuge *Ptr_retrieval) { return 0; }
 
     void DB_EventMngt(UWORD16 Value);
+
+void dbOnModeCommand(UWORD16 *Value,
+                     e_DATA_OPERATION DataOperation)
+{
+    static int ventilationMode = PSIMV;
+
+    const e_MODE_TYPES modes[] = { VOL,	PRES,	PSVT,	VSIMV,	PSIMV,	CPAP };
+
+    int inc;
+
+    switch(DataOperation)
+    {
+        case READ:
+            *Value = ventilationMode;
+            return;
+        case WRITE:
+            ventilationMode = *Value;
+            return;
+        case INCREASE:
+            inc = 1;
+            break;
+        case DECREASE:
+            inc = -1;
+            break;
+    }
+
+    for(int index = 0; index < nb_of_mode; index++ )
+    {
+        if (modes[index] == ventilationMode)
+        {
+            index += inc;
+            if(index < 0)
+                index += nb_of_mode;
+            else if (index >= nb_of_mode)
+                index -= nb_of_mode;
+            ventilationMode = modes[index];
+            *Value = ventilationMode;
+            return;
+        }
+    }
+
+}
+
     UWORD16 DB_IhmAccessParaDataBase(UWORD16 *Value,
                                      UWORD16 Id,
                                      e_TYPE_OF_DB_TARGET DbType,
@@ -163,7 +208,7 @@ extern "C"
                     *Value = HMI_LANG_ENGLISH; // default lang = EN
                     break;
                 case ADJUST_MODE_U16:
-                    *Value = PSIMV;
+                    dbOnModeCommand( Value, DataOperation );
                     break;
                 case OFFSET_FAS_VALVE_7_U16:
                 case OFFSET_INSP_FLOW_1_U16:
@@ -291,6 +336,13 @@ public:
 class MonoBitmap
 {
 public:
+    struct PixmapStub
+    {
+        int x, y, id;
+    };
+
+    std::vector<PixmapStub> m_pixmaps;
+
     MonoBitmap(int w, int h) : m_w(w), m_h(h)
     {
         m_data = new uint8_t[w * h];
@@ -309,9 +361,50 @@ public:
         return m_data[m_w * y + x];
     }
 
-    void drawPixmap(int x, int y, int id)
+    void clearStubs()
     {
-        
+        m_pixmaps.clear();
+    }
+
+    void drawPixmap(int x0, int y0, int id)
+    {
+        printf("drawPixmap id %d\n", id );
+
+        for(int i = 0; builtin_pixmaps[i].data; i++)
+        {
+
+            if( id == builtin_pixmaps[i].id )
+            {
+                const uint8_t *data = builtin_pixmaps[i].data;
+                int w = data[0];
+                int h = data[1];
+
+                data += 2;
+
+                printf("drawPixmap id %d w %d h %d\n", id, w, h );
+
+
+                for (int y = 0; y < h; y++)
+                    for (int x = 0; x < w; x++)
+                    {
+                        int bit_offset = w * y + x;
+
+                        int v = data[bit_offset >> 3] & ( 1<< ( (bit_offset & 0x7))) ? 1 : 0;
+
+                        setPixel( x0+x, y0+y, v );
+                    }
+
+                return;
+            }
+        }
+
+        PixmapStub stub;
+
+        stub.x = x0;
+        stub.y = y0;
+        stub.id = id;
+
+        m_pixmaps.push_back(stub);
     }
 
     void setPixel(int x, int y, uint8_t value, bool negative=false)
@@ -325,7 +418,7 @@ public:
             m_data[m_w * y + x] = !value;
     }
 
-    int drawGlyph(const Font *font, int x0, int y0, char c, bool reverse, bool printon)
+    int drawGlyph(const Font *font, int x0, int y0, char c, bool reverse, bool printon, int base, int lineHeight )
     {
         uint16_t offset = font->offsets[ (uint8_t) c];
         if( offset == 0xffff )
@@ -333,13 +426,19 @@ public:
 
         const uint8_t *buf = font->data + offset;
         const uint8_t *pixmap = buf + 5;
+
         int w = buf[0];
         int h = buf[1];
         int x_offset = buf[2];
         int y_offset = buf[3];
         int x_advance = buf[4];
 
-        //printf("w %d h %d\n", w, h);
+        //printf("gadj lh %d base %d diff %d\n", lineHeight, base, );
+
+        int y_adjust = (lineHeight-base);
+
+        if(!printon)
+            drawBox(x0, y0 + y_adjust, x_advance, lineHeight, reverse ? 255: 0, false );
 
         for (int y = 0; y < h; y++)
             for (int x = 0; x < w; x++)
@@ -348,12 +447,11 @@ public:
 
                 int v = pixmap[bit_offset >> 3] & ( 1<< ( (bit_offset & 0x7))) ? 1 : 0;
 
-                if(reverse)
-                    v=!v;
                 int xp = x + x_offset + x0;
-                int yp = y + y_offset + y0;
+                int yp = y + y_offset + y0 + y_adjust;
 
-                setPixel( xp, yp, v );
+                if(v)
+                    setPixel( xp, yp, reverse ? !v : v );
             }
         return x_advance;
     }
@@ -361,8 +459,10 @@ public:
     void drawText(const Font *font, int x, int y, const char *str, bool reverse, bool printon)
     {
         char c;
+        int base = font->data[0];
+        int lineHeight = font->data[1];
         while (c = *str++)
-            x += drawGlyph(font, x, y, c, reverse, printon);
+            x += drawGlyph(font, x, y, c, reverse, printon, base, lineHeight);
     }
 
     void drawBox(int x, int y, int w, int h, uint8_t color, bool negative)
@@ -494,7 +594,7 @@ void HMISimView::compositeStuffOnScreen()
                     p |= 64;
                 if (m_pages[4]->getPixel(x, y) && m_pageVisible[4])
                     p |= 64;
-            
+
             if(p)
                 r=g=b=255;
             pixelRGBA(m_screen, 2 * x, 2 * y, r, g, b, 255);
@@ -502,6 +602,21 @@ void HMISimView::compositeStuffOnScreen()
             pixelRGBA(m_screen, 2 * x + 1, 2 * y + 1, r, g, b, 255);
             pixelRGBA(m_screen, 2 * x + 1, 2 * y, r, g, b, 255);
         }
+
+
+    for( int i = 0; i < 5; i++ )
+    {
+        if( m_pageVisible[i] )
+        {
+            for( auto st : m_pages[i]-> m_pixmaps)
+            {
+                char str[16];
+                sprintf(str, "%d", st.id);
+                rectangleRGBA( m_screen, 2*st.x, 2*st.y, 2*st.x + 20, 2*st.y + 20, 255,128,128,255);
+                stringRGBA( m_screen, 2*st.x+4, 2*st.y+4, str, 255, 0, 255, 255 );
+            }
+        }
+    }
 }
 
 enum DisplayState
@@ -587,7 +702,7 @@ void HMISimView::cmd_putString()
             break;
     }
 
-    printf("cmd_putString: page = %d font = %d '%s'\n", m_currentPage, font, st);
+    printf("cmd_putString: page = %d font = %d '%s' printon = %d\n", m_currentPage, font, st, printon);
 
     auto fnt = getFont( font );
 
@@ -602,6 +717,7 @@ void HMISimView::cmd_putString()
 void HMISimView::cmd_eraseScreen()
 {
     getCurrentPageSurface()->drawBox(0, 0, 320, 240, 0, false);
+    getCurrentPageSurface()->clearStubs();
 }
 
 void HMISimView::cmd_fillRect()
